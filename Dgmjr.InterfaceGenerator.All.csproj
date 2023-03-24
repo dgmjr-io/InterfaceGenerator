@@ -1,0 +1,22 @@
+<!--
+ * Dgmjr.InterfaceGenerator.csproj
+ * 
+ *   Created: 2022-12-31-03:08:33
+ *   Modified: 2022-12-31-03:08:33
+ * 
+ *   Author: David G. Mooore, Jr. <david@dgmjr.io>
+ *   
+ *   Copyright © 2022-2023 David G. Mooore, Jr., All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project Sdk="Microsoft.Build.Traversal">
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <SlnGenSolutionFolder>codegen</SlnGenSolutionFolder>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="./src/Dgmjr.InterfaceGenerator.csproj" />
+        <ProjectReference Include="./samples/Dgmjr.InterfaceGenerator.Samples.csproj" />
+    </ItemGroup>
+</Project>
