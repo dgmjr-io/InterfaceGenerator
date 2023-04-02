@@ -1,0 +1,48 @@
+<!--
+ Enumeration.csproj
+ 
+   Created: 2022-10-16-01:05:46
+   Modified: 2022-10-30-06:37:51
+ 
+   Author: David G. Mooore, Jr. <david@dgmjr.io>
+   
+   Copyright © 2022-2023 David G. Mooore, Jr., All Rights Reserved
+      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFrameworks>netstandard1.3;netstandard1.5;netstandard2.0;net6.0;net7.0</TargetFrameworks>
+        <PackageId>Dgmjr.Enumerations.Enumeration</PackageId>
+        <AssemblyName>Dgmjr.Enumerations.Enumeration</AssemblyName>
+        <RootNamespace>Dgmjr.Enumerations</RootNamespace>
+        <AssemblyName>$(PackageId)</AssemblyName>
+        <ProjectGuid>9e5f180b-f73b-4f2d-b8ec-0503dd834a98</ProjectGuid>
+        <EnableGlobalCodeGenerators>false</EnableGlobalCodeGenerators>
+        <SlnGenSolutionFolder>enums</SlnGenSolutionFolder>
+        <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="../../Abstractions/Dgmjr.Abstractions.csproj" />
+        <ProjectReference Include="./Abstractions/Dgmjr.Enumerations.Abstractions.csproj" />
+        <PackageReference Include="System.ComponentModel.Annotations" />
+        <PackageReference Include="System.Text.Json.Usings" Condition="$(DefineConstants.Contains('NETSTANDARD2_0_OR_GREATER'))" />
+        <PackageReference Include="System.Text.Json" Condition="$(DefineConstants.Contains('NETSTANDARD2_0_OR_GREATER'))" />
+        <PackageReference Include="System.Runtime" Condition="!$(DefineConstants.Contains('NETSTANDARD2_0_OR_GREATER'))" />
+        <PackageReference Include="System.Usings" />
+    </ItemGroup>
+    <ItemGroup>
+        <Using Include="System" />
+        <Using Include="System.Diagnostics" />
+        <Using Include="System.Reflection" />
+        <Using Include="System.ComponentModel" />
+        <Using Include="System.ComponentModel.DataAnnotations" />
+        <Using Include="Dgmjr.Enumerations.Abstractions" />
+        <!-- <Using Include="Ardalis.SmartEnum" /> -->
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Remove="./Abstractions/**/*" />
+    </ItemGroup>
+    <Import Project="../../ComponentModel/Dgmjr.ComponentModel.props" />
+    <!-- <Import Project="./Dgmjr.Enumerations.Enumeration.props" /> -->
+</Project>

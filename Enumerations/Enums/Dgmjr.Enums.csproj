@@ -1,0 +1,52 @@
+<!--
+ * Dgmjr.Enums.csproj
+ * 
+ *   Created: 2022-10-16-08:52:23
+ *   Modified: 2022-11-17-08:45:28
+ * 
+ *   Author: David G. Mooore, Jr. <david@dgmjr.io>
+ *   
+ *   Copyright © 2022-2023 David G. Mooore, Jr., All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+        <Title>A collection of useful enum types along with their enumeration counterparts</Title>
+        <AssemblyName>Dgmjr.Enums</AssemblyName>
+        <PackageId>Dgmjr.Enums</PackageId>
+        <RootNamespace>Dgmjr.Enums</RootNamespace>
+        <Description>A collection of useful enums.</Description>
+        <SlnGenSolutionFolder>Enumerations</SlnGenSolutionFolder>
+        <ProjectGuid>b15661f1-21ee-447f-82b1-dfd689e8dbd2</ProjectGuid>
+        <EnableGlobalCodeGenerators>false</EnableGlobalCodeGenerators>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <SlnGenSolutionFolder>enums</SlnGenSolutionFolder>
+        <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    </PropertyGroup>
+    <ItemGroup>
+        <SourceGenerator Include="Dgmjr.Enumerations.CodeGenerator" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+        <PackageReference Include="System.ComponentModel.Annotations" />
+
+        <PackageReference Include="Scriban.Signed" ExcludeAssets="ContentFiles" />
+        <PackageReference Include="Microsoft.Extensions.Logging" ExcludeAssets="ContentFiles" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" ExcludeAssets="ContentFiles" />
+        <PackageReference Include="Dgmjr.ComponentModel" ExcludeAssets="ContentFiles" />
+        <PackageReference Include="Dgmjr.Abstractions" ExcludeAssets="ContentFiles" />
+        <PackageReference Include="Dgmjr.Enumerations.Enumeration" ExcludeAssets="ContentFiles" />
+        <PackageReference Include="Dgmjr.Enumerations.Abstractions" ExcludeAssets="ContentFiles" />
+        <!-- <PackageReference Include="Dgmjr.Enumerations.CodeGeneration" IncludeAssets="Analyzers;Build;Lib;Runtime" PrivateAssets="None" ExcludeAssets="ContentFiles" /> -->
+        <PackageReference Include="Dgmjr.CodeGeneration.Extensions" IncludeAssets="ContentFiles; Build" />
+        <!-- <ProjectReference Include="../CodeGeneration/Dgmjr.Enumerations.CodeGeneration.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" /> -->
+        <PackageReference Include="System.Text.RegularExpressions.Usings" VersionOverride="0.0.2"  />
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="SoftwareLicenses/Licenses/*.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Remove="./MimeTypes/**/*" />
+        <Using Include="System.CodeDom.Compiler" />
+    </ItemGroup>
+</Project>

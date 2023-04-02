@@ -1,0 +1,24 @@
+<!--
+ * ExitCodes.csproj
+ * 
+ *   Created: 2023-01-29-01:24:19
+ *   Modified: 2023-01-29-01:24:20
+ * 
+ *   Author: David G. Mooore, Jr. <david@dgmjr.io>
+ *   
+ *   Copyright © 2022-2023 David G. Mooore, Jr., All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <SourceGenerator Include="Dgmjr.Enumerations.CodeGeneration.V2" />
+    <PackageReference Include="Dgmjr.Enumerations.Abstractions" />
+    <PackageReference Include="Dgmjr.Abstractions" />
+    <PackageReference Include="Dgmjr.ComponentModel" />
+    <PackageReference Include="System.ComponentModel.Usings" />
+  </ItemGroup>
+</Project>

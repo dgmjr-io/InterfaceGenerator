@@ -1,0 +1,26 @@
+<!--
+ * Dgmjr.Enumerations.EntityFrameworkCore.csproj
+ * 
+ *   Created: 2022-12-23-09:55:12
+ *   Modified: 2022-12-23-09:55:12
+ * 
+ *   Author: David G. Mooore, Jr. <david@dgmjr.io>
+ *   
+ *   Copyright © 2022-2023 David G. Mooore, Jr., All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+   <PackageReference Include="Microsoft.EntityFrameworkCore.Usings" />
+   <!-- <PackageReference Include="Microsoft.EntityFrameworkCore" /> -->
+   <PackageReference Include="Dgmjr.EntityFrameworkCore.Abstractions" />
+   <PackageReference Include="Dgmjr.Abstractions" />
+   <PackageReference Include="Dgmjr.Enumerations.Abstractions" />
+   <PackageReference Include="Dgmjr.Enumerations.Enumeration" />
+  </ItemGroup>
+</Project>
