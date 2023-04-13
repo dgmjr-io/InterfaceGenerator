@@ -7,3 +7,12 @@
 [submodule "InterfaceGenerator"]
 	path = InterfaceGenerator
 	url = https://github.com/dgmjr-io/Dgmjr.InterfaceGenerator.git
+[submodule "Enumerations/Enums/MimeTypes"]
+	path = Enumerations/Enums/MimeTypes
+	url = https://github,com/dgmjr-io/MimeTypes.git
+[submodule "Extensions"]
+	path = Extensions
+	url = https://github.com/dgmjr-io/Dgmjr.System.Extensions.git
+[submodule "Microsoft.Net.Global.Json"]
+	path = Microsoft.Net.Global.Json
+	url = https://github.com/dgmjr-io/Microsoft.Net.Global.Json.git
