@@ -22,7 +22,7 @@ namespace Dgmjr.InterfaceGenerator.Decomposer
     {
         public void Execute(IncrementalGeneratorInitializationContext context)
         {
-            v
+            IncrementalValuesProvider<T> interfacesToDecompose = context.SyntaxProvider.ForAttributeWithMetadataName()
         }
 
         public static void GenerateInterfaces(type type)
