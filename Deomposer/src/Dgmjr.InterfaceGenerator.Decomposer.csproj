@@ -18,10 +18,14 @@
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Common" />
-    <PackageReference Include="System.Text.Json" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers"  />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" VersionOverrode="4.5.0" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Common" />
+        <PackageReference Include="System.Text.Json.Usings" />
+        <PackageReference Include="System.Text.RegularExpressions.Usings" />
+        <SourceCodeReference Include="Dgmjr.CodeGeneration.Constants-Scriban.Bundled" />
+        <PackageReference Include="Microsoft.CSharp" PrivateAssets="All" VersionOvrerride="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>

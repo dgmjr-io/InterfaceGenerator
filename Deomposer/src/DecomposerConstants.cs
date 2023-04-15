@@ -14,7 +14,7 @@ namespace Dgmjr.InterfaceGenerator.Decomposer
 {
     public static class Constants
     {
-        public const string AttributeName = "Decomposable";
+        public const string AttributeName = "DecomposableAttribute";
         public const string AttributeNamespace = "Dgmjr.InterfaceGenerator.Decomposer";
         public const string AttributeFullName = AttributeNamespace + "." + AttributeName;
 

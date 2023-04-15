@@ -10,12 +10,8 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
-public sealed class Decomposable : Attribute
-{
-    public Decomposable(Type type)
-    {
-    }
-}
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface, AttributeTargets.Method)]
+public class DecomposeAttribute : Attribute {}
 
 public interface IDecomposed<TFrom>
 {
