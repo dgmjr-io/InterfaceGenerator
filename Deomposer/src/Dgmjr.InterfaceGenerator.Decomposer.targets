@@ -1,0 +1,22 @@
+<!--
+ * Dgmjr.InterfaceGenerator.Decomposer.targets
+ * 
+ *   Created: 2023-04-16-01:01:18
+ *   Modified: 2023-04-16-01:01:19
+ * 
+ *   Author: David G. Moore, Jr. <david@dgmjr.io>
+ *   
+ *   Copyright © 2022 - 2023 David G. Moore, Jr., All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project>
+  <ItemGroup>
+    <Compile Remove="@(Compile->WithMetadataValue('Include', 'ThisAssembly.GitInfo.g.cs'))" />
+    <PackageReference Remove="GitInfo" />
+    <Using Include="System.Convert" Alias="Convert" />
+    <Using Remove="System.Text.Encoding" />
+  </ItemGroup>
+  <Target Name="GitInfo">
+  </Target>
+</Project>

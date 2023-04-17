@@ -10,9 +10,6 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
-[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface, AttributeTargets.Method)]
-public class DecomposeAttribute : Attribute {}
-
 public interface IDecomposed<TFrom>
 {
     
@@ -21,6 +18,6 @@ public interface IDecomposed<TFrom>
 
 public interface IComposed
 {
-    IEnumerable<(Type Type, MemberInfo Member)> ComposedFrom { get; }
-    bool Contains(Type type, MemberInfo member);
+    IEnumerable<(type Type, MemberInfo Member)> ComposedFrom { get; }
+    bool Contains(type type, MemberInfo member);
 }

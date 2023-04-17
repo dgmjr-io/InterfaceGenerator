@@ -16,6 +16,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+    <NoWarn>$(NoWarn);RS1035</NoWarn>
   </PropertyGroup>
   <ItemGroup>
         <PackageReference Include="Microsoft.CodeAnalysis.Analyzers"  />
@@ -24,7 +25,9 @@
         <PackageReference Include="Microsoft.CodeAnalysis.Common" />
         <PackageReference Include="System.Text.Json.Usings" />
         <PackageReference Include="System.Text.RegularExpressions.Usings" />
+        <PackageReference Include="ThisAssembly" />
         <SourceCodeReference Include="Dgmjr.CodeGeneration.Constants-Scriban.Bundled" />
+        <SourceCodeReference Include="Dgmjr.System.Extensions" />
         <PackageReference Include="Microsoft.CSharp" PrivateAssets="All" VersionOvrerride="4.5.0" />
   </ItemGroup>
 
