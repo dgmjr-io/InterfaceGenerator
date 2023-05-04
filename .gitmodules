@@ -13,3 +13,9 @@
 [submodule "RegexDtoGenerator"]
 	path = RegexDtoGenerator
 	url = https://github.com/dgmjr-io/RegexDtoGenerator.git
+[submodule "Primitives"]
+	path = Primitives
+	url = https://github.com/dgmjr-io/Primitives.git
+[submodule "Enumerations/CodeGenerator"]
+	path = Enumerations/CodeGenerator
+	url = https://github.com/dgmjr-io/EnumCodeGenerator.git
