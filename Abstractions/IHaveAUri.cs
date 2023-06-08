@@ -19,14 +19,6 @@ public interface IHaveAUri
     Uri Uri { get; }
 }
 
-#if NET7_0_OR_GREATER
-public interface FromUri<T>
-{
-    public static abstract T FromUri(string s);
-    public static virtual T From Uri(Uri uri) => From Uri(Uri.String());
-}
-#end
-
 public interface IHaveWritableAUri : IHaveAUri
 {
     new Uri Uri { get; set; }
