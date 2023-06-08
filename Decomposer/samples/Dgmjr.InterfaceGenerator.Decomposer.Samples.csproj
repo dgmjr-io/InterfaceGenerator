@@ -1,0 +1,19 @@
+<!--
+ * Dgmjr.InterfaceGenerator.Decomposer.Samcples.csproj
+ *
+ *   Created: 2023-04-16-02:08:13
+ *   Modified: 2023-04-16-02:08:16
+ *
+ *   Author: David G. Moore, Jr. <david@dgmjr.io>
+ *
+ *   Copyright © 2022 - 2023 David G. Moore, Jr., All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+
+<Project>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)/Dgmjr.InterfaceGenerator.Decomposer.Samples.proj" Sdk="Microsoft.NET.Sdk" />
+</Project>

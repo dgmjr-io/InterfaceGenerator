@@ -1,16 +1,16 @@
 ---
-author: David G. Moore, Jr.
-author_email: david@dgmjr.io
+authors:
+  - dgmjr
 title: README.md
 lastmod: 2023-03-24-05:58:52
 created: 2023-03-24-05:58:52
 license: MIT
 keywords:
-  - dgmjr
+  - DGMJR-IO
 tags:
-  - dgmjr
+  - DGMJR-IO
 categories:
-  - dgmjr
+  - DGMJR-IO
 ---
 
 # Interface Generator

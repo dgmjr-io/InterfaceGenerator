@@ -16,7 +16,9 @@
         <SlnGenSolutionFolder>codegen</SlnGenSolutionFolder>
     </PropertyGroup>
     <ItemGroup>
-        <ProjectReference Include="./src/Dgmjr.InterfaceGenerator.csproj" />
+        <ProjectReference Include="./Decomposer/src/Dgmjr.InterfaceGenerator.Decomposer.csproj" />
+        <ProjectReference Include="./Decomposer/samples/Dgmjr.InterfaceGenerator.Decomposer.Samples.csproj" />
         <ProjectReference Include="./samples/Dgmjr.InterfaceGenerator.Samples.csproj" />
+        <ProjectReference Include="./InterfaceGenerator/Dgmjr.InterfaceGenerator.csproj" />
     </ItemGroup>
 </Project>

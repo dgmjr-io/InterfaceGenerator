@@ -1,11 +1,11 @@
 <!--
  * Dgmjr.InterfaceGenerator.Decomposer.csproj
- * 
+ *
  *   Created: 2023-04-13-12:09:46
  *   Modified: 2023-04-13-12:09:46
- * 
+ *
  *   Author: David G. Moore, Jr. <david@dgmjr.io>
- *   
+ *
  *   Copyright © 2022 - 2023 David G. Moore, Jr., All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
 -->
@@ -16,23 +16,30 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <NoWarn>$(NoWarn);RS1035</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+        <PackageReferemce Include="OneOf" />
+        <PackageReference Include="Dgmjr.CodeGeneration.Extensions.TypeDeclarationExtensions" />
         <PackageReference Include="Microsoft.CodeAnalysis.Analyzers"  />
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" />
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" VersionOverrode="4.5.0" />
         <PackageReference Include="Microsoft.CodeAnalysis.Common" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" />
+        <PackageReference Include="Microsoft.CSharp" PrivateAssets="All" />
+        <PackageReference Include="System.CodeDom" />
         <PackageReference Include="System.Text.Json.Usings" />
         <PackageReference Include="System.Text.RegularExpressions.Usings" />
         <PackageReference Include="ThisAssembly" />
-        <SourceCodeReference Include="Dgmjr.CodeGeneration.Constants-Scriban.Bundled" />
-        <SourceCodeReference Include="Dgmjr.System.Extensions" />
-        <PackageReference Include="Microsoft.CSharp" PrivateAssets="All" VersionOvrerride="4.5.0" />
+        <PackageReference Include="Dgmjr.CodeGeneration.Constants-Scriban.Bundled" />
+        <PackageReference Include="Dgmjr.System.Extensions" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="./Resources/*" />
+    <Compile Remove="./chatwithopenaitogeneratethissolution/**/*.*" />
     <EmbeddedResource Include="./Resources/**/*" />
   </ItemGroup>
 
@@ -41,6 +48,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageFile Include="$(OutputPath)\$(AssemblyName).dll" PackagePath="analyzers/dotnet/cs/$(AssemblyName).dll" Visible="false" />
+    <Reference Include="netstandard" />
+    <PackageFile Include="$(OutputPath)/*.dll" PackagePath="analyzers/dotnet/cs/$(TargetFramework)/%(Filename)%(Extension)" Visible="false" />
   </ItemGroup>
 </Project>

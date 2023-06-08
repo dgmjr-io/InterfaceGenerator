@@ -13,7 +13,6 @@
 
 namespace Dgmjr.InterfaceGenerator
 {
-
     // using Dgmjr.ion.Extensions;
     using System.Collections.Immutable;
     using System.Linq;
@@ -30,17 +29,41 @@ namespace Dgmjr.InterfaceGenerator
         /// <param name="context">Provides information about the compilation and environment that is passed to the generator</param>
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
-            IncrementalValueProvider<ImmutableArray<(AttributeData?, INamedTypeSymbol?, SemanticModel SemanticModel)>> interfaces = context.SyntaxProvider.ForAttributeWithMetadataName(GenerateInterfaceAttributeName,
-                (token, _) => token is InterfaceDeclarationSyntax interfaceDeclarationSyntax && interfaceDeclarationSyntax.AttributeLists.Any(al => al.Attributes.Any(a => a.Name.ToString() == GenerateInterfaceAttributeName)),
-            (context, _) =>
-                (context.Attributes.FirstOrDefault(a => a.AttributeClass?.Name == GenerateInterfaceAttributeName), context.TargetSymbol as INamedTypeSymbol, context.SemanticModel)
-            ).Collect();
+            IncrementalValueProvider<
+                ImmutableArray<(AttributeData?, INamedTypeSymbol?, SemanticModel SemanticModel)>
+            > interfaces = context.SyntaxProvider
+                .ForAttributeWithMetadataName(
+                    GenerateInterfaceAttributeName,
+                    (token, _) =>
+                        token is InterfaceDeclarationSyntax interfaceDeclarationSyntax
+                        && interfaceDeclarationSyntax.AttributeLists.Any(
+                            al =>
+                                al.Attributes.Any(
+                                    a => a.Name.ToString() == GenerateInterfaceAttributeName
+                                )
+                        ),
+                    (context, _) =>
+                        (
+                            context.Attributes.FirstOrDefault(
+                                a => a.AttributeClass?.Name == GenerateInterfaceAttributeName
+                            ),
+                            context.TargetSymbol as INamedTypeSymbol,
+                            context.SemanticModel
+                        )
+                )
+                .Collect();
 
             IncrementalValueProvider<Compilation> compilation = context.CompilationProvider;
 
             context.RegisterSourceOutput(interfaces, Generate);
 
-            context.RegisterPostInitializationOutput((ctx) => ctx.AddSource($"{GenerateInterfaceAttributeName}.generated.cs", GenerateInterfaceAtributeDeclaration));
+            context.RegisterPostInitializationOutput(
+                (ctx) =>
+                    ctx.AddSource(
+                        $"{GenerateInterfaceAttributeName}.g.cs",
+                        GenerateInterfaceAtributeDeclaration
+                    )
+            );
         }
 
         /// <summary>
@@ -48,43 +71,116 @@ namespace Dgmjr.InterfaceGenerator
         /// </summary>
         /// <param name="context">The context in which to generate the code.</param>
         /// <param name="values">The values to generate for the attribute. This is an array of tuples where the first element is the attribute data the second element is the interface and the</param>
-        protected static void Generate(SourceProductionContext context, ImmutableArray<(AttributeData, INamedTypeSymbol, SemanticModel)> values)
+        protected static void Generate(
+            SourceProductionContext context,
+            ImmutableArray<(AttributeData?, INamedTypeSymbol?, SemanticModel)> values
+        )
         {
             context.AddSource($"AttributeCount.g.cs", $"/* {values.Length} */");
-            foreach ((AttributeData attributeData, INamedTypeSymbol interfaceSymbol, SemanticModel semanticModel) in values)
+            foreach (
+                (
+                    AttributeData? attributeData,
+                    INamedTypeSymbol? interfaceSymbol,
+                    SemanticModel semanticModel
+                ) in values
+            )
             {
                 string interfaceName = interfaceSymbol.Name;
                 string interfaceNamespace = interfaceSymbol.ContainingNamespace.ToDisplayString();
-                INamedTypeSymbol? classToGenerateTheInterfaceFor = attributeData.ConstructorArguments.First().Value as INamedTypeSymbol;
-                context.AddSource(interfaceName + ".g.cs",
-                InterfaceDeclarationTemplate.Render(new InterfaceGeneratorModel(interfaceNamespace, interfaceName,
-                    Join("\r\n",
-                        classToGenerateTheInterfaceFor
-                        .GetMembers()
-                        .Where(member => member.Kind is SymbolKind.Property)
-                        .OfType<IPropertySymbol>()
-                        .Where(p => p.DeclaredAccessibility == Accessibility.Public)
-                        .Select(p =>
-                            PropertyDeclarationTemplate.Render(new PropertyDeclarationModel("public", p.Type.ToDisplayString(), p.Name, p.GetMethod != null, p.SetMethod != null)))) +
-                    Join("\r\n",
-                        classToGenerateTheInterfaceFor
-                        .GetMembers()
-                        .Where(member => member.Kind is SymbolKind.Method)
-                        .OfType<IMethodSymbol>()
-                        .Where(m => m.DeclaredAccessibility == Accessibility.Public && m.CanBeReferencedByName)
-                        .Select(m =>
-                            MethodDeclarationTemplate.Render(new MethodDeclarationModel(m.ReturnType.ToDisplayString(),
-                                m.Name + (m.IsGenericMethod ? $"<{Join(", ", m.TypeParameters.Select(tp => tp.Name))}>" : ""),
-                                Join(", ", m.Parameters.Select(p => $"{p.Type.ToDisplayString()} {p.Name}")),
-                                m.IsGenericMethod ? $"{Join("\r\n",
-                                    m.TypeParameters.Select(tp =>
-                                        tp.HasReferenceTypeConstraint || tp.HasValueTypeConstraint || tp.HasConstructorConstraint || tp.ConstraintTypes.Any() ?
-                                        "where " + tp.Name + " : " +
-                                        (tp.HasReferenceTypeConstraint ? "class" : "") +
-                                        (tp.HasValueTypeConstraint ? "struct" : "") +
-                                        Join(", ", tp.ConstraintTypes.Select(ct => ct.ToDisplayString())) +
-                                        (tp.HasConstructorConstraint ? "new()" : "").Trim() : ""))}" : "")))))));
+                INamedTypeSymbol? classToGenerateTheInterfaceFor =
+                    attributeData.ConstructorArguments.First().Value as INamedTypeSymbol;
+                context.AddSource(
+                    interfaceName + ".g.cs",
+                    InterfaceDeclarationTemplate.Render(
+                        new InterfaceGeneratorModel(
+                            interfaceNamespace,
+                            interfaceName,
+                            Join(
+                                Environment.NewLine,
+                                classToGenerateTheInterfaceFor
+                                    .GetMembers()
+                                    .Where(member => member.Kind is SymbolKind.Property)
+                                    .OfType<IPropertySymbol>()
+                                    .Where(p => p.DeclaredAccessibility == Accessibility.Public)
+                                    .Select(
+                                        p => p.ToDisplayString(Constants.SymbolDisplayFormat)
+                                    // PropertyDeclarationTemplate.Render(
+                                    //     new PropertyDeclarationModel(
+                                    //         "public",
+                                    //         p.Type.ToDisplayString(),
+                                    //         p.Name,
+                                    //         p.GetMethod != null,
+                                    //         p.SetMethod != null,
+                                    //         p.IsIndexer
+                                    //             ? Join(
+                                    //                 ", ",
+                                    //                 p.Parameters.Select(
+                                    //                     p =>
+                                    //                         $"{p.Type.ToDisplayString()} {p.Name}"
+                                    //                 )
+                                    //             )
+                                    //             : ""
+                                    //     )
+                                    // )
+                                    )
+                            )
+                                + Environment.NewLine
+                                + Join(
+                                    Environment.NewLine,
+                                    classToGenerateTheInterfaceFor
+                                        .GetMembers()
+                                        .Where(member => member.Kind is SymbolKind.Method)
+                                        .OfType<IMethodSymbol>()
+                                        .Where(
+                                            m =>
+                                                m.DeclaredAccessibility == Accessibility.Public
+                                                && m.CanBeReferencedByName
+                                        )
+                                        .Select(
+                                            m =>
+                                                m.IsOverride
+                                                    ? ""
+                                                    : (
+                                                        m.ToDisplayString(
+                                                                Constants.SymbolDisplayFormat
+                                                            )
+                                                            .Replace("override", "") + ";"
+                                                    )
+                                        )
+                                        .Where<string>(m => m.IndexOf("*") < 0)
+                                ),
+                            interfaceSymbol.IsGenericType
+                                ? $"<{Join(", ", interfaceSymbol.TypeParameters.Select(tp => tp.Name))}>"
+                                : "",
+                            interfaceSymbol.TypeParameters.Any()
+                                ? Join(
+                                    "\r\n",
+                                    interfaceSymbol.TypeParameters.Select(
+                                        tp => GenerateGenericTypeConstraints(tp)
+                                    )
+                                )
+                                : ""
+                        )
+                    )
+                );
             }
+        }
+
+        private static string GenerateGenericTypeConstraints(ITypeParameterSymbol tp)
+        {
+            return
+                tp.HasReferenceTypeConstraint
+                || tp.HasValueTypeConstraint
+                || tp.HasConstructorConstraint
+                || tp.ConstraintTypes.Any()
+                ? "where "
+                    + tp.Name
+                    + " : "
+                    + (tp.HasReferenceTypeConstraint ? "class" : "")
+                    + (tp.HasValueTypeConstraint ? "struct" : "")
+                    + Join(", ", tp.ConstraintTypes.Select(ct => ct.ToDisplayString()))
+                    + (tp.HasConstructorConstraint ? "new()" : "").Trim()
+                : "";
         }
     }
 }

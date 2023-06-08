@@ -25,15 +25,17 @@
         <DefineConstants>$(DefineConstants);SCRIBAN_SIGNED;SCRIBAN_PUBLIC</DefineConstants>
         <OutputPath>analyzers/dotnet/cs</OutputPath>
         <SlnGenSolutionFolder>codegen</SlnGenSolutionFolder>
-       <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" />
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" />
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" VersionOverride="4.4.0" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
         <PackageReference Include="Microsoft.CodeAnalysis.Common" />
         <PackageReference Include="System.Text.Json.Usings" />
+        <PackageReference Include="ThisAssembly" />
         <PackageReference Include="System.Text.RegularExpressions.Usings" />
         <PackageReference Include="Dgmjr.CodeGeneration.Constants-Scriban.Bundled" IncludeAssets="ContentFiles;Build" ExcludeAssets="Lib;Runtime;Source;Native;Analyzers" PrivateAssets="All" />
         <PackageReference Include="Microsoft.CSharp" VersionOverride="4.5.0" PrivateAssets="All" />
@@ -42,6 +44,7 @@
     <ItemGroup>
         <Using Include="Dgmjr.InterfaceGenerator.Constants" Static="true" />
         <Using Include="System.Diagnostics" />
+        <NoWarn Include="RS1035" />
     </ItemGroup>
 
     <ItemGroup>
