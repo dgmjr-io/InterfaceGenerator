@@ -1,17 +1,17 @@
 <!--
  * Dgmjr.Enumerations.Abstractions.props
- * 
+ *
  *   Created: 2022-11-21-08:41:40
  *   Modified: 2022-11-21-08:41:41
- * 
+ *
  *   Author: David G. Mooore, Jr. <david@dgmjr.io>
- *   
+ *
  *   Copyright © 2022-2023 David G. Mooore, Jr., All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
 -->
 
 <Project>
     <ItemGroup>
-        <Using Include="Dgmjr.Enumerations.Abstractions" />
+        <Using Include="Dgmjr.Enumerations.Abstractions"/>
     </ItemGroup>
 </Project>

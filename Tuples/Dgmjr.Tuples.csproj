@@ -6,19 +6,19 @@
         <SlnGenSolutionFolder>src</SlnGenSolutionFolder>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="System.Usings" />
+        <PackageReference Include="System.Usings"/>
     </ItemGroup>
     <!-- <ItemGroup Condition="'$(Configuration)' == 'Testing' Or '$(Configuration)' == 'Local'">
         <ProjectReference Include="../../Extensions/Dgmjr.System.Extensions.csproj" TreatAsPackageReference="true" />
     </ItemGroup> -->
     <ItemGroup>
         <!-- <ItemGroup Condition="'$(Configuration)' != 'Testing' And '$(Configuration)' != 'Local'"> -->
-        <PackageReference Include="Dgmjr.System.Extensions" ExcludeAssets="Build;ContentFiles" />
-        <ProjectReference Include="../Primitives/src/Dgmjr.Primitives.csproj" />
+        <PackageReference Include="Dgmjr.System.Extensions" ExcludeAssets="Build;ContentFiles"/>
+        <ProjectReference Include="../Primitives/src/Dgmjr.Primitives.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.Usings" />
+        <PackageReference Include="System.Usings"/>
     </ItemGroup>
     <!-- <Import Project="../../Extensions/Dgmjr.System.Extensions.props" /> -->
 </Project>

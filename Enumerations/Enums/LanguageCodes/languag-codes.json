@@ -1,740 +1,740 @@
 /// \"name\"\: \"([a-zA-Z]+)\"
 /// [Display($1)]
 [
-    {
+  {
     aa,
-        "name": "Afar"
-    },
-    {
+    "name": "Afar"
+  },
+  {
     ab,
-        "name": "Abkhazian"
-    },
-    {
+    "name": "Abkhazian"
+  },
+  {
     ae,
-        "name": "Avestan"
-    },
-    {
+    "name": "Avestan"
+  },
+  {
     af,
-        "name": "Afrikaans"
-    },
-    {
+    "name": "Afrikaans"
+  },
+  {
     ak,
-        "name": "Akan"
-    },
-    {
+    "name": "Akan"
+  },
+  {
     am,
-        "name": "Amharic"
-    },
-    {
+    "name": "Amharic"
+  },
+  {
     an,
-        "name": "Aragonese"
-    },
-    {
+    "name": "Aragonese"
+  },
+  {
     ar,
-        "name": "Arabic"
-    },
-    {
+    "name": "Arabic"
+  },
+  {
     as,
-        "name": "Assamese"
-    },
-    {
+    "name": "Assamese"
+  },
+  {
     av,
-        "name": "Avaric"
-    },
-    {
+    "name": "Avaric"
+  },
+  {
     ay,
-        "name": "Aymara"
-    },
-    {
+    "name": "Aymara"
+  },
+  {
     az,
-        "name": "Azerbaijani"
-    },
-    {
+    "name": "Azerbaijani"
+  },
+  {
     ba,
-        "name": "Bashkir"
-    },
-    {
+    "name": "Bashkir"
+  },
+  {
     be,
-        "name": "Belarusian"
-    },
-    {
+    "name": "Belarusian"
+  },
+  {
     bg,
-        "name": "Bulgarian"
-    },
-    {
+    "name": "Bulgarian"
+  },
+  {
     bh,
-        "name": "Bihari languages"
-    },
-    {
+    "name": "Bihari languages"
+  },
+  {
     bi,
-        "name": "Bislama"
-    },
-    {
+    "name": "Bislama"
+  },
+  {
     bm,
-        "name": "Bambara"
-    },
-    {
+    "name": "Bambara"
+  },
+  {
     bn,
-        "name": "Bengali"
-    },
-    {
+    "name": "Bengali"
+  },
+  {
     bo,
-        "name": "Tibetan"
-    },
-    {
+    "name": "Tibetan"
+  },
+  {
     br,
-        "name": "Breton"
-    },
-    {
+    "name": "Breton"
+  },
+  {
     bs,
-        "name": "Bosnian"
-    },
-    {
+    "name": "Bosnian"
+  },
+  {
     ca,
-        "name": "Catalan; Valencian"
-    },
-    {
+    "name": "Catalan; Valencian"
+  },
+  {
     ce,
-        "name": "Chechen"
-    },
-    {
+    "name": "Chechen"
+  },
+  {
     ch,
-        "name": "Chamorro"
-    },
-    {
+    "name": "Chamorro"
+  },
+  {
     co,
-        "name": "Corsican"
-    },
-    {
+    "name": "Corsican"
+  },
+  {
     cr,
-        "name": "Cree"
-    },
-    {
+    "name": "Cree"
+  },
+  {
     cs,
-        "name": "Czech"
-    },
-    {
+    "name": "Czech"
+  },
+  {
     cu,
-        "name": "Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic"
-    },
-    {
+    "name": "Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic"
+  },
+  {
     cv,
-        "name": "Chuvash"
-    },
-    {
+    "name": "Chuvash"
+  },
+  {
     cy,
-        "name": "Welsh"
-    },
-    {
+    "name": "Welsh"
+  },
+  {
     da,
-        "name": "Danish"
-    },
-    {
+    "name": "Danish"
+  },
+  {
     de,
-        "name": "German"
-    },
-    {
+    "name": "German"
+  },
+  {
     dv,
-        "name": "Divehi; Dhivehi; Maldivian"
-    },
-    {
+    "name": "Divehi; Dhivehi; Maldivian"
+  },
+  {
     dz,
-        "name": "Dzongkha"
-    },
-    {
+    "name": "Dzongkha"
+  },
+  {
     ee,
-        "name": "Ewe"
-    },
-    {
+    "name": "Ewe"
+  },
+  {
     el,
-        "name": "Greek, Modern (1453-)"
-    },
-    {
+    "name": "Greek, Modern (1453-)"
+  },
+  {
     en,
-        "name": "English"
-    },
-    {
+    "name": "English"
+  },
+  {
     eo,
-        "name": "Esperanto"
-    },
-    {
+    "name": "Esperanto"
+  },
+  {
     es,
-        "name": "Spanish; Castilian"
-    },
-    {
+    "name": "Spanish; Castilian"
+  },
+  {
     et,
-        "name": "Estonian"
-    },
-    {
+    "name": "Estonian"
+  },
+  {
     eu,
-        "name": "Basque"
-    },
-    {
+    "name": "Basque"
+  },
+  {
     fa,
-        "name": "Persian"
-    },
-    {
+    "name": "Persian"
+  },
+  {
     ff,
-        "name": "Fulah"
-    },
-    {
+    "name": "Fulah"
+  },
+  {
     fi,
-        "name": "Finnish"
-    },
-    {
+    "name": "Finnish"
+  },
+  {
     fj,
-        "name": "Fijian"
-    },
-    {
+    "name": "Fijian"
+  },
+  {
     fo,
-        "name": "Faroese"
-    },
-    {
+    "name": "Faroese"
+  },
+  {
     fr,
-        "name": "French"
-    },
-    {
+    "name": "French"
+  },
+  {
     fy,
-        "name": "Western Frisian"
-    },
-    {
+    "name": "Western Frisian"
+  },
+  {
     ga,
-        "name": "Irish"
-    },
-    {
+    "name": "Irish"
+  },
+  {
     gd,
-        "name": "Gaelic; Scomttish Gaelic"
-    },
-    {
+    "name": "Gaelic; Scomttish Gaelic"
+  },
+  {
     gl,
-        "name": "Galician"
-    },
-    {
+    "name": "Galician"
+  },
+  {
     gn,
-        "name": "Guarani"
-    },
-    {
+    "name": "Guarani"
+  },
+  {
     gu,
-        "name": "Gujarati"
-    },
-    {
+    "name": "Gujarati"
+  },
+  {
     gv,
-        "name": "Manx"
-    },
-    {
+    "name": "Manx"
+  },
+  {
     ha,
-        "name": "Hausa"
-    },
-    {
+    "name": "Hausa"
+  },
+  {
     he,
-        "name": "Hebrew"
-    },
-    {
+    "name": "Hebrew"
+  },
+  {
     hi,
-        "name": "Hindi"
-    },
-    {
+    "name": "Hindi"
+  },
+  {
     ho,
-        "name": "Hiri Motu"
-    },
-    {
+    "name": "Hiri Motu"
+  },
+  {
     hr,
-        "name": "Croatian"
-    },
-    {
+    "name": "Croatian"
+  },
+  {
     ht,
-        "name": "Haitian; Haitian Creole"
-    },
-    {
+    "name": "Haitian; Haitian Creole"
+  },
+  {
     hu,
-        "name": "Hungarian"
-    },
-    {
+    "name": "Hungarian"
+  },
+  {
     hy,
-        "name": "Armenian"
-    },
-    {
+    "name": "Armenian"
+  },
+  {
     hz,
-        "name": "Herero"
-    },
-    {
+    "name": "Herero"
+  },
+  {
     ia,
-        "name": "Interlingua (International Auxiliary Language Association)"
-    },
-    {
+    "name": "Interlingua (International Auxiliary Language Association)"
+  },
+  {
     id,
-        "name": "Indonesian"
-    },
-    {
+    "name": "Indonesian"
+  },
+  {
     ie,
-        "name": "Interlingue; Occidental"
-    },
-    {
+    "name": "Interlingue; Occidental"
+  },
+  {
     ig,
-        "name": "Igbo"
-    },
-    {
+    "name": "Igbo"
+  },
+  {
     ii,
-        "name": "Sichuan Yi; Nuosu"
-    },
-    {
+    "name": "Sichuan Yi; Nuosu"
+  },
+  {
     ik,
-        "name": "Inupiaq"
-    },
-    {
+    "name": "Inupiaq"
+  },
+  {
     io,
-        "name": "Ido"
-    },
-    {
+    "name": "Ido"
+  },
+  {
     is,
-        "name": "Icelandic"
-    },
-    {
+    "name": "Icelandic"
+  },
+  {
     it,
-        "name": "Italian"
-    },
-    {
+    "name": "Italian"
+  },
+  {
     iu,
-        "name": "Inuktitut"
-    },
-    {
+    "name": "Inuktitut"
+  },
+  {
     ja,
-        "name": "Japanese"
-    },
-    {
+    "name": "Japanese"
+  },
+  {
     jv,
-        "name": "Javanese"
-    },
-    {
+    "name": "Javanese"
+  },
+  {
     ka,
-        "name": "Georgian"
-    },
-    {
+    "name": "Georgian"
+  },
+  {
     kg,
-        "name": "Kongo"
-    },
-    {
+    "name": "Kongo"
+  },
+  {
     ki,
-        "name": "Kikuyu; Gikuyu"
-    },
-    {
+    "name": "Kikuyu; Gikuyu"
+  },
+  {
     kj,
-        "name": "Kuanyama; Kwanyama"
-    },
-    {
+    "name": "Kuanyama; Kwanyama"
+  },
+  {
     kk,
-        "name": "Kazakh"
-    },
-    {
+    "name": "Kazakh"
+  },
+  {
     kl,
-        "name": "Kalaallisut; Greenlandic"
-    },
-    {
+    "name": "Kalaallisut; Greenlandic"
+  },
+  {
     km,
-        "name": "Central Khmer"
-    },
-    {
+    "name": "Central Khmer"
+  },
+  {
     kn,
-        "name": "Kannada"
-    },
-    {
+    "name": "Kannada"
+  },
+  {
     ko,
-        "name": "Korean"
-    },
-    {
+    "name": "Korean"
+  },
+  {
     kr,
-        "name": "Kanuri"
-    },
-    {
+    "name": "Kanuri"
+  },
+  {
     ks,
-        "name": "Kashmiri"
-    },
-    {
+    "name": "Kashmiri"
+  },
+  {
     ku,
-        "name": "Kurdish"
-    },
-    {
+    "name": "Kurdish"
+  },
+  {
     kv,
-        "name": "Komi"
-    },
-    {
+    "name": "Komi"
+  },
+  {
     kw,
-        "name": "Cornish"
-    },
-    {
+    "name": "Cornish"
+  },
+  {
     ky,
-        "name": "Kirghiz; Kyrgyz"
-    },
-    {
+    "name": "Kirghiz; Kyrgyz"
+  },
+  {
     la,
-        "name": "Latin"
-    },
-    {
+    "name": "Latin"
+  },
+  {
     lb,
-        "name": "Luxembourgish; Letzeburgesch"
-    },
-    {
+    "name": "Luxembourgish; Letzeburgesch"
+  },
+  {
     lg,
-        "name": "Ganda"
-    },
-    {
+    "name": "Ganda"
+  },
+  {
     li,
-        "name": "Limburgan; Limburger; Limburgish"
-    },
-    {
+    "name": "Limburgan; Limburger; Limburgish"
+  },
+  {
     ln,
-        "name": "Lingala"
-    },
-    {
+    "name": "Lingala"
+  },
+  {
     lo,
-        "name": "Lao"
-    },
-    {
+    "name": "Lao"
+  },
+  {
     lt,
-        "name": "Lithuanian"
-    },
-    {
+    "name": "Lithuanian"
+  },
+  {
     lu,
-        "name": "Luba-Katanga"
-    },
-    {
+    "name": "Luba-Katanga"
+  },
+  {
     lv,
-        "name": "Latvian"
-    },
-    {
+    "name": "Latvian"
+  },
+  {
     mg,
-        "name": "Malagasy"
-    },
-    {
+    "name": "Malagasy"
+  },
+  {
     mh,
-        "name": "Marshallese"
-    },
-    {
+    "name": "Marshallese"
+  },
+  {
     mi,
-        "name": "Maori"
-    },
-    {
+    "name": "Maori"
+  },
+  {
     mk,
-        "name": "Macedonian"
-    },
-    {
+    "name": "Macedonian"
+  },
+  {
     ml,
-        "name": "Malayalam"
-    },
-    {
+    "name": "Malayalam"
+  },
+  {
     mn,
-        "name": "Mongolian"
-    },
-    {
+    "name": "Mongolian"
+  },
+  {
     mr,
-        "name": "Marathi"
-    },
-    {
+    "name": "Marathi"
+  },
+  {
     ms,
-        "name": "Malay"
-    },
-    {
+    "name": "Malay"
+  },
+  {
     mt,
-        "name": "Maltese"
-    },
-    {
+    "name": "Maltese"
+  },
+  {
     my,
-        "name": "Burmese"
-    },
-    {
+    "name": "Burmese"
+  },
+  {
     na,
-        "name": "Nauru"
-    },
-    {
+    "name": "Nauru"
+  },
+  {
     nb,
-        "name": "Bokmål, Norwegian; Norwegian Bokmål"
-    },
-    {
+    "name": "Bokmål, Norwegian; Norwegian Bokmål"
+  },
+  {
     nd,
-        "name": "Ndebele, North; North Ndebele"
-    },
-    {
+    "name": "Ndebele, North; North Ndebele"
+  },
+  {
     ne,
-        "name": "Nepali"
-    },
-    {
+    "name": "Nepali"
+  },
+  {
     ng,
-        "name": "Ndonga"
-    },
-    {
+    "name": "Ndonga"
+  },
+  {
     nl,
-        "name": "Dutch; Flemish"
-    },
-    {
+    "name": "Dutch; Flemish"
+  },
+  {
     nn,
-        "name": "Norwegian Nynorsk; Nynorsk, Norwegian"
-    },
-    {
+    "name": "Norwegian Nynorsk; Nynorsk, Norwegian"
+  },
+  {
     no,
-        "name": "Norwegian"
-    },
-    {
+    "name": "Norwegian"
+  },
+  {
     nr,
-        "name": "Ndebele, South; South Ndebele"
-    },
-    {
+    "name": "Ndebele, South; South Ndebele"
+  },
+  {
     nv,
-        "name": "Navajo; Navaho"
-    },
-    {
+    "name": "Navajo; Navaho"
+  },
+  {
     ny,
-        "name": "Chichewa; Chewa; Nyanja"
-    },
-    {
+    "name": "Chichewa; Chewa; Nyanja"
+  },
+  {
     oc,
-        "name": "Occitan (post 1500)"
-    },
-    {
+    "name": "Occitan (post 1500)"
+  },
+  {
     oj,
-        "name": "Ojibwa"
-    },
-    {
+    "name": "Ojibwa"
+  },
+  {
     om,
-        "name": "Oromo"
-    },
-    {
+    "name": "Oromo"
+  },
+  {
     or,
-        "name": "Oriya"
-    },
-    {
+    "name": "Oriya"
+  },
+  {
     os,
-        "name": "Ossetian; Ossetic"
-    },
-    {
+    "name": "Ossetian; Ossetic"
+  },
+  {
     pa,
-        "name": "Panjabi; Punjabi"
-    },
-    {
+    "name": "Panjabi; Punjabi"
+  },
+  {
     pi,
-        "name": "Pali"
-    },
-    {
+    "name": "Pali"
+  },
+  {
     pl,
-        "name": "Polish"
-    },
-    {
+    "name": "Polish"
+  },
+  {
     ps,
-        "name": "Pushto; Pashto"
-    },
-    {
+    "name": "Pushto; Pashto"
+  },
+  {
     pt,
-        "name": "Portuguese"
-    },
-    {
+    "name": "Portuguese"
+  },
+  {
     qu,
-        "name": "Quechua"
-    },
-    {
+    "name": "Quechua"
+  },
+  {
     rm,
-        "name": "Romansh"
-    },
-    {
+    "name": "Romansh"
+  },
+  {
     rn,
-        "name": "Rundi"
-    },
-    {
+    "name": "Rundi"
+  },
+  {
     ro,
-        "name": "Romanian; Moldavian; Moldovan"
-    },
-    {
+    "name": "Romanian; Moldavian; Moldovan"
+  },
+  {
     ru,
-        "name": "Russian"
-    },
-    {
+    "name": "Russian"
+  },
+  {
     rw,
-        "name": "Kinyarwanda"
-    },
-    {
+    "name": "Kinyarwanda"
+  },
+  {
     sa,
-        "name": "Sanskrit"
-    },
-    {
+    "name": "Sanskrit"
+  },
+  {
     sc,
-        "name": "Sardinian"
-    },
-    {
+    "name": "Sardinian"
+  },
+  {
     sd,
-        "name": "Sindhi"
-    },
-    {
+    "name": "Sindhi"
+  },
+  {
     se,
-        "name": "Northern Sami"
-    },
-    {
+    "name": "Northern Sami"
+  },
+  {
     sg,
-        "name": "Sango"
-    },
-    {
+    "name": "Sango"
+  },
+  {
     si,
-        "name": "Sinhala; Sinhalese"
-    },
-    {
+    "name": "Sinhala; Sinhalese"
+  },
+  {
     sk,
-        "name": "Slovak"
-    },
-    {
+    "name": "Slovak"
+  },
+  {
     sl,
-        "name": "Slovenian"
-    },
-    {
+    "name": "Slovenian"
+  },
+  {
     sm,
-        "name": "Samoan"
-    },
-    {
+    "name": "Samoan"
+  },
+  {
     sn,
-        "name": "Shona"
-    },
-    {
+    "name": "Shona"
+  },
+  {
     so,
-        "name": "Somali"
-    },
-    {
+    "name": "Somali"
+  },
+  {
     sq,
-        "name": "Albanian"
-    },
-    {
+    "name": "Albanian"
+  },
+  {
     sr,
-        "name": "Serbian"
-    },
-    {
+    "name": "Serbian"
+  },
+  {
     ss,
-        "name": "Swati"
-    },
-    {
+    "name": "Swati"
+  },
+  {
     st,
-        "name": "Sotho, Southern"
-    },
-    {
+    "name": "Sotho, Southern"
+  },
+  {
     su,
-        "name": "Sundanese"
-    },
-    {
+    "name": "Sundanese"
+  },
+  {
     sv,
-        "name": "Swedish"
-    },
-    {
+    "name": "Swedish"
+  },
+  {
     sw,
-        "name": "Swahili"
-    },
-    {
+    "name": "Swahili"
+  },
+  {
     ta,
-        "name": "Tamil"
-    },
-    {
+    "name": "Tamil"
+  },
+  {
     te,
-        "name": "Telugu"
-    },
-    {
+    "name": "Telugu"
+  },
+  {
     tg,
-        "name": "Tajik"
-    },
-    {
+    "name": "Tajik"
+  },
+  {
     th,
-        "name": "Thai"
-    },
-    {
+    "name": "Thai"
+  },
+  {
     ti,
-        "name": "Tigrinya"
-    },
-    {
+    "name": "Tigrinya"
+  },
+  {
     tk,
-        "name": "Turkmen"
-    },
-    {
+    "name": "Turkmen"
+  },
+  {
     tl,
-        "name": "Tagalog"
-    },
-    {
+    "name": "Tagalog"
+  },
+  {
     tn,
-        "name": "Tswana"
-    },
-    {
+    "name": "Tswana"
+  },
+  {
     to,
-        "name": "Tonga (Tonga Islands)"
-    },
-    {
+    "name": "Tonga (Tonga Islands)"
+  },
+  {
     tr,
-        "name": "Turkish"
-    },
-    {
+    "name": "Turkish"
+  },
+  {
     ts,
-        "name": "Tsonga"
-    },
-    {
+    "name": "Tsonga"
+  },
+  {
     tt,
-        "name": "Tatar"
-    },
-    {
+    "name": "Tatar"
+  },
+  {
     tw,
-        "name": "Twi"
-    },
-    {
+    "name": "Twi"
+  },
+  {
     ty,
-        "name": "Tahitian"
-    },
-    {
+    "name": "Tahitian"
+  },
+  {
     ug,
-        "name": "Uighur; Uyghur"
-    },
-    {
+    "name": "Uighur; Uyghur"
+  },
+  {
     uk,
-        "name": "Ukrainian"
-    },
-    {
+    "name": "Ukrainian"
+  },
+  {
     ur,
-        "name": "Urdu"
-    },
-    {
+    "name": "Urdu"
+  },
+  {
     uz,
-        "name": "Uzbek"
-    },
-    {
+    "name": "Uzbek"
+  },
+  {
     ve,
-        "name": "Venda"
-    },
-    {
+    "name": "Venda"
+  },
+  {
     vi,
-        "name": "Vietnamese"
-    },
-    {
+    "name": "Vietnamese"
+  },
+  {
     vo,
-        "name": "Volapük"
-    },
-    {
+    "name": "Volapük"
+  },
+  {
     wa,
-        "name": "Walloon"
-    },
-    {
+    "name": "Walloon"
+  },
+  {
     wo,
-        "name": "Wolof"
-    },
-    {
+    "name": "Wolof"
+  },
+  {
     xh,
-        "name": "Xhosa"
-    },
-    {
+    "name": "Xhosa"
+  },
+  {
     yi,
-        "name": "Yiddish"
-    },
-    {
+    "name": "Yiddish"
+  },
+  {
     yo,
-        "name": "Yoruba"
-    },
-    {
+    "name": "Yoruba"
+  },
+  {
     za,
-        "name": "Zhuang; Chuang"
-    },
-    {
+    "name": "Zhuang; Chuang"
+  },
+  {
     zh,
-        "name": "Chinese"
-    },
-    {
+    "name": "Chinese"
+  },
+  {
     zu,
-        "name": "Zulu"
-    }
+    "name": "Zulu"
+  }
 ]

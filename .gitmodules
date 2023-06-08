@@ -1,6 +1,6 @@
 [submodule "InterfaceGenerator"]
 	path = InterfaceGenerator
-	url = https://github.com/dgmjr-io/Dgmjr.InterfaceGenerator.git
+	url = https://github.com/dgmjr-io/InterfaceGenerator.git
 [submodule "Enumerations/Enums/MimeTypes"]
 	path = Enumerations/Enums/MimeTypes
 	url = https://github,com/dgmjr-io/MimeTypes.git

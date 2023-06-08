@@ -1,11 +1,11 @@
 <!--
  * Dgmjr.ComponentModel.csproj
- * 
+ *
  *   Created: 2022-10-16-01:43:55
  *   Modified: 2022-11-19-04:06:29
- * 
+ *
  *   Author: David G. Mooore, Jr. <david@dgmjr.io>
- *   
+ *
  *   Copyright © 2022-2023 David G. Mooore, Jr., All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
 -->
@@ -35,5 +35,6 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageFile Remove="@(PackageFile->WithMetadataValue('PackagePath', 'lib/netstandard1.3/System.Runtime.Numerics.dll'))" />
+        <PackageFile Remove="@(PackageFile->WithMetadataValue('PackagePath', 'lib/netstandard1.3/System.Xml.XDocument.dll'))" />
     </ItemGroup>
 </Project>

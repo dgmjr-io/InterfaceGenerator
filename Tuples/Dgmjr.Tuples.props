@@ -1,6 +1,6 @@
 <Project>
     <ItemGroup>
-        <Using Include="Dgmjr.Tuples" />
+        <Using Include="Dgmjr.Tuples"/>
         <!-- <Using Include="System.Uri" Alias="uri" /> -->
     </ItemGroup>
 </Project>
