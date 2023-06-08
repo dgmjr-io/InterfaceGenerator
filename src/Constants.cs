@@ -36,17 +36,17 @@ public static class Constants
     using System;
 
     [AttributeUsage(AttributeTargets.Interface)]
-    internal sealed class GenerateInterfaceAttribute : Attribute
-    {
-        public Type Type { get; }
+internal sealed class GenerateInterfaceAttribute : Attribute
+{
+    public Type Type { get; }
 
-        public GenerateInterfaceAttribute (Type type)
+    public GenerateInterfaceAttribute(Type type)
+    {
         {
-            {
-                Type = type;
-            }
+            Type = type;
         }
     }
+}
     """;
 
     public const string InterfaceDeclaration =
@@ -63,33 +63,39 @@ public static class Constants
 
     namespace {{ namespace }}
     {
-        public partial interface {{ interface_name }}
-        {
-            {{ members }}
-        }
+        public partial interface {{ interface_name
+}
+}
+{
+    { { members } }
+}
     }
     """;
 
     public static readonly Scriban.Template InterfaceDeclarationTemplate = Scriban.Template.Parse(InterfaceDeclaration);
 
-    public const string MethodDeclaration =
-    """
-    {{ return_type }} {{ method_name }}({{ parameters }}) {{ type_constraints }};
-    """;
+public const string MethodDeclaration =
+"""
+    { { return_type } }
+{ { method_name } } ({ { parameters } }) { { type_constraints } };
+""";
 
     public static readonly Scriban.Template MethodDeclarationTemplate = Scriban.Template.Parse(MethodDeclaration);
 
-    public const string MethodParameter =
-    """
-    {{ type }} {{ name }}
-    """;
+public const string MethodParameter =
+"""
+    { { type } }
+{ { name } }
+""";
 
     public static readonly Scriban.Template MethodParameterTemplate = Scriban.Template.Parse(MethodParameter);
 
-    public const string PropertyDeclaration =
-    """
-    {{ type }} {{ name }} { {{~ if is_gettable ~}} get; {{~ end ~}} {{~ if is_settable ~}} set; {{~ end ~}} }
-    """;
+public const string PropertyDeclaration =
+"""
+    { { type } }
+{ { name } }
+{ { { ~ if is_gettable ~} } get; { { ~end ~} } { { ~ if is_settable ~} } set; { { ~end ~} } }
+""";
 
     public static readonly Scriban.Template PropertyDeclarationTemplate = Scriban.Template.Parse(PropertyDeclaration);
 

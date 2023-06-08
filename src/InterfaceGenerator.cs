@@ -87,9 +87,10 @@ public partial class EnumerationClassGenerator : IIncrementalGenerator
                                     (tp.HasReferenceTypeConstraint ? "class" : "") +
                                     (tp.HasValueTypeConstraint ? "struct" : "") +
                                     Join(", ", tp.ConstraintTypes.Select(ct => ct.ToDisplayString())) +
-                                    (tp.HasConstructorConstraint ? "new()" : "").Trim() : ""))}" : "")))))));
+                                    (tp.HasConstructorConstraint ? "new()" : "").Trim() : ""))}
+        " : "")))))));
         }
-    }
+}
 }
 
 
