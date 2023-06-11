@@ -1,9 +1,0 @@
-<Project>
-    <ItemGroup>
-        <Using Include="System.ComponentModel" />
-        <Using Include="System.ComponentModel.DataAnnotations" />
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="System.ComponentModel.Annotations" />
-    </ItemGroup>
-</Project>
