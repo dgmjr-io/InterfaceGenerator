@@ -36,16 +36,18 @@ namespace Dgmjr.InterfaceGenerator
     using System;
 
     [AttributeUsage(AttributeTargets.Interface)]
-    internal sealed class {{{GenerateInterfaceAttributeName}}} : Attribute
-    {
+    internal sealed class {{{GenerateInterfaceAttributeName
+}}} : Attribute
+{
         public Type Type { get; }
 
-        public {{{GenerateInterfaceAttributeName}}} (Type type)
+public
+{ { { GenerateInterfaceAttributeName} } } (Type type)
         {
-            {
-                Type = type;
-            }
-        }
+    {
+        Type = type;
+    }
+}
     }
     """;
 
@@ -63,72 +65,74 @@ namespace Dgmjr.InterfaceGenerator
 
     namespace {{ namespace }}
     {
-        public partial interface {{ interface_name }}
+        public partial interface {{ interface_name
+}}
         {
-            {{ members }}
-        }
+    { { members } }
+}
     }
     """;
 
         public static readonly Scriban.Template InterfaceDeclarationTemplate =
             Scriban.Template.Parse(InterfaceDeclaration);
 
-        public const string MethodDeclaration = "{{ full_definition }};";
+public const string MethodDeclaration = "{{ full_definition }};";
 
-        public static readonly Scriban.Template MethodDeclarationTemplate = Scriban.Template.Parse(
-            MethodDeclaration
-        );
+public static readonly Scriban.Template MethodDeclarationTemplate = Scriban.Template.Parse(
+    MethodDeclaration
+);
 
-        public const string MethodParameter = """
-    {{ type }} {{ name }}
-    """;
+public const string MethodParameter = """
+    { { type } }
+{ { name } }
+""";
 
         public static readonly Scriban.Template MethodParameterTemplate = Scriban.Template.Parse(
             MethodParameter
         );
 
-        public const string PropertyDeclaration =
-            "{{ type }} {{ if is_indexed }}this[ {{ indexers }}] {{ else }} {{ name }} {{ end }} { {{ if is_gettable }} get; {{ end }} {{ if is_settable }} set; {{ end }} }";
+public const string PropertyDeclaration =
+    "{{ type }} {{ if is_indexed }}this[ {{ indexers }}] {{ else }} {{ name }} {{ end }} { {{ if is_gettable }} get; {{ end }} {{ if is_settable }} set; {{ end }} }";
 
-        public static readonly Scriban.Template PropertyDeclarationTemplate =
-            Scriban.Template.Parse(PropertyDeclaration);
+public static readonly Scriban.Template PropertyDeclarationTemplate =
+    Scriban.Template.Parse(PropertyDeclaration);
 
-        // static Constants()
-        // {
-        //     if(!InterfaceDeclarationTemplate.HasErrors)
-        //         throw new Exception(string.Join(Environment.NewLine, InterfaceDeclarationTemplate.Messages.Select(m => m.ToString())));
-        // }
+// static Constants()
+// {
+//     if(!InterfaceDeclarationTemplate.HasErrors)
+//         throw new Exception(string.Join(Environment.NewLine, InterfaceDeclarationTemplate.Messages.Select(m => m.ToString())));
+// }
 
-        public static readonly SymbolDisplayFormat SymbolDisplayFormat =
-            new(
-                SymbolDisplayGlobalNamespaceStyle.Included,
-                SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
-                SymbolDisplayGenericsOptions.IncludeTypeParameters
-                    | SymbolDisplayGenericsOptions.IncludeVariance
-                    | SymbolDisplayGenericsOptions.IncludeTypeConstraints,
-                SymbolDisplayMemberOptions.IncludeConstantValue
-                    | SymbolDisplayMemberOptions.IncludeExplicitInterface
-                    | SymbolDisplayMemberOptions.IncludeModifiers
-                    | SymbolDisplayMemberOptions.IncludeParameters
-                    | SymbolDisplayMemberOptions.IncludeRef
-                    | SymbolDisplayMemberOptions.IncludeType,
-                SymbolDisplayDelegateStyle.NameAndSignature,
-                SymbolDisplayExtensionMethodStyle.Default,
-                SymbolDisplayParameterOptions.IncludeExtensionThis
-                    | SymbolDisplayParameterOptions.IncludeName
-                    | SymbolDisplayParameterOptions.IncludeParamsRefOut
-                    | SymbolDisplayParameterOptions.IncludeType
-                    | SymbolDisplayParameterOptions.IncludeType
-                    | SymbolDisplayParameterOptions.IncludeDefaultValue
-                    | SymbolDisplayParameterOptions.IncludeOptionalBrackets,
-                SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
-                miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes
-                    | SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers
-                    | SymbolDisplayMiscellaneousOptions.UseAsterisksInMultiDimensionalArrays
-                    | SymbolDisplayMiscellaneousOptions.UseErrorTypeSymbolName
-                    | SymbolDisplayMiscellaneousOptions.IncludeNullableReferenceTypeModifier
-                    | SymbolDisplayMiscellaneousOptions.IncludeNotNullableReferenceTypeModifier
-            );
+public static readonly SymbolDisplayFormat SymbolDisplayFormat =
+    new(
+        SymbolDisplayGlobalNamespaceStyle.Included,
+        SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+        SymbolDisplayGenericsOptions.IncludeTypeParameters
+            | SymbolDisplayGenericsOptions.IncludeVariance
+            | SymbolDisplayGenericsOptions.IncludeTypeConstraints,
+        SymbolDisplayMemberOptions.IncludeConstantValue
+            | SymbolDisplayMemberOptions.IncludeExplicitInterface
+            | SymbolDisplayMemberOptions.IncludeModifiers
+            | SymbolDisplayMemberOptions.IncludeParameters
+            | SymbolDisplayMemberOptions.IncludeRef
+            | SymbolDisplayMemberOptions.IncludeType,
+        SymbolDisplayDelegateStyle.NameAndSignature,
+        SymbolDisplayExtensionMethodStyle.Default,
+        SymbolDisplayParameterOptions.IncludeExtensionThis
+            | SymbolDisplayParameterOptions.IncludeName
+            | SymbolDisplayParameterOptions.IncludeParamsRefOut
+            | SymbolDisplayParameterOptions.IncludeType
+            | SymbolDisplayParameterOptions.IncludeType
+            | SymbolDisplayParameterOptions.IncludeDefaultValue
+            | SymbolDisplayParameterOptions.IncludeOptionalBrackets,
+        SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
+        miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes
+            | SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers
+            | SymbolDisplayMiscellaneousOptions.UseAsterisksInMultiDimensionalArrays
+            | SymbolDisplayMiscellaneousOptions.UseErrorTypeSymbolName
+            | SymbolDisplayMiscellaneousOptions.IncludeNullableReferenceTypeModifier
+            | SymbolDisplayMiscellaneousOptions.IncludeNotNullableReferenceTypeModifier
+    );
     }
 
     public record struct InterfaceGeneratorModel(
@@ -139,33 +143,34 @@ namespace Dgmjr.InterfaceGenerator
         string TypeConstraints
     );
 
-    public record struct MethodDeclarationModel(
-        string ReturnType,
-        string MethodName,
-        string Parameters,
-        string TypeConstraints,
-        string FullDefinition
-    );
+public record struct MethodDeclarationModel(
+    string ReturnType,
+    string MethodName,
+    string Parameters,
+    string TypeConstraints,
+    string FullDefinition
+);
 
-    public record struct MethodParameterModel(string Type, string Name);
+public record struct MethodParameterModel(string Type, string Name);
 
-    public record struct PropertyDeclarationModel(
-        string visibility,
-        string Type,
-        string Name,
-        bool IsGettable,
-        bool IsSettable,
-        string? Indexers = null
-    )
+public record struct PropertyDeclarationModel(
+    string visibility,
+    string Type,
+    string Name,
+    bool IsGettable,
+    bool IsSettable,
+    string ? Indexers = null
+
+)
     {
         public bool IsIndexed => !string.IsNullOrWhiteSpace(Indexers);
 
-        public string Name { get; } =
-            (!string.IsNullOrWhiteSpace(Indexers) ? $"this[{Indexers}]" : Name);
+public string Name { get; } =
+    (!string.IsNullOrWhiteSpace(Indexers) ? $"this[{Indexers}]" : Name);
     }
 
     public static class Environment
-    {
-        public const string NewLine = "\r\n";
-    }
+{
+    public const string NewLine = "\r\n";
+}
 }

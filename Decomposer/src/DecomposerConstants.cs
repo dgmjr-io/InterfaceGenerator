@@ -52,65 +52,87 @@ namespace Dgmjr.InterfaceGenerator.Decomposer
             DecomposedInterfaceHeader
             + GeneratedCodeAttribue
             + $$$"""
-        public interface I{{ decomposed_from }}{{ memeber_name }}
+        public interface I {{ decomposed_from }
+    }{{ memeber_name
+}}
         {
-        """;
+    """;
 
         public static readonly Scriban.Template IDecomposedMarkerInterfaceDeclarationTemplate =
             Scriban.Template.Parse(IDecomposedMarkerInterfaceDeclaration);
 
-        public const string DecomposedPropertyDeclaration =
-            GeneratedCodeAttribue
-            + """
-            {{ property_type }} {{ property_name }} { {{ if is_gettable }} get; {{ end }} {{ if is_settable }} set; {{ end }}  }
-        """;
+public const string DecomposedPropertyDeclaration =
+    GeneratedCodeAttribue
+    + """
+            { { property_type } }
+{ { property_name } }
+{ { { if is_gettable } } get; { { end } } { { if is_settable } } set; { { end } } }
+""";
 
         public static readonly Scriban.Template DecomposedPropertyDeclarationTemplate =
             Scriban.Template.Parse(DecomposedPropertyDeclaration);
 
-        public const string DecomposedMethodDeclaration =
-            GeneratedCodeAttribue
-            + """
-            {{ return_type }} {{ method_name }} ({{ for parameter in parameters }}{{ parameter.type }} {{ parameter.name }}{{ if not loop.last }}, {{ endif }}{{ endfor }})
-            {{ if has_generic_type_constraints }}
-            {{ for generic_type_constraint in generic_type_constraints }} where {{ generic_type_constraint.name }} : {{ type_constraint.constraint }}
-            {{ endfor }}
-            {{ endif }}
-        """;
+public const string DecomposedMethodDeclaration =
+    GeneratedCodeAttribue
+    + """
+            { { return_type } }
+{ { method_name } } ({ { for parameter in parameters } }
+{ { parameter.type } }
+{ { parameter.name } }
+{ { if not loop.last } }, { { endif } }
+{ { endfor } })
+            { { if has_generic_type_constraints } }
+{ { for generic_type_constraint in generic_type_constraints } }
+where
+{ { generic_type_constraint.name } } : { { type_constraint.constraint } }
+{ { endfor } }
+{ { endif } }
+""";
 
         public const string DecomposableAttributeFilename = "DecomposableAttribute.g.cs";
 
-        public const string DecomposableAttributeDeclaration =
-            DecomposedInterfaceHeader
-            + """
-        [global::System.AttributeUsage(global::System.AttributeTargets.Class | global::System.AttributeTargets.Struct | global::System.AttributeTargets.Interface | global::System.AttributeTargets.Assembly)]
+public const string DecomposableAttributeDeclaration =
+    DecomposedInterfaceHeader
+    + """
+[global::System.AttributeUsage(global::System.AttributeTargets.Class | global::System.AttributeTargets.Struct | global::System.AttributeTargets.Interface | global::System.AttributeTargets.Assembly)]
         public sealed class DecomposeAttribute : global::System.Attribute
-        {
-            public DecomposeAttribute() { }
-            public DecomposeAttribute(global::System.Type type) { }
-        }
-        """;
+{
+    public DecomposeAttribute() { }
+    public DecomposeAttribute(global::System.Type type) { }
+}
+""";
 
         public static readonly Scriban.Template DecomposedMethodDeclarationTemplate =
             Scriban.Template.Parse(DecomposedMethodDeclaration);
 
-        public const string IComposedClassDeclaration = """
-        public partial class {{ class_name }} : {{ for type_member_tuple in decomposed_from }} IDecomposed<{{} decomposed_from.type }}>
+public const string IComposedClassDeclaration = """
+        public partial class {{ class_name }} : { { for type_member_tuple in decomposed_from } }
+IDecomposed <{ { } decomposed_from.type }}>
         {
-            {{ for type_member_tuple in decomposed_from }}
-            {{ if type_member_tuple.member.is_property }}
-            public {{ type_member_tuple.member.type }} {{ type_member_tuple.member.name }} {{ get; }}
-            {{ elif type_member_tuple.member.is_method }}
-            public {{ decomposed_from.type }} {{} decomposed_from.member }} {{ get; }}
-            {{ endfor }}
+    { { for type_member_tuple in decomposed_from } }
+    { { if type_member_tuple.member.is_property } }
+            public
+{ { type_member_tuple.member.type } }
+{ { type_member_tuple.member.name } }
+{ { get; } }
+{ { elif type_member_tuple.member.is_method } }
+public
+{ { decomposed_from.type } }
+{ { } decomposed_from.member }} { { get; } }
+{ { endfor } }
 
 
-            public { class_name }({ decomposed_from } decomposed)
+public
+{ class_name } ({ decomposed_from }
+decomposed)
             {
-                { decomposed_from } = decomposed;
-            }
+    { decomposed_from } = decomposed;
+}
 
-            public { decomposed_from } { decomposed_from } {{ get; }}
+public
+{ decomposed_from }
+{ decomposed_from }
+{ { get; } }
         }
         """;
 
