@@ -13,7 +13,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace Dgmjr.InterfaceGenerator.Decomposer;
 
 [Generator]
-public class Decomposer : ISourceGenerator, IIncrementalGenerator
+public class Decomposer : IIncrementalGenerator
 {
     private const string AttributeName = "Decompose";
     private const string InterfaceNamePrefix = "I";
@@ -35,71 +35,80 @@ public class Decomposer : ISourceGenerator, IIncrementalGenerator
                     Constants.DecomposableAttributeDeclaration
                 )
         );
+        var sourceTypes = context.SyntaxProvider.ForAttributeWithMetadataName<GeneratorAttributeSyntaxContext>(
+            (ctx, _) => ctx.TargetNode is TypeDeclarationSyntax tds && (tds.Kind() == SyntaxKind.ClassDeclaration || tds.Kind() == SyntaxKind.StructDeclaration || tds.Kind() == SyntaxKind.InterfaceDeclaration)
+                        && tds.AttributeLists.Any(
+                            al => al.Attributes.Any(
+                                a => a.Name.ToString() is AttributeName or AttributeName + "Attribute"
+                            )
+                        ),
+            (ctx, _) => ctx).Collect();
+
+        context.RegisterImplementationSourceOutput(sourceTypes, Execute);
     }
 
-    public void Initialize(GeneratorInitializationContext context) { }
-
-    public void Execute(GeneratorExecutionContext context)
+    public void Execute(SourceProductionContext context, ImmutableArray<GeneratorAttributeSyntaxContext> attributeSyntaxContexts)
     {
-        var syntaxTrees = context.Compilation.SyntaxTrees;
-        var attributeSymbol = context.Compilation.GetTypeByMetadataName(AttributeName);
+        // var syntaxTrees = context.Compilation.SyntaxTrees;
+        // var attributeSymbol = context.Compilation.GetTypeByMetadataName(AttributeName);
 
-        foreach (var syntaxTree in syntaxTrees)
+        // foreach (var syntaxTree in syntaxTrees)
+        // {
+        // var semanticModel = context.Compilation.GetSemanticModel(syntaxTree);
+        // var root = syntaxTree.GetRoot();
+        // var attributeSyntaxes = root.DescendantNodes()
+        //     .OfType<AttributeSyntax>()
+        //     .Where(
+        //         attr =>
+        //             semanticModel.GetSymbolInfo(attr).Symbol?.Equals(attributeSymbol) == true
+        //     );
+
+        foreach (var attributeSyntax in attributeSyntaxContexts)
         {
-            var semanticModel = context.Compilation.GetSemanticModel(syntaxTree);
-            var root = syntaxTree.GetRoot();
-            var attributeSyntaxes = root.DescendantNodes()
-                .OfType<AttributeSyntax>()
-                .Where(
-                    attr =>
-                        semanticModel.GetSymbolInfo(attr).Symbol?.Equals(attributeSymbol) == true
+            //     var targetSymbol = semanticModel.GetSymbolInfo(attributeSyntax.Parent).Symbol;
+            //     if (targetSymbol == null)
+            //     {
+            //         continue;
+            //     }
+            var targetSymbol = attributeSyntax.TargetSymbol;
+
+            var targetNamespace = targetSymbol.ContainingNamespace.ToDisplayString();
+            var targetAssemblyName = targetSymbol.ContainingAssembly.Name;
+            var interfaceName = InterfaceNamePrefix + targetSymbol.Name + InterfaceSuffix;
+            var namespaceName = targetNamespace + NamespaceSuffix;
+            var sourceFileName = targetSymbol.Name + SourceFileNameSuffix;
+
+            var interfaceDeclaration = SyntaxFactory
+                .InterfaceDeclaration(interfaceName)
+                .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                .AddBaseListTypes(
+                    SyntaxFactory.SimpleBaseType(
+                        SyntaxFactory.ParseTypeName(
+                            $"IDecompose<{targetSymbol.ToDisplayString()}>"
+                        )
+                    )
                 );
 
-            foreach (var attributeSyntax in attributeSyntaxes)
-            {
-                var targetSymbol = semanticModel.GetSymbolInfo(attributeSyntax.Parent).Symbol;
-                if (targetSymbol == null)
-                {
-                    continue;
-                }
-
-                var targetNamespace = targetSymbol.ContainingNamespace.ToDisplayString();
-                var targetAssemblyName = targetSymbol.ContainingAssembly.Name;
-                var interfaceName = InterfaceNamePrefix + targetSymbol.Name + InterfaceSuffix;
-                var namespaceName = targetNamespace + NamespaceSuffix;
-                var sourceFileName = targetSymbol.Name + SourceFileNameSuffix;
-
-                var interfaceDeclaration = SyntaxFactory
-                    .InterfaceDeclaration(interfaceName)
-                    .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
-                    .AddBaseListTypes(
-                        SyntaxFactory.SimpleBaseType(
-                            SyntaxFactory.ParseTypeName(
-                                $"IDecompose<{targetSymbol.ToDisplayString()}>"
+            var members = (targetSymbol as INamedTypeSymbol)!
+                .GetMembers()
+                .Where(m => m.Kind == SymbolKind.Method || m.Kind == SymbolKind.Property)
+                .Where(m => m.DeclaredAccessibility == Accessibility.Public)
+                .Where(
+                    m =>
+                        !(
+                            m is IPropertySymbol property
+                            && (
+                                property.IsIndexer
+                                || property.IsReadOnly
+                                || property.IsWriteOnly
                             )
                         )
-                    );
+                )
+                .ToList();
 
-                var members = (targetSymbol as INamedTypeSymbol)!
-                    .GetMembers()
-                    .Where(m => m.Kind == SymbolKind.Method || m.Kind == SymbolKind.Property)
-                    .Where(m => m.DeclaredAccessibility == Accessibility.Public)
-                    .Where(
-                        m =>
-                            !(
-                                m is IPropertySymbol property
-                                && (
-                                    property.IsIndexer
-                                    || property.IsReadOnly
-                                    || property.IsWriteOnly
-                                )
-                            )
-                    )
-                    .ToList();
-
-                var generatedCoeAttributeLists = SyntaxFactory.SeparatedList(
-                    new[]
-                    {
+            var generatedCoeAttributeLists = SyntaxFactory.SeparatedList(
+                new[]
+                {
                         SyntaxFactory.AttributeList(
                             SyntaxFactory.SeparatedList(
                                 new[]
@@ -136,41 +145,66 @@ public class Decomposer : ISourceGenerator, IIncrementalGenerator
                                 }
                             )
                         )
-                    }
-                );
+                }
+            );
 
-                var interfaceDeclarationSyntaxTrees = new DefaultableDictionary<
-                    string,
-                    IList<InterfaceDeclarationSyntax>
-                >(new List<InterfaceDeclarationSyntax>());
+            var interfaceDeclarationSyntaxTrees = new DefaultableDictionary<
+                string,
+                IList<InterfaceDeclarationSyntax>
+            >(new List<InterfaceDeclarationSyntax>());
 
-                foreach (var member in members)
+            foreach (var member in members)
+            {
+                var memberType = member switch
                 {
-                    var memberType = member switch
-                    {
-                        IMethodSymbol method => method.ReturnType,
-                        IPropertySymbol property => property.Type,
-                        _
-                            => throw new InvalidOperationException(
-                                $"Unexpected member kind: {member.Kind}"
-                            ),
-                    };
-                    var memberName = member.Name;
+                    IMethodSymbol method => method.ReturnType,
+                    IPropertySymbol property => property.Type,
+                    _
+                        => throw new InvalidOperationException(
+                            $"Unexpected member kind: {member.Kind}"
+                        ),
+                };
+                var memberName = member.Name;
 
-                    if (
-                        member is IPropertySymbol p
-                        && p.DeclaredAccessibility == Accessibility.Public
-                    )
+                if (
+                    member is IPropertySymbol p
+                    && p.DeclaredAccessibility == Accessibility.Public
+                )
+                {
+                    interfaceDeclarationSyntaxTrees[p.Name].Add(
+                        SyntaxFactory
+                            .InterfaceDeclaration($"I{targetSymbol.Name}{member.Name}")
+                            .WithMembers(
+                                SyntaxFactory.List(
+                                    CSharpSyntaxTree
+                                        .ParseText(
+                                            p.ToDisplayString(Constants.SymbolDisplayFormat)
+                                        )
+                                        .GetRoot()
+                                        .DescendantNodes()
+                                        .OfType<MemberDeclarationSyntax>()
+                                )
+                            )
+                    );
+                }
+                else if (
+                    member is IMethodSymbol meth
+                    && meth.CanBeReferencedByName
+                    && meth.DeclaredAccessibility == Accessibility.Public
+                )
+                {
+                    var methodSyntax = CSharpSyntaxTree.ParseText(
+                        meth.ToDisplayString(Constants.SymbolDisplayFormat)
+                    );
+                    var methodSyntaxString = methodSyntax.ToString();
+                    if (!methodSyntaxString.Contains("*"))
                     {
-                        interfaceDeclarationSyntaxTrees[p.Name].Add(
+                        interfaceDeclarationSyntaxTrees[meth.Name].Add(
                             SyntaxFactory
                                 .InterfaceDeclaration($"I{targetSymbol.Name}{member.Name}")
                                 .WithMembers(
                                     SyntaxFactory.List(
-                                        CSharpSyntaxTree
-                                            .ParseText(
-                                                p.ToDisplayString(Constants.SymbolDisplayFormat)
-                                            )
+                                        methodSyntax
                                             .GetRoot()
                                             .DescendantNodes()
                                             .OfType<MemberDeclarationSyntax>()
@@ -178,53 +212,28 @@ public class Decomposer : ISourceGenerator, IIncrementalGenerator
                                 )
                         );
                     }
-                    else if (
-                        member is IMethodSymbol meth
-                        && meth.CanBeReferencedByName
-                        && meth.DeclaredAccessibility == Accessibility.Public
-                    )
-                    {
-                        var methodSyntax = CSharpSyntaxTree.ParseText(
-                            meth.ToDisplayString(Constants.SymbolDisplayFormat)
-                        );
-                        var methodSyntaxString = methodSyntax.ToString();
-                        if (!methodSyntaxString.Contains("*"))
-                        {
-                            interfaceDeclarationSyntaxTrees[meth.Name].Add(
-                                SyntaxFactory
-                                    .InterfaceDeclaration($"I{targetSymbol.Name}{member.Name}")
-                                    .WithMembers(
-                                        SyntaxFactory.List(
-                                            methodSyntax
-                                                .GetRoot()
-                                                .DescendantNodes()
-                                                .OfType<MemberDeclarationSyntax>()
-                                        )
-                                    )
-                            );
-                        }
-                    }
                 }
-
-                var memberInterfaceDeclarations = interfaceDeclarationSyntaxTrees.SelectMany(
-                    itsts => itsts.Value
-                );
-                var baseNamespaceDeclarationSyntax = SyntaxFactory.NamespaceDeclaration(
-                    SyntaxFactory.ParseName(namespaceName),
-                    SyntaxFactory.List<ExternAliasDirectiveSyntax>(),
-                    SyntaxFactory.List<UsingDirectiveSyntax>(),
-                    SyntaxFactory.List(
-                        memberInterfaceDeclarations.OfType<MemberDeclarationSyntax>()
-                    )
-                );
-
-                context.AddSource(
-                    sourceFileName,
-                    baseNamespaceDeclarationSyntax.NormalizeWhitespace().ToFullString()
-                );
             }
+
+            var memberInterfaceDeclarations = interfaceDeclarationSyntaxTrees.SelectMany(
+                itsts => itsts.Value
+            );
+            var baseNamespaceDeclarationSyntax = SyntaxFactory.NamespaceDeclaration(
+                SyntaxFactory.ParseName(namespaceName),
+                SyntaxFactory.List<ExternAliasDirectiveSyntax>(),
+                SyntaxFactory.List<UsingDirectiveSyntax>(),
+                SyntaxFactory.List(
+                    memberInterfaceDeclarations.OfType<MemberDeclarationSyntax>()
+                )
+            );
+
+            context.AddSource(
+                sourceFileName,
+                baseNamespaceDeclarationSyntax.NormalizeWhitespace().ToFullString()
+            );
         }
     }
+    // }
 
     private record AdditionalTextFile(string Path, TextLoader TextLoader, SourceHash Checksum);
 }
