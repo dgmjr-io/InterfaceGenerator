@@ -11,9 +11,24 @@
  */
 using Microsoft.EntityFrameworkCore;
 
-[assembly: Decompose(typeof(DbContext))]
 
 namespace Microsoft.EntityFrameworkCore.Abstractions
 {
-    public partial interface IDbContext { }
+    [Decompose()]
+    public partial interface IDbContext
+    {
+        public int Foo { get; set; }
+        public DbSet<Bar> Bars { get; set; }
+    }
+
+    [Decompose]
+    public partial class Bar
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Hello World!");
+        }
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
 }

@@ -39,7 +39,6 @@
 
   <ItemGroup>
     <Compile Remove="./Resources/*" />
-    <Compile Remove="./aigenerated/**/*.cs" />
     <Compile Remove="./chatwithopenaitogeneratethissolution/**/*.*" />
     <EmbeddedResource Include="./Resources/**/*" />
   </ItemGroup>

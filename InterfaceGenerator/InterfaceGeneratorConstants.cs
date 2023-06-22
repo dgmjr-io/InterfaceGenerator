@@ -40,7 +40,7 @@ namespace Dgmjr.InterfaceGenerator
     {
         public Type Type { get; }
 
-        public {{{GenerateInterfaceAttributeName}}} (Type type)
+        public {{{GenerateInterfaceAttributeName}}} (Type type = null)
         {
             {
                 Type = type;
@@ -139,30 +139,30 @@ namespace Dgmjr.InterfaceGenerator
         string TypeConstraints
     );
 
-    public record struct MethodDeclarationModel(
-        string ReturnType,
-        string MethodName,
-        string Parameters,
-        string TypeConstraints,
-        string FullDefinition
-    );
+    // public record struct MethodDeclarationModel(
+    //     string ReturnType,
+    //     string MethodName,
+    //     string Parameters,
+    //     string TypeConstraints,
+    //     string FullDefinition
+    // );
 
-    public record struct MethodParameterModel(string Type, string Name);
+    // public record struct MethodParameterModel(string Type, string Name);
 
-    public record struct PropertyDeclarationModel(
-        string visibility,
-        string Type,
-        string Name,
-        bool IsGettable,
-        bool IsSettable,
-        string? Indexers = null
-    )
-    {
-        public bool IsIndexed => !string.IsNullOrWhiteSpace(Indexers);
+    // public record struct PropertyDeclarationModel(
+    //     string visibility,
+    //     string Type,
+    //     string Name,
+    //     bool IsGettable,
+    //     bool IsSettable,
+    //     string? Indexers = null
+    // )
+    // {
+    //     public bool IsIndexed => !string.IsNullOrWhiteSpace(Indexers);
 
-        public string Name { get; } =
-            (!string.IsNullOrWhiteSpace(Indexers) ? $"this[{Indexers}]" : Name);
-    }
+    //     public string Name { get; } =
+    //         (!string.IsNullOrWhiteSpace(Indexers) ? $"this[{Indexers}]" : Name);
+    // }
 
     public static class Environment
     {

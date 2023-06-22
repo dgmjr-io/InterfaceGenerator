@@ -14,10 +14,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.Text.Json.Usings" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <SourceGenerator  Include="Dgmjr.InterfaceGenerator.Decomposer" />
+    <PackageReferemce Include="OneOf" />
+    <PackageReference Include="Microsoft.Net.Compilers.Toolset" />
+    <PackageReference Include="Dgmjr.CodeGeneration.Extensions.TypeDeclarationExtensions" />
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers"  />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" />
+    <PackageReference Include="Microsoft.CSharp" />
+    <PackageReference Include="System.CodeDom" />
+    <PackageReference Include="System.Text.Json.Usings" />
+    <PackageReference Include="System.Text.RegularExpressions.Usings" />
+    <PackageReference Include="ThisAssembly.AssemblyInfo" />
+    <PackageReference Include="ThisAssembly.Project" />
+    <PackageReference Include="Dgmjr.System.Extensions" />
+   <PackageReference Include="Microsoft.EntityFrameworkCore" />
   </ItemGroup>
 </Project>

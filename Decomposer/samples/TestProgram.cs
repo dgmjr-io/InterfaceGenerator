@@ -4,5 +4,8 @@ public static class TestProgram
 {
     // static readonly string IDbContext_cs =
 
-    public static async Task Main(string[] args) { }
+    public static async Task Main(string[] args)
+    {
+
+    }
 }

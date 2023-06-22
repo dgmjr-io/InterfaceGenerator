@@ -30,15 +30,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" />
+        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" />
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" />
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
         <PackageReference Include="Microsoft.CodeAnalysis.Common" />
         <PackageReference Include="System.Text.Json.Usings" />
-        <PackageReference Include="ThisAssembly" />
+        <PackageReference Include="ThisAssembly.Project" />
+        <PackageReference Include="ThisAssembly.AssemblyInfo" />
         <PackageReference Include="System.Text.RegularExpressions.Usings" />
         <PackageReference Include="Dgmjr.CodeGeneration.Constants-Scriban.Bundled" IncludeAssets="ContentFiles;Build" ExcludeAssets="Lib;Runtime;Source;Native;Analyzers" PrivateAssets="All" />
-        <PackageReference Include="Microsoft.CSharp" VersionOverride="4.5.0" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.CSharp" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup>
@@ -57,7 +58,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" />
+        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" />
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
     </ItemGroup>
 
@@ -66,7 +67,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="$(OutputPath)$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs/%(Filename)%(Extension)" Visible="false" />
+        <Content Include="$(OutputPath)*.dll" Pack="true" PackagePath="analyzers/dotnet/cs/$(TargetFramework)/%(Filename)%(Extension)" Visible="false" />
     </ItemGroup>
 
     <ItemGroup>

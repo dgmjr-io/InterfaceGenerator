@@ -1,0 +1,5 @@
+{
+    "omnisharp.enableRoslynAnalyzers": false,
+    "sonarqube-rules-synchroniser.autoconfigure-csharp-analyzers": false,
+    "dotnet.defaultSolution": "Decomposer.sln"
+}

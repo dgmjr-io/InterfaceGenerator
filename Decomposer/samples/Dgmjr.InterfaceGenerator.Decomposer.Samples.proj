@@ -12,12 +12,7 @@
 
 
 <Project>
-   <ItemGroup>
-    <PackageReference Include="System.Text.Json.Usings" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" />
-    <SourceGenerator  Include="Dgmjr.InterfaceGenerator.Decomposer" />
-  </ItemGroup>
+
   <ItemGroup>
-    <PackageFile Include="*proj" PackagePath="$(MSBuildThisFileDirectory)/%(Filename)%(Extension)" />
   </ItemGroup>
 </Project>

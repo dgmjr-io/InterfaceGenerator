@@ -1,3 +1,4 @@
+using System.Linq;
 /*
  * DecomposerConstants.cs
  *
@@ -11,10 +12,11 @@
  */
 
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Dgmjr.InterfaceGenerator.Decomposer
 {
-    public static class Constants
+    internal static class Constants
     {
         public const string ThisAssemblyName = ThisAssembly.Project.AssemblyName;
         public const string ThisAssemblyVersion = ThisAssembly.Info.Version;
@@ -30,6 +32,13 @@ namespace Dgmjr.InterfaceGenerator.Decomposer
 
         """;
 
+        public static readonly AttributeListSyntax GeneratedCodeAttribueSyntax =
+            SyntaxFactory.AttributeList(SyntaxFactory.SeparatedList(
+                SyntaxFactory.ParseCompilationUnit(GeneratedCodeAttribue)
+                .DescendantNodesAndSelf(_ => true, false).SelectMany(
+                node => node.ChildNodes()
+            ).OfType<AttributeSyntax>()));
+
         public const string GeneratedCodeAttribue = $$$"""
         [System.Runtime.CompilerServices.CompilerGenerated]
         [System.CodeDom.Compiler.GeneratedCode(\"{{{ThisAssemblyName}}}\", \"{{{ThisAssemblyVersion}}}\")]";
@@ -43,30 +52,21 @@ namespace Dgmjr.InterfaceGenerator.Decomposer
         public const string IDecomposedInterfaceDeclaration =
             DecomposedInterfaceHeader
             + GeneratedCodeAttribue
-            + $$$"""public interface IDecomposed<{{ decomposed_from }}> { }""";
-
-        public static readonly Scriban.Template IDecomposedInterfaceDeclarationTemplate =
-            Scriban.Template.Parse(IDecomposedInterfaceDeclaration);
+            + $$$"""public interface IDecomposedFrom<{{ decomposed_from }}> { }""";
 
         public const string IDecomposedMarkerInterfaceDeclaration =
             DecomposedInterfaceHeader
             + GeneratedCodeAttribue
             + $$$"""
-        public interface I{{ decomposed_from }}{{ memeber_name }}
-        {
-        """;
-
-        public static readonly Scriban.Template IDecomposedMarkerInterfaceDeclarationTemplate =
-            Scriban.Template.Parse(IDecomposedMarkerInterfaceDeclaration);
+                public interface I{{ decomposed_from }}{{ memeber_name }}
+                {
+                """;
 
         public const string DecomposedPropertyDeclaration =
             GeneratedCodeAttribue
             + """
             {{ property_type }} {{ property_name }} { {{ if is_gettable }} get; {{ end }} {{ if is_settable }} set; {{ end }}  }
         """;
-
-        public static readonly Scriban.Template DecomposedPropertyDeclarationTemplate =
-            Scriban.Template.Parse(DecomposedPropertyDeclaration);
 
         public const string DecomposedMethodDeclaration =
             GeneratedCodeAttribue
@@ -86,13 +86,10 @@ namespace Dgmjr.InterfaceGenerator.Decomposer
         [global::System.AttributeUsage(global::System.AttributeTargets.Class | global::System.AttributeTargets.Struct | global::System.AttributeTargets.Interface | global::System.AttributeTargets.Assembly)]
         public sealed class DecomposeAttribute : global::System.Attribute
         {
-            public DecomposeAttribute() { }
-            public DecomposeAttribute(global::System.Type type) { }
+            public DecomposeAttribute(string @namespace = null) { }
+            public DecomposeAttribute(global::System.Type typem string @namespace = null) { }
         }
         """;
-
-        public static readonly Scriban.Template DecomposedMethodDeclarationTemplate =
-            Scriban.Template.Parse(DecomposedMethodDeclaration);
 
         public const string IComposedClassDeclaration = """
         public partial class {{ class_name }} : {{ for type_member_tuple in decomposed_from }} IDecomposed<{{} decomposed_from.type }}>
@@ -144,5 +141,17 @@ namespace Dgmjr.InterfaceGenerator.Decomposer
                     | SymbolDisplayMiscellaneousOptions.IncludeNullableReferenceTypeModifier
                     | SymbolDisplayMiscellaneousOptions.IncludeNotNullableReferenceTypeModifier
             );
+
+        internal const string AttributeName = "Decompose";
+        internal const string AttributeFullName = AttributeName + nameof(Attribute);
+        internal const string InterfaceNamePrefix = "I";
+        internal const string InterfaceSuffix = "Decomposition";
+        internal const string NamespaceSuffix = ".Decompositions";
+        internal const string SourceFileNameSuffix = ".Decompositions.g.cs";
+        internal const string GeneratedCodeAttributeName = "GeneratedCodeAttribute";
+        internal const string GeneratedCodeAttributeFullName =
+            $"System.Diagnostics.CodeAnalysis.{GeneratedCodeAttributeName}";
+        internal const string CompilerGeneratedAttributeFullName =
+            "System.Runtime.CompilerServices.CompilerGeneratedAttribute";
     }
 }

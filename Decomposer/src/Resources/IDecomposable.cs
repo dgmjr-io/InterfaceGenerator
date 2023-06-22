@@ -10,14 +10,16 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
-public interface IDecomposed<TFrom>
+namespace Dgmjr.Abstractions;
+
+public interface IDecomposed<TFrom> where TFrom : IDecomposed<TFrom>
 {
-    
+
 }
 
 
-public interface IComposed
-{
-    IEnumerable<(type Type, MemberInfo Member)> ComposedFrom { get; }
-    bool Contains(type type, MemberInfo member);
-}
+// public interface IComposed
+// {
+//     IEnumerable<(type Type, MemberInfo Member)> ComposedFrom { get; }
+//     bool Contains(type type, MemberInfo member);
+// }
