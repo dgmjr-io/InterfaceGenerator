@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Microsoft.EntityFrameworkCore.Abstractions
 {
-    [Decompose()]
+    [Decompose]
     public partial interface IDbContext
     {
         public int Foo { get; set; }
