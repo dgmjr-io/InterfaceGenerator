@@ -14,7 +14,7 @@ internal static class Log
 
     public static void FlushLogs(GeneratorExecutionContext context)
     {
-        context.AddSource($"logs.g.cs", SourceText.From(string.Join("\n", Logs), Encoding.UTF8));
+        context.AddSource("logs.g.cs", SourceText.From(string.Join("\n", Logs), Encoding.UTF8));
     }
 }
 #endif
