@@ -52,15 +52,12 @@ namespace Dgmjr.InterfaceGenerator.Decomposer
         public const string IDecomposedInterfaceDeclaration =
             DecomposedInterfaceHeader
             + GeneratedCodeAttribue
-            + $$$"""public interface IDecomposedFrom<{{ decomposed_from }}> { }""";
+            + "public interface IDecomposedFrom<{{ decomposed_from }}> { }";
 
         public const string IDecomposedMarkerInterfaceDeclaration =
             DecomposedInterfaceHeader
             + GeneratedCodeAttribue
-            + $$$"""
-                public interface I{{ decomposed_from }}{{ memeber_name }}
-                {
-                """;
+            + "                public interface I{{ decomposed_from }}{{ memeber_name }}\r\n                {";
 
         public const string DecomposedPropertyDeclaration =
             GeneratedCodeAttribue
