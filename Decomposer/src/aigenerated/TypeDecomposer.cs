@@ -114,8 +114,8 @@ public class TypeDecomposer : IIncrementalGenerator
             .FirstOrDefault(a => a.AttributeClass?.Name == "Decompose" && a.AttributeConstructor?.Parameters.Length > 0 && a.AttributeConstructor.Parameters[0].Type?.Name == "String" && (string)a.ConstructorArguments[0].Value == "@namespace");
         if (namespaceAttribute != null && namespaceAttribute.ConstructorArguments.Length > 1 && namespaceAttribute.ConstructorArguments[1].Value is string namespaceName)
             return targetType.ContainingNamespace.GetNamespace(namespaceName);
-        else
-            return targetType.ContainingNamespace;
+
+        return targetType.ContainingNamespace;
     }
 
     private static string GetNamespaceName(ITypeSymbol targetType, IEnumerable<ISymbol> symbols)
