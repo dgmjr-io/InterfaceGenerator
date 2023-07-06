@@ -69,10 +69,7 @@ public class TypeDecomposer : IIncrementalGenerator
         {
             return GenerateInterfacesFromNamedTypeSymbol(targetSymbol as INamedTypeSymbol);
         }
-        else
-        {
-            return (targetSymbol.Name + SourceFileNameSuffix, $"// {targetSymbol.Name} is not a named type symbol");
-        }
+        return (targetSymbol.Name + SourceFileNameSuffix, $"// {targetSymbol.Name} is not a named type symbol");
     }
 
     private static (string, string) GenerateInterfacesFromNamedTypeSymbol(INamedTypeSymbol targetSymbol)
