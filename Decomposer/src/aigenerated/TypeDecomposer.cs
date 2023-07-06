@@ -43,7 +43,7 @@ public class TypeDecomposer : IIncrementalGenerator
                 // Generate an interface for each public property and method  
                 foreach (var symbol in symbolsForType)
                 {
-                    if(symbol is IPropertySymbol propertySymbol)
+                    if (symbol is IPropertySymbol propertySymbol)
                     {
                         if (propertySymbol.IsReadOnly || propertySymbol.IsWriteOnly)
                             continue;
@@ -52,7 +52,7 @@ public class TypeDecomposer : IIncrementalGenerator
                         interfaces.Add(interfaceSyntax);
                         break;
                     }
-                    else if(symbol is IMethodSymbol)
+                    else if (symbol is IMethodSymbol)
                     {
                         if (methodSymbol.IsAccessor())
                             continue;
