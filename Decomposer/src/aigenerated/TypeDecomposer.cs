@@ -43,29 +43,30 @@ public class TypeDecomposer : IIncrementalGenerator
                 // Generate an interface for each public property and method  
                 foreach (var symbol in symbolsForType)
                 {
-                    switch (symbol)
+                    if (symbol is IPropertySymbol propertySymbol)
                     {
-                        case IPropertySymbol propertySymbol:
-                            if (propertySymbol.IsReadOnly || propertySymbol.IsWriteOnly)
-                                continue;
-                            var interfaceName = GetInterfaceName(targetType, propertySymbol);
-                            var interfaceSyntax = GenerateInterfaceSyntax(targetType, propertySymbol, interfaceName);
+                        if (propertySymbol.IsReadOnly || propertySymbol.IsWriteOnly)
+                            continue;
+                        var interfaceName = GetInterfaceName(targetType, propertySymbol);
+                        var interfaceSyntax = GenerateInterfaceSyntax(targetType, propertySymbol, interfaceName);
+                        interfaces.Add(interfaceSyntax);
+                        break;
+                    }
+                    else if (symbol is IMethodSymbol)
+                    {
+                        if (methodSymbol.IsAccessor())
+                            continue;
+                        var overloadedMethodSymbols = targetType.GetMembers(methodSymbol.Name)
+                            .OfType<IMethodSymbol>()
+                            .Where(m => SymbolEqualityComparer.Default.Equals(m.ReturnType, methodSymbol.ReturnType)
+                                && m.Parameters.SequenceEqual(methodSymbol.Parameters, ParameterEqualityComparer.Default));
+                        foreach (var overloadedMethodSymbol in overloadedMethodSymbols)
+                        {
+                            var interfaceName = GetInterfaceName(targetType, overloadedMethodSymbol);
+                            var interfaceSyntax = GenerateInterfaceSyntax(targetType, overloadedMethodSymbol, interfaceName);
                             interfaces.Add(interfaceSyntax);
-                            break;
-                        case IMethodSymbol methodSymbol:
-                            if (methodSymbol.IsAccessor())
-                                continue;
-                            var overloadedMethodSymbols = targetType.GetMembers(methodSymbol.Name)
-                                .OfType<IMethodSymbol>()
-                                .Where(m => SymbolEqualityComparer.Default.Equals(m.ReturnType, methodSymbol.ReturnType)
-                                    && m.Parameters.SequenceEqual(methodSymbol.Parameters, ParameterEqualityComparer.Default));
-                            foreach (var overloadedMethodSymbol in overloadedMethodSymbols)
-                            {
-                                var interfaceName = GetInterfaceName(targetType, overloadedMethodSymbol);
-                                var interfaceSyntax = GenerateInterfaceSyntax(targetType, overloadedMethodSymbol, interfaceName);
-                                interfaces.Add(interfaceSyntax);
-                            }
-                            break;
+                        }
+                        break;
                     }
                 }
 
