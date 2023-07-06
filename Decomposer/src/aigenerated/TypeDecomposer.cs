@@ -18,7 +18,7 @@ public class TypeDecomposer : IIncrementalGenerator
 
     public void Execute(IncrementalGeneratorExecutionContext context)
     {
-        if (!(context.SyntaxReceiver is AttributeSyntaxReceiver attributeSyntaxReceiver))
+        if (context.SyntaxReceiver is not AttributeSyntaxReceiver attributeSyntaxReceiver)
             return;
 
         // Group the symbols by assembly  
