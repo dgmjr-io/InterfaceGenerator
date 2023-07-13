@@ -16,7 +16,7 @@
     <PackageReference Remove="GitInfo" />
     <Using Include="System.Convert" Alias="Convert" />
     <Using Remove="System.Text.Encoding" />
-    <PackageReferemce Include="OneOf" />
+    <PackageReference Include="OneOf" />
   </ItemGroup>
   <Target Name="GitInfo">
   </Target>

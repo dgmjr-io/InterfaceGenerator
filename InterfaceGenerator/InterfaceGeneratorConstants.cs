@@ -35,7 +35,7 @@ namespace Dgmjr.InterfaceGenerator
         public const string GenerateInterfaceAtributeDeclaration = $$$"""
     using System;
 
-    [AttributeUsage(AttributeTargets.Interface)]
+    [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class | AttributeTargets.Struct)]
     internal sealed class {{{GenerateInterfaceAttributeName}}} : Attribute
     {
         public Type Type { get; }

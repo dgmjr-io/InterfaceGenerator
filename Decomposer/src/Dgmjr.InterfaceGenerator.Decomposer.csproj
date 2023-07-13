@@ -21,7 +21,7 @@
     <PackageVersion>0.0.1-Local</PackageVersion>
   </PropertyGroup>
   <ItemGroup>
-        <PackageReferemce Include="OneOf" />
+        <PackageReference Include="OneOf" />
         <PackageReference Include="Dgmjr.CodeGeneration.Extensions.TypeDeclarationExtensions" />
         <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers"  />
         <PackageReference Include="Microsoft.CodeAnalysis.Common" />

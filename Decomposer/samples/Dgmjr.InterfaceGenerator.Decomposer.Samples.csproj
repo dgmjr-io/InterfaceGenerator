@@ -18,7 +18,7 @@
   </PropertyGroup>
   <ItemGroup>
     <SourceGenerator  Include="Dgmjr.InterfaceGenerator.Decomposer" />
-    <PackageReferemce Include="OneOf" />
+    <PackageReference Include="OneOf" />
     <PackageReference Include="Microsoft.Net.Compilers.Toolset" />
     <PackageReference Include="Dgmjr.CodeGeneration.Extensions.TypeDeclarationExtensions" />
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers"  />

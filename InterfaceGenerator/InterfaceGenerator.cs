@@ -1,3 +1,4 @@
+using System.Diagnostics.SymbolStore;
 //
 // InterfaceGenerator.cs
 //
@@ -41,7 +42,9 @@ namespace Dgmjr.InterfaceGenerator
                                 al.Attributes.Any(
                                     a => a.Name.ToString() == GenerateInterfaceAttributeName
                                 )
-                        ),
+                        ) ||
+                        token is ClassDeclarationSyntax classDeclarationSyntax ||
+                        token is StructDeclarationSyntax structDeclarationSyntax,
                     (context, _) =>
                         (
                             context.Attributes.FirstOrDefault(
@@ -80,15 +83,15 @@ namespace Dgmjr.InterfaceGenerator
             foreach (
                 (
                     AttributeData? attributeData,
-                    INamedTypeSymbol? interfaceSymbol,
+                    INamedTypeSymbol? targetSymbol,
                     SemanticModel semanticModel
                 ) in values
             )
             {
-                string interfaceName = interfaceSymbol.Name;
-                string interfaceNamespace = interfaceSymbol.ContainingNamespace.ToDisplayString();
+                string interfaceName = targetSymbol.TypeKind == TypeKind.Interface ? targetSymbol.Name : "I" + targetSymbol.Name;
+                string interfaceNamespace = targetSymbol.ContainingNamespace.ToDisplayString();
                 INamedTypeSymbol? classToGenerateTheInterfaceFor =
-                    attributeData.ConstructorArguments.First().Value as INamedTypeSymbol;
+                    attributeData.ConstructorArguments.FirstOrDefault().Value as INamedTypeSymbol ?? targetSymbol as INamedTypeSymbol;
                 context.AddSource(
                     interfaceName + ".g.cs",
                     InterfaceDeclarationTemplate.Render(
@@ -149,13 +152,13 @@ namespace Dgmjr.InterfaceGenerator
                                         )
                                         .Where<string>(m => m.IndexOf("*") < 0)
                                 ),
-                            interfaceSymbol.IsGenericType
-                                ? $"<{Join(", ", interfaceSymbol.TypeParameters.Select(tp => tp.Name))}>"
+                            targetSymbol.IsGenericType
+                                ? $"<{Join(", ", targetSymbol.TypeParameters.Select(tp => tp.Name))}>"
                                 : "",
-                            interfaceSymbol.TypeParameters.Any()
+                            targetSymbol.TypeParameters.Any()
                                 ? Join(
                                     "\r\n",
-                                    interfaceSymbol.TypeParameters.Select(
+                                    targetSymbol.TypeParameters.Select(
                                         tp => GenerateGenericTypeConstraints(tp)
                                     )
                                 )
