@@ -40,7 +40,7 @@ namespace Dgmjr.InterfaceGenerator
                         && interfaceDeclarationSyntax.AttributeLists.Any(
                             al =>
                                 al.Attributes.Any(
-                                    a => a.Name.ToString() == GenerateInterfaceAttributeName
+                                    a => a.AttributeClass?.Name == GenerateInterfaceAttributeName
                                 )
                         ) ||
                         token is ClassDeclarationSyntax classDeclarationSyntax ||
