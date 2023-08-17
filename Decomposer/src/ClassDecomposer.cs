@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
+using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Text;
-using System.Text;
-using SourceHash = System.Collections.Immutable.ImmutableArray<byte>;
-using System.Collections.Immutable;
 using Microsoft.CodeAnalysis.Diagnostics;
+using Microsoft.CodeAnalysis.Text;
+using SourceHash = System.Collections.Immutable.ImmutableArray<byte>;
 namespace Dgmjr.InterfaceGenerator.Decomposer;
 using static Constants;
 
@@ -36,7 +36,7 @@ public class TypeDecomposer : IIncrementalGenerator
             ctx =>
                 ctx.AddSource(
                     "Logs.g.cs",
-                    SourceText.From(string.Join("\n", Log.Logs), Encoding.UTF8)
+                    SourceText.From(Join("\n", Log.Logs), Encoding.UTF8)
                 )
         );
     }
@@ -44,10 +44,10 @@ public class TypeDecomposer : IIncrementalGenerator
     private static bool Filter(SyntaxNode node, CancellationToken _)
     {
         Log.Print($"Filtering {node.Kind()}");
-        return node is TypeDeclarationSyntax tds && (tds.Kind() == SyntaxKind.ClassDeclaration || tds.Kind() == SyntaxKind.StructDeclaration || tds.Kind() == SyntaxKind.InterfaceDeclaration)
+        return node is TypeDeclarationSyntax tds && (tds.Kind() is SyntaxKind.ClassDeclaration or SyntaxKind.StructDeclaration or SyntaxKind.InterfaceDeclaration)
             && tds.AttributeLists.Any(
                 al => al.Attributes.Any(
-                    a => a.Name.ToString() is AttributeName or AttributeName + "Attribute"
+                    a => a.Name.ToString() is AttributeName or AttributeFullName
                 )
             );
     }
@@ -85,11 +85,8 @@ public class TypeDecomposer : IIncrementalGenerator
 
         var members = targetSymbol
             .GetMembers()
-            .Where(m => m.Kind == SymbolKind.Method || m.Kind == SymbolKind.Property)
-            .Where(m => m.DeclaredAccessibility == Accessibility.Public)
-            .Where(
-                m =>
-                    !(
+            .Where(m => m.Kind is SymbolKind.Method or SymbolKind.Property)
+            .Where(m => m.DeclaredAccessibility == Accessibility.Public && !(
                         m is IPropertySymbol property
                         && (
                             property.IsIndexer
@@ -97,12 +94,10 @@ public class TypeDecomposer : IIncrementalGenerator
                             || property.IsWriteOnly
                         )
                     )
-            )
+)
             .ToList();
 
-        var interfaceDeclarationSyntaxTrees = new DefaultableDictionary<
-            string,
-            IList<InterfaceDeclarationSyntax>>(new List<InterfaceDeclarationSyntax>());
+        var interfaceDeclarationSyntaxTrees = new DefaultableDictionary<string, IList<InterfaceDeclarationSyntax>>(new List<InterfaceDeclarationSyntax>());
 
         foreach (var member in members)
         {
@@ -116,10 +111,7 @@ public class TypeDecomposer : IIncrementalGenerator
                     ),
             };
 
-            if (
-                member is IPropertySymbol p
-                && p.DeclaredAccessibility == Accessibility.Public
-            )
+            if (member is IPropertySymbol p && p.DeclaredAccessibility is Accessibility.Public)
             {
                 interfaceDeclarationSyntaxTrees[p.Name].Add(
                     SyntaxFactory
@@ -130,7 +122,7 @@ public class TypeDecomposer : IIncrementalGenerator
                                     .OfType<MemberDeclarationSyntax>()
                             )
                         )
-                        .AddAttributeLists(GeneratedCodeAttribueSyntax)
+                        .AddAttributeLists(GeneratedCodeAttributesSyntax)
                         .AddBaseListTypes(
                             SyntaxFactory.SimpleBaseType(
                                 SyntaxFactory.ParseTypeName(
@@ -162,7 +154,7 @@ public class TypeDecomposer : IIncrementalGenerator
                                         .OfType<MemberDeclarationSyntax>()
                                 )
                             )
-                            .AddAttributeLists(GeneratedCodeAttribueSyntax)
+                            .AddAttributeLists(GeneratedCodeAttributesSyntax)
                             .AddBaseListTypes(
                                 SyntaxFactory.SimpleBaseType(
                                     SyntaxFactory.ParseTypeName(

@@ -14,14 +14,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Microsoft.EntityFrameworkCore.Abstractions
 {
-    [Decompose]
+    [Decompose("Microsoft.EntityFrameworkCore.Abstractions")]
     public partial interface IDbContext
     {
         public int Foo { get; set; }
         public DbSet<Bar> Bars { get; set; }
     }
 
-    [Decompose]
+    [Decompose("Microsoft.EntityFrameworkCore.Abstractions")]
     public partial class Bar
     {
         public static void Main(string[] args)
