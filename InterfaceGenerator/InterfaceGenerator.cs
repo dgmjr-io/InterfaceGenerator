@@ -17,8 +17,10 @@ namespace Dgmjr.InterfaceGenerator
     // using Dgmjr.ion.Extensions;
     using System.Collections.Immutable;
     using System.Linq;
+
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+
     using static System.String;
 
     [Generator]
@@ -36,15 +38,9 @@ namespace Dgmjr.InterfaceGenerator
                 .ForAttributeWithMetadataName(
                     GenerateInterfaceAttributeName,
                     (token, _) =>
-                        token is InterfaceDeclarationSyntax interfaceDeclarationSyntax
-                        && interfaceDeclarationSyntax.AttributeLists.Any(
-                            al =>
-                                al.Attributes.Any(
-                                    a => a.AttributeClass?.Name == GenerateInterfaceAttributeName
-                                )
-                        ) ||
-                        token is ClassDeclarationSyntax classDeclarationSyntax ||
-                        token is StructDeclarationSyntax structDeclarationSyntax,
+                        token is InterfaceDeclarationSyntax ||
+                        token is ClassDeclarationSyntax ||
+                        token is StructDeclarationSyntax,
                     (context, _) =>
                         (
                             context.Attributes.FirstOrDefault(
@@ -164,7 +160,7 @@ namespace Dgmjr.InterfaceGenerator
                                 )
                                 : ""
                         )
-                    )
+                    ).Replace(" override ", " ").Replace(" virtual ", " ").Replace("public ", "")
                 );
             }
         }

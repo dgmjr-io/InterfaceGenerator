@@ -93,31 +93,33 @@ namespace Dgmjr.InterfaceGenerator
         public static readonly Scriban.Template PropertyDeclarationTemplate =
             Scriban.Template.Parse(PropertyDeclaration);
 
-        // static Constants()
-        // {
-        //     if(!InterfaceDeclarationTemplate.HasErrors)
-        //         throw new Exception(string.Join(Environment.NewLine, InterfaceDeclarationTemplate.Messages.Select(m => m.ToString())));
-        // }
-
         public static readonly SymbolDisplayFormat SymbolDisplayFormat =
+        // new(
+        //     typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+        //     genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters,
+        //     memberOptions: SymbolDisplayMemberOptions.IncludeParameters | SymbolDisplayMemberOptions.IncludeType,
+        //     parameterOptions: SymbolDisplayParameterOptions.IncludeType | SymbolDisplayParameterOptions.IncludeName,
+        //     propertyStyle: SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
+        //     miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes
+        // /*
             new(
                 SymbolDisplayGlobalNamespaceStyle.Included,
                 SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
                 SymbolDisplayGenericsOptions.IncludeTypeParameters
                     | SymbolDisplayGenericsOptions.IncludeVariance
                     | SymbolDisplayGenericsOptions.IncludeTypeConstraints,
-                SymbolDisplayMemberOptions.IncludeConstantValue
-                    | SymbolDisplayMemberOptions.IncludeExplicitInterface
+                SymbolDisplayMemberOptions.IncludeExplicitInterface
                     | SymbolDisplayMemberOptions.IncludeModifiers
                     | SymbolDisplayMemberOptions.IncludeParameters
                     | SymbolDisplayMemberOptions.IncludeRef
-                    | SymbolDisplayMemberOptions.IncludeType,
+                    | SymbolDisplayMemberOptions.IncludeType
+                    // | SymbolDisplayMemberOptions.IncludeContainingType
+                    | SymbolDisplayMemberOptions.IncludeAccessibility,
                 SymbolDisplayDelegateStyle.NameAndSignature,
                 SymbolDisplayExtensionMethodStyle.Default,
                 SymbolDisplayParameterOptions.IncludeExtensionThis
                     | SymbolDisplayParameterOptions.IncludeName
                     | SymbolDisplayParameterOptions.IncludeParamsRefOut
-                    | SymbolDisplayParameterOptions.IncludeType
                     | SymbolDisplayParameterOptions.IncludeType
                     | SymbolDisplayParameterOptions.IncludeDefaultValue
                     | SymbolDisplayParameterOptions.IncludeOptionalBrackets,
@@ -138,31 +140,6 @@ namespace Dgmjr.InterfaceGenerator
         string TypeParameters,
         string TypeConstraints
     );
-
-    // public record struct MethodDeclarationModel(
-    //     string ReturnType,
-    //     string MethodName,
-    //     string Parameters,
-    //     string TypeConstraints,
-    //     string FullDefinition
-    // );
-
-    // public record struct MethodParameterModel(string Type, string Name);
-
-    // public record struct PropertyDeclarationModel(
-    //     string visibility,
-    //     string Type,
-    //     string Name,
-    //     bool IsGettable,
-    //     bool IsSettable,
-    //     string? Indexers = null
-    // )
-    // {
-    //     public bool IsIndexed => !string.IsNullOrWhiteSpace(Indexers);
-
-    //     public string Name { get; } =
-    //         (!string.IsNullOrWhiteSpace(Indexers) ? $"this[{Indexers}]" : Name);
-    // }
 
     public static class Environment
     {
