@@ -9,14 +9,16 @@
  *   Copyright © 2022 - 2023 David G. Moore, Jr., All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
-using Microsoft.EntityFrameworkCore;
-
 
 namespace Microsoft.EntityFrameworkCore.Abstractions;
+
 [Decompose("Microsoft.EntityFrameworkCore.Abstractions")]
-public partial interface IDbContext
+public partial class Bar
 {
-    public int Foo { get; set; }
-    public DbSet<Bar> Bars { get; set; }
-    public void FuckOff();
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Hello World!");
+    }
+    public int Id { get; set; }
+    public string Name { get; set; }
 }

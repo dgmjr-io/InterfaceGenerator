@@ -14,10 +14,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <OutputType>Library</OutputType>
+    <NoWarn>$(NoWarn);CS1570</NoWarn>
+    <IsPackable>false</IsPackable>
+    <IsNuGetized>false</IsNuGetized>
   </PropertyGroup>
   <ItemGroup>
-    <SourceGenerator  Include="Dgmjr.InterfaceGenerator.Decomposer" />
+    <PackageReference Include="Dgmjr.InterfaceGenerator.Decomposer" PrivateAssets="Analyzers" />
     <PackageReference Include="OneOf" />
     <PackageReference Include="Microsoft.Net.Compilers.Toolset" />
     <PackageReference Include="Dgmjr.CodeGeneration.Extensions.TypeDeclarationExtensions" />

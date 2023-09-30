@@ -62,12 +62,11 @@ namespace Dgmjr.InterfaceGenerator.Decomposer
         public const string DecomposedPropertyDeclaration =
             GeneratedCodeAttributes
             + """
-            {{ property_type
-    }
-}
-{ { property_name } }
-{ { { if is_gettable } } get; { { end } } { { if is_settable } } set; { { end } } }
-""";
+            {{ property_type }}
+            {{ property_name }}
+            { {{ if is_gettable }} get; {{ end }} {{ if is_settable }} set; {{ end }} }
+            { {{ if is_gettable }} get; {{ end }} {{ if is_settable }} set; {{ end }} }
+            """;
 
         public const string DecomposedMethodDeclaration =
             GeneratedCodeAttributes
@@ -147,7 +146,6 @@ namespace Dgmjr.InterfaceGenerator.Decomposer
                 SymbolDisplayParameterOptions.IncludeExtensionThis
                     | SymbolDisplayParameterOptions.IncludeName
                     | SymbolDisplayParameterOptions.IncludeParamsRefOut
-                    | SymbolDisplayParameterOptions.IncludeType
                     | SymbolDisplayParameterOptions.IncludeType
                     | SymbolDisplayParameterOptions.IncludeDefaultValue
                     | SymbolDisplayParameterOptions.IncludeOptionalBrackets,

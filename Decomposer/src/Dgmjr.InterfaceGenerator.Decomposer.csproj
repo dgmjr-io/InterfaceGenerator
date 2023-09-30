@@ -15,13 +15,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <NoWarn>$(NoWarn);RS1035</NoWarn>
     <PackageVersion>0.0.1-Local</PackageVersion>
+    <IncludeBuildOutput>true</IncludeBuildOutput>
   </PropertyGroup>
   <ItemGroup>
-        <!-- <PackageReference Include="OneOf" /> -->
         <PackageReference Include="Dgmjr.CodeGeneration.Extensions.TypeDeclarationExtensions" />
         <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers"  />
         <PackageReference Include="Microsoft.CodeAnalysis.Common" />
@@ -38,15 +37,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="./Resources/*" />
-    <Compile Remove="./aigenerated/**/*.cs" />
-    <Compile Remove="./chatwithopenaitogeneratethissolution/**/*.*" />
-    <EmbeddedResource Include="./Resources/**/*" />
+    <Compile Remove="./Runtime/**/*.*" />
   </ItemGroup>
 
-  <PropertyGroup>
-    <IncludeBuildOutput>true</IncludeBuildOutput>
-  </PropertyGroup>
+  <Target Name="BuildRuntime" BeforeTargets="Build">
+    <MSBuild Projects="./Runtime/Dgmjr.InterfaceGenerator.Decomposer.Runtime.csproj" Targets="Restore;Build" Properties="Configuration=$(Configuration);PackageVersion=$(PackageVersion)" />
+  </Target>
+
+  <ItemGroup>
+    <Content Include="./Runtime/bin/**/*.dll" PackagePath="lib/$(TargetFramework)/%(Filename)%(Extension)" />
+  </ItemGroup>
 
   <ItemGroup>
     <!-- <Reference Include="netstandard" /> -->
