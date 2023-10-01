@@ -12,6 +12,4 @@
 
 namespace Dgmjr.Abstractions;
 
-public interface IDecomposed<TFrom>
-{
-}
+public interface IDecomposed<TFrom> { }

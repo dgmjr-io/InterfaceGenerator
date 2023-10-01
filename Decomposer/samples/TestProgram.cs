@@ -1,5 +1,3 @@
 namespace Dgmjr.InterfaceGenerator.Decomposer.Sample.Exe;
 
-public static class TestProgram
-{
-}
+public static class TestProgram { }

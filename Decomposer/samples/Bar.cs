@@ -19,6 +19,7 @@ public partial class Bar
     {
         Console.WriteLine("Hello World!");
     }
+
     public int Id { get; set; }
     public string Name { get; set; }
 }

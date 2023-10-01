@@ -94,14 +94,14 @@ namespace Dgmjr.InterfaceGenerator
             Scriban.Template.Parse(PropertyDeclaration);
 
         public static readonly SymbolDisplayFormat SymbolDisplayFormat =
-        // new(
-        //     typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
-        //     genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters,
-        //     memberOptions: SymbolDisplayMemberOptions.IncludeParameters | SymbolDisplayMemberOptions.IncludeType,
-        //     parameterOptions: SymbolDisplayParameterOptions.IncludeType | SymbolDisplayParameterOptions.IncludeName,
-        //     propertyStyle: SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
-        //     miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes
-        // /*
+            // new(
+            //     typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+            //     genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters,
+            //     memberOptions: SymbolDisplayMemberOptions.IncludeParameters | SymbolDisplayMemberOptions.IncludeType,
+            //     parameterOptions: SymbolDisplayParameterOptions.IncludeType | SymbolDisplayParameterOptions.IncludeName,
+            //     propertyStyle: SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
+            //     miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes
+            // /*
             new(
                 SymbolDisplayGlobalNamespaceStyle.Included,
                 SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,

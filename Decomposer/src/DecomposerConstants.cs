@@ -33,11 +33,15 @@ namespace Dgmjr.InterfaceGenerator.Decomposer
         """;
 
         public static readonly AttributeListSyntax GeneratedCodeAttributesSyntax =
-            SyntaxFactory.AttributeList(SyntaxFactory.SeparatedList(
-                SyntaxFactory.ParseCompilationUnit(GeneratedCodeAttributes)
-                .DescendantNodesAndSelf(_ => true, false).SelectMany(
-                node => node.ChildNodes()
-            ).OfType<AttributeSyntax>()));
+            SyntaxFactory.AttributeList(
+                SyntaxFactory.SeparatedList(
+                    SyntaxFactory
+                        .ParseCompilationUnit(GeneratedCodeAttributes)
+                        .DescendantNodesAndSelf(_ => true, false)
+                        .SelectMany(node => node.ChildNodes())
+                        .OfType<AttributeSyntax>()
+                )
+            );
 
         public const string GeneratedCodeAttributes = $$$"""
         [System.Runtime.CompilerServices.CompilerGenerated]

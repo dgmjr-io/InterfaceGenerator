@@ -11,8 +11,8 @@
  */
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Microsoft.EntityFrameworkCore.Abstractions;
+
 [Decompose("Microsoft.EntityFrameworkCore.Abstractions")]
 public partial interface IDbContext
 {

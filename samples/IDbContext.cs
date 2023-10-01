@@ -10,10 +10,8 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 using Microsoft.EntityFrameworkCore;
+
 namespace Microsoft.EntityFrameworkCore.Abstractions;
 
 [GenerateInterfaceAttribute(typeof(DbContext))]
-public partial interface IDbContext
-{
-
-}
+public partial interface IDbContext { }

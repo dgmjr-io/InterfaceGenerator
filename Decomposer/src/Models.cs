@@ -12,9 +12,24 @@
 
 namespace Dgmjr.InterfaceGenerator.Decomposer.Models
 {
-    public record struct DecomposedProperty(string PropertyName, string PropertyType, string DecomposedFrom, bool IsGettable, bool IsSettable);
+    public record struct DecomposedProperty(
+        string PropertyName,
+        string PropertyType,
+        string DecomposedFrom,
+        bool IsGettable,
+        bool IsSettable
+    );
+
     public record struct DecomposedMemberModel(string DecomposedFrom, string MemberName);
-    public record struct DecomposedMethodModel(string ReturnType, string MethodName, DecomposedParameterModel[]? Parameters, DecomposedTypeConstraintModel[]? GenericTypeConstraints);
+
+    public record struct DecomposedMethodModel(
+        string ReturnType,
+        string MethodName,
+        DecomposedParameterModel[]? Parameters,
+        DecomposedTypeConstraintModel[]? GenericTypeConstraints
+    );
+
     public record struct DecomposedParameterModel(string Type, string Name);
+
     public record struct DecomposedTypeConstraintModel(string Name, string Constraint);
 }

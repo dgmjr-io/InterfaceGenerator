@@ -1,4 +1,5 @@
 using System.Diagnostics.SymbolStore;
+
 //
 // InterfaceGenerator.cs
 //
@@ -38,9 +39,9 @@ namespace Dgmjr.InterfaceGenerator
                 .ForAttributeWithMetadataName(
                     GenerateInterfaceAttributeName,
                     (token, _) =>
-                        token is InterfaceDeclarationSyntax ||
-                        token is ClassDeclarationSyntax ||
-                        token is StructDeclarationSyntax,
+                        token is InterfaceDeclarationSyntax
+                        || token is ClassDeclarationSyntax
+                        || token is StructDeclarationSyntax,
                     (context, _) =>
                         (
                             context.Attributes.FirstOrDefault(
@@ -84,83 +85,91 @@ namespace Dgmjr.InterfaceGenerator
                 ) in values
             )
             {
-                string interfaceName = targetSymbol.TypeKind == TypeKind.Interface ? targetSymbol.Name : "I" + targetSymbol.Name;
+                string interfaceName =
+                    targetSymbol.TypeKind == TypeKind.Interface
+                        ? targetSymbol.Name
+                        : "I" + targetSymbol.Name;
                 string interfaceNamespace = targetSymbol.ContainingNamespace.ToDisplayString();
                 INamedTypeSymbol? classToGenerateTheInterfaceFor =
-                    attributeData.ConstructorArguments.FirstOrDefault().Value as INamedTypeSymbol ?? targetSymbol as INamedTypeSymbol;
+                    attributeData.ConstructorArguments.FirstOrDefault().Value as INamedTypeSymbol
+                    ?? targetSymbol as INamedTypeSymbol;
                 context.AddSource(
                     interfaceName + ".g.cs",
-                    InterfaceDeclarationTemplate.Render(
-                        new InterfaceGeneratorModel(
-                            interfaceNamespace,
-                            interfaceName,
-                            Join(
-                                Environment.NewLine,
-                                classToGenerateTheInterfaceFor
-                                    .GetMembers()
-                                    .Where(member => member.Kind is SymbolKind.Property)
-                                    .OfType<IPropertySymbol>()
-                                    .Where(p => p.DeclaredAccessibility == Accessibility.Public)
-                                    .Select(
-                                        p => p.ToDisplayString(Constants.SymbolDisplayFormat)
-                                    // PropertyDeclarationTemplate.Render(
-                                    //     new PropertyDeclarationModel(
-                                    //         "public",
-                                    //         p.Type.ToDisplayString(),
-                                    //         p.Name,
-                                    //         p.GetMethod != null,
-                                    //         p.SetMethod != null,
-                                    //         p.IsIndexer
-                                    //             ? Join(
-                                    //                 ", ",
-                                    //                 p.Parameters.Select(
-                                    //                     p =>
-                                    //                         $"{p.Type.ToDisplayString()} {p.Name}"
-                                    //                 )
-                                    //             )
-                                    //             : ""
-                                    //     )
-                                    // )
-                                    )
-                            )
-                                + Environment.NewLine
-                                + Join(
+                    InterfaceDeclarationTemplate
+                        .Render(
+                            new InterfaceGeneratorModel(
+                                interfaceNamespace,
+                                interfaceName,
+                                Join(
                                     Environment.NewLine,
                                     classToGenerateTheInterfaceFor
                                         .GetMembers()
-                                        .Where(member => member.Kind is SymbolKind.Method)
-                                        .OfType<IMethodSymbol>()
-                                        .Where(
-                                            m =>
-                                                m.DeclaredAccessibility == Accessibility.Public
-                                                && m.CanBeReferencedByName
-                                        )
+                                        .Where(member => member.Kind is SymbolKind.Property)
+                                        .OfType<IPropertySymbol>()
+                                        .Where(p => p.DeclaredAccessibility == Accessibility.Public)
                                         .Select(
-                                            m =>
-                                                m.IsOverride
-                                                    ? ""
-                                                    : (
-                                                        m.ToDisplayString(
-                                                                Constants.SymbolDisplayFormat
-                                                            )
-                                                            .Replace("override", "") + ";"
-                                                    )
+                                            p => p.ToDisplayString(Constants.SymbolDisplayFormat)
+                                        // PropertyDeclarationTemplate.Render(
+                                        //     new PropertyDeclarationModel(
+                                        //         "public",
+                                        //         p.Type.ToDisplayString(),
+                                        //         p.Name,
+                                        //         p.GetMethod != null,
+                                        //         p.SetMethod != null,
+                                        //         p.IsIndexer
+                                        //             ? Join(
+                                        //                 ", ",
+                                        //                 p.Parameters.Select(
+                                        //                     p =>
+                                        //                         $"{p.Type.ToDisplayString()} {p.Name}"
+                                        //                 )
+                                        //             )
+                                        //             : ""
+                                        //     )
+                                        // )
                                         )
-                                        .Where<string>(m => m.IndexOf("*") < 0)
-                                ),
-                            targetSymbol.IsGenericType
-                                ? $"<{Join(", ", targetSymbol.TypeParameters.Select(tp => tp.Name))}>"
-                                : "",
-                            targetSymbol.TypeParameters.Any()
-                                ? Join(
-                                    "\r\n",
-                                    targetSymbol.TypeParameters.Select(
-                                        tp => GenerateGenericTypeConstraints(tp)
-                                    )
                                 )
-                                : ""
+                                    + Environment.NewLine
+                                    + Join(
+                                        Environment.NewLine,
+                                        classToGenerateTheInterfaceFor
+                                            .GetMembers()
+                                            .Where(member => member.Kind is SymbolKind.Method)
+                                            .OfType<IMethodSymbol>()
+                                            .Where(
+                                                m =>
+                                                    m.DeclaredAccessibility == Accessibility.Public
+                                                    && m.CanBeReferencedByName
+                                            )
+                                            .Select(
+                                                m =>
+                                                    m.IsOverride
+                                                        ? ""
+                                                        : (
+                                                            m.ToDisplayString(
+                                                                    Constants.SymbolDisplayFormat
+                                                                )
+                                                                .Replace("override", "") + ";"
+                                                        )
+                                            )
+                                            .Where<string>(m => m.IndexOf("*") < 0)
+                                    ),
+                                targetSymbol.IsGenericType
+                                    ? $"<{Join(", ", targetSymbol.TypeParameters.Select(tp => tp.Name))}>"
+                                    : "",
+                                targetSymbol.TypeParameters.Any()
+                                    ? Join(
+                                        "\r\n",
+                                        targetSymbol.TypeParameters.Select(
+                                            tp => GenerateGenericTypeConstraints(tp)
+                                        )
+                                    )
+                                    : ""
+                            )
                         )
-                    ).Replace(" override ", " ").Replace(" virtual ", " ").Replace("public ", "")
+                        .Replace(" override ", " ")
+                        .Replace(" virtual ", " ")
+                        .Replace("public ", "")
                 );
             }
         }
