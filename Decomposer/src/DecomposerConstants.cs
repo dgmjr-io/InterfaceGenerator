@@ -66,34 +66,36 @@ namespace Dgmjr.InterfaceGenerator.Decomposer
         public const string DecomposedPropertyDeclaration =
             GeneratedCodeAttributes
             + """
-            {{ property_type }}
-            {{ property_name }}
-            { {{ if is_gettable }} get; {{ end }} {{ if is_settable }} set; {{ end }} }
-            { {{ if is_gettable }} get; {{ end }} {{ if is_settable }} set; {{ end }} }
-            """;
+            {{ property_type
+    }
+}
+{ { property_name } }
+{ { { if is_gettable } } get; { { end } } { { if is_settable } } set; { { end } } }
+{ { { if is_gettable } } get; { { end } } { { if is_settable } } set; { { end } } }
+""";
 
         public const string DecomposedMethodDeclaration =
             GeneratedCodeAttributes
             + """
-            {{ return_type }}
-            {{ method_name }} ({ { for parameter in parameters }}
-            {{ parameter.type }}
-            {{ parameter.name }}
-            {{ if not loop.last }}, {{ endif }}
-            {{ endfor }})
-                        {{ if has_generic_type_constraints }}
-            {{ for generic_type_constraint in generic_type_constraints }}
-            where
-            {{ generic_type_constraint.name }} : {{ type_constraint.constraint }}
-            {{ endfor }}
-            {{ endif }}
-            """;
+            { { return_type } }
+{ { method_name } } ({ { for parameter in parameters } }
+{ { parameter.type } }
+{ { parameter.name } }
+{ { if not loop.last } }, { { endif } }
+{ { endfor } })
+                        { { if has_generic_type_constraints } }
+{ { for generic_type_constraint in generic_type_constraints } }
+where
+{ { generic_type_constraint.name } } : { { type_constraint.constraint } }
+{ { endfor } }
+{ { endif } }
+""";
 
         public const string DecomposableAttributeFilename = "DecomposableAttribute.g.cs";
 
-        public const string DecomposableAttributeDeclaration =
-            DecomposedInterfaceHeader
-            + """
+public const string DecomposableAttributeDeclaration =
+    DecomposedInterfaceHeader
+    + """
 [global::System.AttributeUsage(global::System.AttributeTargets.Class | global::System.AttributeTargets.Struct | global::System.AttributeTargets.Interface | global::System.AttributeTargets.Assembly)]
         public sealed class DecomposeAttribute : global::System.Attribute
 {
@@ -104,31 +106,33 @@ namespace Dgmjr.InterfaceGenerator.Decomposer
 
         public const string IComposedClassDeclaration = """
         public partial class {{ class_name }} : { { for type_member_tuple in decomposed_from } }
-        IDecomposed <{{ decomposed_from.type }}>
+IDecomposed <{ { decomposed_from.type } }>
                 {
-            {{ for type_member_tuple in decomposed_from }}
-            {{ if type_member_tuple.member.is_property }}
+    { { for type_member_tuple in decomposed_from } }
+    { { if type_member_tuple.member.is_property } }
                     public
-                    {{~ type_member_tuple.member.type }}
-                    {{~ type_member_tuple.member.name }}
-                    {{ get; }}
-                    {{ elif type_member_tuple.member.is_method }}
-                    public
-                    {{ decomposed_from.type }}
-                    {{ decomposed_from.member }} {{ get; }}
-                    {{ endfor }}
+{ { ~type_member_tuple.member.type } }
+{ { ~type_member_tuple.member.name } }
+{ { get; } }
+{ { elif type_member_tuple.member.is_method } }
+public
+{ { decomposed_from.type } }
+{ { decomposed_from.member } }
+{ { get; } }
+{ { endfor } }
 
 
-        public
-        {{ class_name }} ({ decomposed_from }    decomposed)
+public
+{ { class_name } } ({ decomposed_from }
+decomposed)
                     {
-            { decomposed_from } = decomposed;
-        }
+    { decomposed_from } = decomposed;
+}
 
-        public
-        { decomposed_from }
-        { decomposed_from }
-        {{ get; }}
+public
+{ decomposed_from }
+{ decomposed_from }
+{ { get; } }
         }
         """;
 
@@ -162,16 +166,16 @@ namespace Dgmjr.InterfaceGenerator.Decomposer
                     | SymbolDisplayMiscellaneousOptions.IncludeNotNullableReferenceTypeModifier
             );
 
-        internal const string AttributeName = "Decompose";
-        internal const string AttributeFullName = AttributeName + nameof(Attribute);
-        internal const string InterfaceNamePrefix = "I";
-        internal const string InterfaceSuffix = "Decomposition";
-        internal const string NamespaceSuffix = ".Decompositions";
-        internal const string SourceFileNameSuffix = ".Decompositions.g.cs";
-        internal const string GeneratedCodeAttributeName = "GeneratedCodeAttribute";
-        internal const string GeneratedCodeAttributeFullName =
-            $"System.Diagnostics.CodeAnalysis.{GeneratedCodeAttributeName}";
-        internal const string CompilerGeneratedAttributeFullName =
-            "System.Runtime.CompilerServices.CompilerGeneratedAttribute";
+internal const string AttributeName = "Decompose";
+internal const string AttributeFullName = AttributeName + nameof(Attribute);
+internal const string InterfaceNamePrefix = "I";
+internal const string InterfaceSuffix = "Decomposition";
+internal const string NamespaceSuffix = ".Decompositions";
+internal const string SourceFileNameSuffix = ".Decompositions.g.cs";
+internal const string GeneratedCodeAttributeName = "GeneratedCodeAttribute";
+internal const string GeneratedCodeAttributeFullName =
+    $"System.Diagnostics.CodeAnalysis.{GeneratedCodeAttributeName}";
+internal const string CompilerGeneratedAttributeFullName =
+    "System.Runtime.CompilerServices.CompilerGeneratedAttribute";
     }
 }
