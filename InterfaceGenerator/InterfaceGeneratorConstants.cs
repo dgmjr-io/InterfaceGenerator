@@ -18,7 +18,7 @@ namespace Dgmjr.InterfaceGenerator
     // using Dgmjr.CodeGeneration.Extensions;
     public static class Constants
     {
-        public const string AssemblyName = ThisAssembly.Info.Title;
+        public const string AssemblyName = ThisAssembly.Project.AssemblyName;
         public const string AssemblyVersion = ThisAssembly.Info.Version;
         public const string GenerateInterfaceAttributeName = "GenerateInterfaceAttribute";
         public const string Header = $"""

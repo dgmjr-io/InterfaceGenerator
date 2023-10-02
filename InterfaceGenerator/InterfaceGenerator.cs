@@ -106,7 +106,11 @@ namespace Dgmjr.InterfaceGenerator
                                         .GetMembers()
                                         .Where(member => member.Kind is SymbolKind.Property)
                                         .OfType<IPropertySymbol>()
-                                        .Where(p => p.DeclaredAccessibility == Accessibility.Public)
+                                        .Where(
+                                            p =>
+                                                p.DeclaredAccessibility == Accessibility.Public
+                                                && !p.IsStatic
+                                        )
                                         .Select(
                                             p => p.ToDisplayString(Constants.SymbolDisplayFormat)
                                         // PropertyDeclarationTemplate.Render(
@@ -140,6 +144,7 @@ namespace Dgmjr.InterfaceGenerator
                                                 m =>
                                                     m.DeclaredAccessibility == Accessibility.Public
                                                     && m.CanBeReferencedByName
+                                                    && !m.IsStatic
                                             )
                                             .Select(
                                                 m =>
