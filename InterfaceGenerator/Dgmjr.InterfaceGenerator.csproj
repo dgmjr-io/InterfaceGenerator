@@ -42,12 +42,14 @@
         <PackageReference Include="System.Text.RegularExpressions.Usings" />
         <PackageReference Include="Dgmjr.CodeGeneration.Constants-Scriban.Bundled" IncludeAssets="ContentFiles;Build" ExcludeAssets="Lib;Runtime;Source;Native;Analyzers" PrivateAssets="All" />
         <PackageReference Include="Microsoft.CSharp" PrivateAssets="All" />
+        <ProjectReference Include="./Runtime/Dgmjr.InterfaceGenerator.Runtime.csproj" />
     </ItemGroup>
 
     <ItemGroup>
         <Using Include="Dgmjr.InterfaceGenerator.Constants" Static="true" />
         <Using Include="System.Diagnostics" />
         <NoWarn Include="RS1035" />
+        <Compile Remove="Runtime/**/*.*" />
     </ItemGroup>
 
     <ItemGroup>

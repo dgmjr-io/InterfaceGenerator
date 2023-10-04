@@ -15,7 +15,6 @@ using System.Diagnostics.SymbolStore;
 
 namespace Dgmjr.InterfaceGenerator
 {
-    // using Dgmjr.ion.Extensions;
     using System.Collections.Immutable;
     using System.Linq;
 
@@ -33,19 +32,18 @@ namespace Dgmjr.InterfaceGenerator
         /// <param name="context">Provides information about the compilation and environment that is passed to the generator</param>
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
-            IncrementalValueProvider<
-                ImmutableArray<(AttributeData?, INamedTypeSymbol?, SemanticModel SemanticModel)>
-            > interfaces = context.SyntaxProvider
+            var interfaces = context.SyntaxProvider
                 .ForAttributeWithMetadataName(
                     GenerateInterfaceAttributeName,
                     (token, _) =>
-                        token is InterfaceDeclarationSyntax
-                        || token is ClassDeclarationSyntax
-                        || token is StructDeclarationSyntax,
+                        token
+                            is InterfaceDeclarationSyntax
+                                or ClassDeclarationSyntax
+                                or StructDeclarationSyntax,
                     (context, _) =>
                         (
                             context.Attributes.FirstOrDefault(
-                                a => a.AttributeClass?.Name == GenerateInterfaceAttributeName
+                                a => a.AttributeClass?.Name is GenerateInterfaceAttributeName
                             ),
                             context.TargetSymbol as INamedTypeSymbol,
                             context.SemanticModel
@@ -53,17 +51,17 @@ namespace Dgmjr.InterfaceGenerator
                 )
                 .Collect();
 
-            IncrementalValueProvider<Compilation> compilation = context.CompilationProvider;
+            var compilation = context.CompilationProvider;
 
             context.RegisterSourceOutput(interfaces, Generate);
 
-            context.RegisterPostInitializationOutput(
-                (ctx) =>
-                    ctx.AddSource(
-                        $"{GenerateInterfaceAttributeName}.g.cs",
-                        GenerateInterfaceAtributeDeclaration
-                    )
-            );
+            // context.RegisterPostInitializationOutput(
+            //     (ctx) =>
+            //         ctx.AddSource(
+            //             $"{GenerateInterfaceAttributeName}.g.cs",
+            //             GenerateInterfaceAtributeDeclaration
+            //         )
+            // );
         }
 
         /// <summary>
@@ -76,105 +74,116 @@ namespace Dgmjr.InterfaceGenerator
             ImmutableArray<(AttributeData?, INamedTypeSymbol?, SemanticModel)> values
         )
         {
-            context.AddSource($"AttributeCount.g.cs", $"/* {values.Length} */");
-            foreach (
-                (
-                    AttributeData? attributeData,
-                    INamedTypeSymbol? targetSymbol,
-                    SemanticModel semanticModel
-                ) in values
-            )
+            context.AddSource("AttributeCount.g.cs", $"/* {values.Length} */");
+            foreach ((var attributeData, var targetSymbol, var semanticModel) in values)
             {
-                string interfaceName =
+                var interfaceName =
                     targetSymbol.TypeKind == TypeKind.Interface
                         ? targetSymbol.Name
                         : "I" + targetSymbol.Name;
-                string interfaceNamespace = targetSymbol.ContainingNamespace.ToDisplayString();
-                INamedTypeSymbol? classToGenerateTheInterfaceFor =
+                var interfaceNamespace = targetSymbol.ContainingNamespace.ToDisplayString();
+                var classToGenerateTheInterfaceFor =
                     attributeData.ConstructorArguments.FirstOrDefault().Value as INamedTypeSymbol
-                    ?? targetSymbol as INamedTypeSymbol;
+                    ?? targetSymbol;
                 context.AddSource(
                     interfaceName + ".g.cs",
-                    InterfaceDeclarationTemplate
-                        .Render(
-                            new InterfaceGeneratorModel(
-                                interfaceNamespace,
-                                interfaceName,
-                                Join(
-                                    Environment.NewLine,
-                                    classToGenerateTheInterfaceFor
-                                        .GetMembers()
-                                        .Where(member => member.Kind is SymbolKind.Property)
-                                        .OfType<IPropertySymbol>()
-                                        .Where(
-                                            p =>
-                                                p.DeclaredAccessibility == Accessibility.Public
-                                                && !p.IsStatic
-                                        )
-                                        .Select(
-                                            p => p.ToDisplayString(Constants.SymbolDisplayFormat)
-                                        // PropertyDeclarationTemplate.Render(
-                                        //     new PropertyDeclarationModel(
-                                        //         "public",
-                                        //         p.Type.ToDisplayString(),
-                                        //         p.Name,
-                                        //         p.GetMethod != null,
-                                        //         p.SetMethod != null,
-                                        //         p.IsIndexer
-                                        //             ? Join(
-                                        //                 ", ",
-                                        //                 p.Parameters.Select(
-                                        //                     p =>
-                                        //                         $"{p.Type.ToDisplayString()} {p.Name}"
-                                        //                 )
-                                        //             )
-                                        //             : ""
-                                        //     )
-                                        // )
-                                        )
-                                )
-                                    + Environment.NewLine
-                                    + Join(
-                                        Environment.NewLine,
-                                        classToGenerateTheInterfaceFor
-                                            .GetMembers()
-                                            .Where(member => member.Kind is SymbolKind.Method)
-                                            .OfType<IMethodSymbol>()
-                                            .Where(
-                                                m =>
-                                                    m.DeclaredAccessibility == Accessibility.Public
-                                                    && m.CanBeReferencedByName
-                                                    && !m.IsStatic
-                                            )
-                                            .Select(
-                                                m =>
-                                                    m.IsOverride
-                                                        ? ""
-                                                        : (
-                                                            m.ToDisplayString(
-                                                                    Constants.SymbolDisplayFormat
-                                                                )
-                                                                .Replace("override", "") + ";"
+                    Regex.Replace(
+                        Regex.Replace(
+                            InterfaceDeclarationTemplate
+                                .Render(
+                                    new InterfaceGeneratorModel(
+                                        interfaceNamespace,
+                                        interfaceName,
+                                        Join(
+                                            Environment.NewLine,
+                                            classToGenerateTheInterfaceFor
+                                                .GetMembers()
+                                                .Where(member => member.Kind is SymbolKind.Property)
+                                                .OfType<IPropertySymbol>()
+                                                .Where(
+                                                    p =>
+                                                        p.DeclaredAccessibility
+                                                            == Accessibility.Public
+                                                        && !p.IsStatic
+                                                )
+                                                .Select(
+                                                    p =>
+                                                        p.ToDisplayString(
+                                                            Constants.SymbolDisplayFormat
                                                         )
-                                            )
-                                            .Where<string>(m => m.IndexOf("*") < 0)
-                                    ),
-                                targetSymbol.IsGenericType
-                                    ? $"<{Join(", ", targetSymbol.TypeParameters.Select(tp => tp.Name))}>"
-                                    : "",
-                                targetSymbol.TypeParameters.Any()
-                                    ? Join(
-                                        "\r\n",
-                                        targetSymbol.TypeParameters.Select(
-                                            tp => GenerateGenericTypeConstraints(tp)
+                                                // PropertyDeclarationTemplate.Render(
+                                                //     new PropertyDeclarationModel(
+                                                //         "public",
+                                                //         p.Type.ToDisplayString(),
+                                                //         p.Name,
+                                                //         p.GetMethod != null,
+                                                //         p.SetMethod != null,
+                                                //         p.IsIndexer
+                                                //             ? Join(
+                                                //                 ", ",
+                                                //                 p.Parameters.Select(
+                                                //                     p =>
+                                                //                         $"{p.Type.ToDisplayString()} {p.Name}"
+                                                //                 )
+                                                //             )
+                                                //             : ""
+                                                //     )
+                                                // )
+                                                )
                                         )
+                                            + Environment.NewLine
+                                            + Join(
+                                                Environment.NewLine,
+                                                classToGenerateTheInterfaceFor
+                                                    .GetMembers()
+                                                    .Where(
+                                                        member => member.Kind is SymbolKind.Method
+                                                    )
+                                                    .OfType<IMethodSymbol>()
+                                                    .Where(
+                                                        m =>
+                                                            m.DeclaredAccessibility
+                                                                == Accessibility.Public
+                                                            && m.CanBeReferencedByName
+                                                            && !m.IsStatic
+                                                    )
+                                                    .Select(
+                                                        m =>
+                                                            m.IsOverride
+                                                                ? ""
+                                                                : (
+                                                                    m.ToDisplayString(
+                                                                            Constants.SymbolDisplayFormat
+                                                                        )
+                                                                        .Replace("override", "")
+                                                                    + ";"
+                                                                )
+                                                    )
+                                                    .Where<string>(m => m.IndexOf("*") < 0)
+                                            ),
+                                        targetSymbol.IsGenericType
+                                            ? $"<{Join(", ", targetSymbol.TypeParameters.Select(tp => tp.Name))}>"
+                                            : "",
+                                        targetSymbol.TypeParameters.Any()
+                                            ? Join(
+                                                "\r\n",
+                                                targetSymbol.TypeParameters.Select(
+                                                    tp => GenerateGenericTypeConstraints(tp)
+                                                )
+                                            )
+                                            : ""
                                     )
-                                    : ""
-                            )
-                        )
-                        .Replace(" override ", " ")
-                        .Replace(" virtual ", " ")
-                        .Replace("public ", "")
+                                )
+                                .Replace(" override ", " ")
+                                .Replace(" virtual ", " ")
+                                .Replace("public ", "")
+                                .Replace("!", ""),
+                            @"\[(\w)",
+                            "$1"
+                        ),
+                        @"(\w)\]",
+                        "$1"
+                    )
                 );
             }
         }
@@ -197,29 +206,3 @@ namespace Dgmjr.InterfaceGenerator
         }
     }
 }
-
-
-//     public virtual void Generate(SourceProductionContext context, (Compilation Compilation, (AnalyzerConfigOptionsProvider AnalyzerConfigOptions, ImmutableArray<(InterfaceDeclarationSyntax, SemanticModel, ImmutableArray<AttributeData>)> Values) Values) values)
-//     {
-//         try
-//         {
-//             var (compilation, (analyzerConfigOptions, Values)) = values;
-//             var interfaceAtributeDeclaration = GenerateInterfaceAtributeDeclaration;
-//             var header = Header;
-//             context.AddSource(GenerateInterfaceAttributeName + ".g.cs", interfaceAtributeDeclaration);
-//             foreach(var (interfaceDeclaration, semanticModel, attributeData) in Values)
-//             {
-//                 var interfaceName = interfaceDeclaration.Identifier.Text;
-//                 var interfaceNamespace = interfaceDeclaration.GetNamespace();
-//                 var classToGenerateTheInterfaceFor = (Type)attributeData.First().ConstructorArguments.First().Value!;
-//                 context.AddSource(interfaceName + "g.cs", $@"/* {header}
-//     {classToGenerateTheInterfaceFor.Namespace}.{classToGenerateTheInterfaceFor.Name}
-//     */");
-//         }}
-//         catch(Exception ex)
-//         {
-//             context.ReportDiagnostic(Diagnostic.Create(new DiagnosticDescriptor("INTERFACEGENERATOR", "Strongly Typed Resource Generator", ex.Message, "INTERFACEGENERATOR", DiagnosticSeverity.Error, true), Location.Create("StronglyTypesEmbeddedResourceGenerator.cs", new TextSpan(0, 0), new LinePositionSpan(new LinePosition(0, 0), new LinePosition(0, 0)))));
-//             context.AddSource("Error.g.cs", $@"/* {ex.Source}: {ex.Message}:
-// {ex.StackTrace} */");
-//         }
-//     }

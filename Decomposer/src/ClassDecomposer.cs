@@ -122,9 +122,7 @@ public class TypeDecomposer : IIncrementalGenerator
                         .AddAttributeLists(GeneratedCodeAttributesSyntax)
                         .AddBaseListTypes(
                             SyntaxFactory.SimpleBaseType(
-                                SyntaxFactory.ParseTypeName(
-                                    $"IDecomposed<{targetType?.Name}>"
-                        .        )
+                                SyntaxFactory.ParseTypeName($"IDecomposed<{targetType?.Name}>", 0, true)
                             )
                         );
                 Log.Print(memberDeclarationSyntax.ToString());

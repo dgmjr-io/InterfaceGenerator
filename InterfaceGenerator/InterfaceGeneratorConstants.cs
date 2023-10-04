@@ -94,43 +94,48 @@ namespace Dgmjr.InterfaceGenerator
             Scriban.Template.Parse(PropertyDeclaration);
 
         public static readonly SymbolDisplayFormat SymbolDisplayFormat =
-            // new(
-            //     typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
-            //     genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters,
-            //     memberOptions: SymbolDisplayMemberOptions.IncludeParameters | SymbolDisplayMemberOptions.IncludeType,
-            //     parameterOptions: SymbolDisplayParameterOptions.IncludeType | SymbolDisplayParameterOptions.IncludeName,
-            //     propertyStyle: SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
-            //     miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes
-            // /*
             new(
-                SymbolDisplayGlobalNamespaceStyle.Included,
-                SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
-                SymbolDisplayGenericsOptions.IncludeTypeParameters
-                    | SymbolDisplayGenericsOptions.IncludeVariance
+                typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+                genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters
                     | SymbolDisplayGenericsOptions.IncludeTypeConstraints,
-                SymbolDisplayMemberOptions.IncludeExplicitInterface
-                    | SymbolDisplayMemberOptions.IncludeModifiers
-                    | SymbolDisplayMemberOptions.IncludeParameters
-                    | SymbolDisplayMemberOptions.IncludeRef
-                    | SymbolDisplayMemberOptions.IncludeType
-                    // | SymbolDisplayMemberOptions.IncludeContainingType
-                    | SymbolDisplayMemberOptions.IncludeAccessibility,
-                SymbolDisplayDelegateStyle.NameAndSignature,
-                SymbolDisplayExtensionMethodStyle.Default,
-                SymbolDisplayParameterOptions.IncludeExtensionThis
-                    | SymbolDisplayParameterOptions.IncludeName
-                    | SymbolDisplayParameterOptions.IncludeParamsRefOut
-                    | SymbolDisplayParameterOptions.IncludeType
-                    | SymbolDisplayParameterOptions.IncludeDefaultValue
-                    | SymbolDisplayParameterOptions.IncludeOptionalBrackets,
-                SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
+                memberOptions: SymbolDisplayMemberOptions.IncludeParameters
+                    | SymbolDisplayMemberOptions.IncludeType,
+                parameterOptions: SymbolDisplayParameterOptions.IncludeType
+                    | SymbolDisplayParameterOptions.IncludeName,
+                propertyStyle: SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
                 miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes
-                    | SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers
-                    | SymbolDisplayMiscellaneousOptions.UseAsterisksInMultiDimensionalArrays
-                    | SymbolDisplayMiscellaneousOptions.UseErrorTypeSymbolName
-                    | SymbolDisplayMiscellaneousOptions.IncludeNullableReferenceTypeModifier
-                    | SymbolDisplayMiscellaneousOptions.IncludeNotNullableReferenceTypeModifier
             );
+
+        // new(
+        //     SymbolDisplayGlobalNamespaceStyle.Included,
+        //     SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+        //     SymbolDisplayGenericsOptions.IncludeTypeParameters
+        //         | SymbolDisplayGenericsOptions.IncludeVariance
+        //         | SymbolDisplayGenericsOptions.IncludeTypeConstraints,
+        //     SymbolDisplayMemberOptions.IncludeExplicitInterface
+        //         | SymbolDisplayMemberOptions.IncludeModifiers
+        //         | SymbolDisplayMemberOptions.IncludeParameters
+        //         | SymbolDisplayMemberOptions.IncludeRef
+        //         | SymbolDisplayMemberOptions.IncludeType
+        //         // | SymbolDisplayMemberOptions.IncludeContainingType
+        //         | SymbolDisplayMemberOptions.IncludeAccessibility,
+        //     SymbolDisplayDelegateStyle.NameAndSignature,
+        //     SymbolDisplayExtensionMethodStyle.Default,
+        //     SymbolDisplayParameterOptions.IncludeExtensionThis
+        //         | SymbolDisplayParameterOptions.IncludeName
+        //         | SymbolDisplayParameterOptions.IncludeParamsRefOut
+        //         | SymbolDisplayParameterOptions.IncludeType
+        //         | SymbolDisplayParameterOptions.IncludeDefaultValue,
+        //     SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
+        //     SymbolDisplayLocalOptions.None,
+        //     SymbolDisplayKindOptions.None,
+        //     miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes
+        //         | SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers
+        //         | SymbolDisplayMiscellaneousOptions.UseAsterisksInMultiDimensionalArrays
+        //         | SymbolDisplayMiscellaneousOptions.UseErrorTypeSymbolName
+        //         | SymbolDisplayMiscellaneousOptions.IncludeNullableReferenceTypeModifier
+        //         | SymbolDisplayMiscellaneousOptions.IncludeNotNullableReferenceTypeModifier
+        // );
     }
 
     public record struct InterfaceGeneratorModel(
