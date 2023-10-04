@@ -36,16 +36,18 @@ namespace Dgmjr.InterfaceGenerator
     using System;
 
     [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class | AttributeTargets.Struct)]
-    internal sealed class {{{GenerateInterfaceAttributeName}}} : Attribute
-    {
+    internal sealed class {{{GenerateInterfaceAttributeName
+}}} : Attribute
+{
         public Type Type { get; }
 
-        public {{{GenerateInterfaceAttributeName}}} (Type type = null)
+public
+{ { { GenerateInterfaceAttributeName} } } (Type type = null)
         {
-            {
-                Type = type;
-            }
-        }
+    {
+        Type = type;
+    }
+}
     }
     """;
 
@@ -63,48 +65,50 @@ namespace Dgmjr.InterfaceGenerator
 
     namespace {{ namespace }}
     {
-        public partial interface {{ interface_name }}
+        public partial interface {{ interface_name
+}}
         {
-            {{ members }}
-        }
+    { { members } }
+}
     }
     """;
 
         public static readonly Scriban.Template InterfaceDeclarationTemplate =
             Scriban.Template.Parse(InterfaceDeclaration);
 
-        public const string MethodDeclaration = "{{ full_definition }};";
+public const string MethodDeclaration = "{{ full_definition }};";
 
-        public static readonly Scriban.Template MethodDeclarationTemplate = Scriban.Template.Parse(
-            MethodDeclaration
-        );
+public static readonly Scriban.Template MethodDeclarationTemplate = Scriban.Template.Parse(
+    MethodDeclaration
+);
 
-        public const string MethodParameter = """
-    {{ type }} {{ name }}
-    """;
+public const string MethodParameter = """
+    { { type } }
+{ { name } }
+""";
 
         public static readonly Scriban.Template MethodParameterTemplate = Scriban.Template.Parse(
             MethodParameter
         );
 
-        public const string PropertyDeclaration =
-            "{{ type }} {{ if is_indexed }}this[ {{ indexers }}] {{ else }} {{ name }} {{ end }} { {{ if is_gettable }} get; {{ end }} {{ if is_settable }} set; {{ end }} }";
+public const string PropertyDeclaration =
+    "{{ type }} {{ if is_indexed }}this[ {{ indexers }}] {{ else }} {{ name }} {{ end }} { {{ if is_gettable }} get; {{ end }} {{ if is_settable }} set; {{ end }} }";
 
-        public static readonly Scriban.Template PropertyDeclarationTemplate =
-            Scriban.Template.Parse(PropertyDeclaration);
+public static readonly Scriban.Template PropertyDeclarationTemplate =
+    Scriban.Template.Parse(PropertyDeclaration);
 
-        public static readonly SymbolDisplayFormat SymbolDisplayFormat =
-            new(
-                typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
-                genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters
-                    | SymbolDisplayGenericsOptions.IncludeTypeConstraints,
-                memberOptions: SymbolDisplayMemberOptions.IncludeParameters
-                    | SymbolDisplayMemberOptions.IncludeType,
-                parameterOptions: SymbolDisplayParameterOptions.IncludeType
-                    | SymbolDisplayParameterOptions.IncludeName,
-                propertyStyle: SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
-                miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes
-            );
+public static readonly SymbolDisplayFormat SymbolDisplayFormat =
+    new(
+        typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+        genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters
+            | SymbolDisplayGenericsOptions.IncludeTypeConstraints,
+        memberOptions: SymbolDisplayMemberOptions.IncludeParameters
+            | SymbolDisplayMemberOptions.IncludeType,
+        parameterOptions: SymbolDisplayParameterOptions.IncludeType
+            | SymbolDisplayParameterOptions.IncludeName,
+        propertyStyle: SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
+        miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes
+    );
 
         // new(
         //     SymbolDisplayGlobalNamespaceStyle.Included,
@@ -146,8 +150,8 @@ namespace Dgmjr.InterfaceGenerator
         string TypeConstraints
     );
 
-    public static class Environment
-    {
-        public const string NewLine = "\r\n";
-    }
+public static class Environment
+{
+    public const string NewLine = "\r\n";
+}
 }
