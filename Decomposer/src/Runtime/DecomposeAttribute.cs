@@ -1,12 +1,15 @@
-[global::System.AttributeUsage(
-    global::System.AttributeTargets.Class
-        | global::System.AttributeTargets.Struct
-        | global::System.AttributeTargets.Interface
-        | global::System.AttributeTargets.Assembly
+#nullable enable
+[AttributeUsage(
+    AttributeTargets.Class
+        | AttributeTargets.Struct
+        | AttributeTargets.Interface
+        | AttributeTargets.Assembly
 )]
-public sealed class DecomposeAttribute : global::System.Attribute
+public sealed class DecomposeAttribute(type type, string? @namespace = default) : Attribute
 {
-    public DecomposeAttribute(string @namespace = null) { }
+    public DecomposeAttribute(string? @namespace = default)
+        : this(default!, @namespace) { }
 
-    public DecomposeAttribute(global::System.Type type, string @namespace = null) { }
+    public type Type => type;
+    public string? Namespace => @namespace;
 }

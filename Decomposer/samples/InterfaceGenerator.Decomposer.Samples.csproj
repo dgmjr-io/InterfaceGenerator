@@ -19,9 +19,11 @@
     <NoWarn>$(NoWarn);CS1570</NoWarn>
     <IsPackable>false</IsPackable>
     <IsNuGetized>false</IsNuGetized>
+    <Nullable>enable</Nullable>
+    <WarnAsError>$(WarnAsError);CS8785</WarnAsError>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Dgmjr.InterfaceGenerator.Decomposer" PrivateAssets="Analyzers" />
+    <SourceGeneratorPackageReference Include="InterfaceGenerator.Decomposer" PrivateAssets="All" />
     <PackageReference Include="OneOf" />
     <PackageReference Include="Microsoft.Net.Compilers.Toolset" />
     <PackageReference Include="Dgmjr.CodeGeneration.Extensions.TypeDeclarationExtensions" />
@@ -37,6 +39,9 @@
     <PackageReference Include="ThisAssembly.AssemblyInfo" />
     <PackageReference Include="ThisAssembly.Project" />
     <PackageReference Include="Dgmjr.System.Extensions" />
-   <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
   </ItemGroup>
+    <ItemGroup>
+      <Using Include="Dgmjr" />
+    </ItemGroup>
 </Project>

@@ -42,26 +42,14 @@ namespace Dgmjr.InterfaceGenerator
                                 or StructDeclarationSyntax,
                     (context, _) =>
                         (
-                            context.Attributes.FirstOrDefault(
-                                a => a.AttributeClass?.Name is GenerateInterfaceAttributeName
-                            ),
+                            context.Attributes.FirstOrDefault(a => a.AttributeClass?.Name != null),
                             context.TargetSymbol as INamedTypeSymbol,
                             context.SemanticModel
                         )
                 )
                 .Collect();
 
-            var compilation = context.CompilationProvider;
-
             context.RegisterSourceOutput(interfaces, Generate);
-
-            // context.RegisterPostInitializationOutput(
-            //     (ctx) =>
-            //         ctx.AddSource(
-            //             $"{GenerateInterfaceAttributeName}.g.cs",
-            //             GenerateInterfaceAtributeDeclaration
-            //         )
-            // );
         }
 
         /// <summary>
@@ -111,24 +99,6 @@ namespace Dgmjr.InterfaceGenerator
                                                         p.ToDisplayString(
                                                             Constants.SymbolDisplayFormat
                                                         )
-                                                // PropertyDeclarationTemplate.Render(
-                                                //     new PropertyDeclarationModel(
-                                                //         "public",
-                                                //         p.Type.ToDisplayString(),
-                                                //         p.Name,
-                                                //         p.GetMethod != null,
-                                                //         p.SetMethod != null,
-                                                //         p.IsIndexer
-                                                //             ? Join(
-                                                //                 ", ",
-                                                //                 p.Parameters.Select(
-                                                //                     p =>
-                                                //                         $"{p.Type.ToDisplayString()} {p.Name}"
-                                                //                 )
-                                                //             )
-                                                //             : ""
-                                                //     )
-                                                // )
                                                 )
                                         )
                                             + Environment.NewLine

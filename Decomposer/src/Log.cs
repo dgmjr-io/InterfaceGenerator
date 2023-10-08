@@ -1,7 +1,7 @@
 using System.Text;
 using Microsoft.CodeAnalysis.Text;
 
-namespace Dgmjr.InterfaceGenerator.Decomposer;
+namespace InterfaceGenerator.Decomposer;
 
 #if DEBUG
 internal static class Log
@@ -15,6 +15,13 @@ internal static class Log
     public static void FlushLogs(GeneratorExecutionContext context)
     {
         context.AddSource("logs.g.cs", SourceText.From(Join("\n", Logs), Encoding.UTF8));
+    }
+
+    public static void FlushLogs(IncrementalGeneratorInitializationContext context)
+    {
+        context.RegisterPostInitializationOutput(
+            ctx => ctx.AddSource("logs.g.cs", SourceText.From(Join("\n", Logs), Encoding.UTF8))
+        );
     }
 }
 #endif

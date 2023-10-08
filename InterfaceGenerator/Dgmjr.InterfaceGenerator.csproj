@@ -72,6 +72,7 @@
 
     <ItemGroup>
         <PackageFile Include="$(OutputPath)/*.dll" Pack="true" PackagePath="analyzers/dotnet/cs/%(Filename)%(Extension)" Visible="false" />
+        <PackageFile Include="Runtime/**/Dgmjr.InterfaceGenerator.Runtime.dll" Pack="true" PackagePath="lib/$(TargetFramework)/%(Filename)%(Extension)" Visible="false" />
     </ItemGroup>
 
     <ItemGroup>

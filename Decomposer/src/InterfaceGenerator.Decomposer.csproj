@@ -1,0 +1,53 @@
+<!--
+ * Dgmjr.InterfaceGenerator.Decomposer.csproj
+ *
+ *   Created: 2023-04-13-12:09:46
+ *   Modified: 2023-04-13-12:09:46
+ *
+ *   Author: David G. Moore, Jr. <david@dgmjr.io>
+ *
+ *   Copyright © 2022 - 2023 David G. Moore, Jr., All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <NoWarn>$(NoWarn);RS1035;CS1591</NoWarn>
+    <IncludeBuildOutput>true</IncludeBuildOutput>
+    <Description>Takes a type and "decomposes" it into a different interface for every member</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Dgmjr.CodeGeneration.Extensions.TypeDeclarationExtensions" />
+    <PackageReference Include="Dgmjr.System.Extensions" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" />
+    <PackageReference Include="Microsoft.CSharp" PrivateAssets="All" />
+    <PackageReference Include="Scriban.Signed" />
+    <PackageReference Include="System.CodeDom" />
+    <PackageReference Include="ThisAssembly.AssemblyInfo" />
+    <PackageReference Include="ThisAssembly.Project" />
+    <PackageReference Include="Dgmjr.CodeGeneration.Logging" />
+    <!-- <ProjectReference Include="./Runtime/Dgmjr.InterfaceGenerator.Decomposer.Runtime.csproj" /> -->
+    <UsingsPackageReference Include="System.Text.Json.Usings" />
+    <UsingsPackageReference Include="System.Text.RegularExpressions.Usings" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="./Runtime/**/*.*" />
+    <EmbeddedResource Include="./Runtime/*.cs"  LogicalName="%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- <PackageFile Include="./Runtime/**/Dgmjr.InterfaceGenerator.Decomposer.Runtime.dll" PackagePath="lib/$(TargetFramework)/%(Filename)%(Extension)" /> -->
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- <Reference Include="netstandard" /> -->
+    <PackageFile Include="$(OutputPath)/*.dll" PackagePath="analyzers/dotnet/cs/$(TargetFramework)/%(Filename)%(Extension)" Visible="false" />
+  </ItemGroup>
+</Project>
