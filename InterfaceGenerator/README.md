@@ -2,15 +2,17 @@
 authors:
   - dgmjr
 title: The DGMJR Interface Generator
-modified: 2022-11-12-09:12:07
-date: 2022-11-12-09:12:07
+lastmod: 2023-10-08-09T12:07:00.0000Z
+date: 2022-11-12-09T12:07:00.0000Z
 license: MIT
 description: This package contains a code generator that creates partial interface declarations from extant classes.
+type: readme
+slug: dgmjr-interface-generator
 ---
 
 # The DGMJR Interface Generator
 
-This package contains a code generator that creates partial interface declarations from extant classes.
+This package contains a code generator that creates partial interface declarations from extant classes, struct, or interface.
 
 !!! Usage
 
@@ -45,6 +47,6 @@ This package contains a code generator that creates partial interface declaratio
 
   ```xml
   <IremGroup>
-    <SourgGenerator Include="Dgmjr.InterfaceGenerator" />
+    <SourceGeneratorPackageReference Include="Dgmjr.InterfaceGenerator" />
   </IremGroup>
   ```

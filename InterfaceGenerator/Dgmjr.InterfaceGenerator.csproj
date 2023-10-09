@@ -12,80 +12,80 @@
 
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <ProjectGuid>{6d73afe7-686a-4f44-9776-18578abaee92}</ProjectGuid>
-        <LangVersion>preview</LangVersion>
-        <Nullable>enable</Nullable>
-        <Title>InterfaceGenerator</Title>
-        <PackageId>Dgmjr.InterfaceGenerator</PackageId>
-        <Description>This project uses Source Generation to generate an interface and a Proxy class for classes. This makes it possible to wrap external classes which do not have an interface, in a Proxy class which makes it easier to Mock and use DI.</Description>
-        <MinVerTagPrefix>igen-v</MinVerTagPrefix>
-        <EnableGlobalCodeGenerators>false</EnableGlobalCodeGenerators>
-        <DefineConstants>$(DefineConstants);SCRIBAN_SIGNED;SCRIBAN_PUBLIC</DefineConstants>
-        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-        <!-- <OutputPath>analyzers/dotnet/cs</OutputPath> -->
-        <SlnGenSolutionFolder>codegen</SlnGenSolutionFolder>
-        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-        <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProjectGuid>{6d73afe7-686a-4f44-9776-18578abaee92}</ProjectGuid>
+    <LangVersion>preview</LangVersion>
+    <Nullable>enable</Nullable>
+    <Title>InterfaceGenerator</Title>
+    <PackageId>InterfaceGenerator</PackageId>
+    <Description>This project uses Source Generation to generate an interface and a Proxy class for classes. This makes it possible to wrap external classes which do not have an interface, in a Proxy class which makes it easier to Mock and use DI.</Description>
+    <MinVerTagPrefix>igen-v</MinVerTagPrefix>
+    <EnableGlobalCodeGenerators>false</EnableGlobalCodeGenerators>
+    <DefineConstants>$(DefineConstants);SCRIBAN_SIGNED;SCRIBAN_PUBLIC</DefineConstants>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <!-- <OutputPath>analyzers/dotnet/cs</OutputPath> -->
+    <SlnGenSolutionFolder>codegen</SlnGenSolutionFolder>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" />
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" PrivateAssets="All" />
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="All" />
-        <PackageReference Include="Microsoft.CodeAnalysis.Common" PrivateAssets="All" />
-        <PackageReference Include="System.Text.Json.Usings" />
-        <PackageReference Include="System.Text.Json" />
-        <PackageReference Include="ThisAssembly.Project" />
-        <PackageReference Include="ThisAssembly.AssemblyInfo" />
-        <PackageReference Include="System.Text.RegularExpressions.Usings" />
-        <PackageReference Include="Dgmjr.CodeGeneration.Constants-Scriban.Bundled" IncludeAssets="ContentFiles;Build" ExcludeAssets="Lib;Runtime;Source;Native;Analyzers" PrivateAssets="All" />
-        <PackageReference Include="Microsoft.CSharp" PrivateAssets="All" />
-        <ProjectReference Include="./Runtime/Dgmjr.InterfaceGenerator.Runtime.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Dgmjr.System.Extensions" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" />
+    <PackageReference Include="Microsoft.CSharp" PrivateAssets="All" />
+    <PackageReference Include="Scriban.Signed" />
+    <PackageReference Include="System.Text.Json.Usings" />
+    <PackageReference Include="System.Text.Json" />
+    <PackageReference Include="System.Text.RegularExpressions.Usings" />
+    <PackageReference Include="ThisAssembly.AssemblyInfo" />
+    <PackageReference Include="ThisAssembly.Project" />
+    <SourceCodePackageReference Include="System.Private.CoreLib.Polyfills" />
+    <!-- <ProjectReference Include="./Runtime/Dgmjr.InterfaceGenerator.Runtime.csproj" /> -->
+  </ItemGroup>
 
-    <ItemGroup>
-        <Using Include="Dgmjr.InterfaceGenerator.Constants" Static="true" />
-        <Using Include="System.Diagnostics" />
-        <NoWarn Include="RS1035" />
-        <Compile Remove="Runtime/**/*.*" />
-    </ItemGroup>
+  <ItemGroup>
+    <Using Include="Dgmjr.InterfaceGenerator.Constants" Static="true" />
+    <Using Include="System.Diagnostics" />
+    <NoWarn Include="RS1035" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageTag Include="interface" />
-        <PackageTag Include="SourceGenerator" />
-        <PackageTag Include="Analyzer" />
-        <PackageTag Include="Generation" />
-        <PackageTag Include="Code-Generation" />
-        <PackageTag Include="Source-Generation" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageTag Include="interface" />
+    <PackageTag Include="SourceGenerator" />
+    <PackageTag Include="Analyzer" />
+    <PackageTag Include="Generation" />
+    <PackageTag Include="Code-Generation" />
+    <PackageTag Include="Source-Generation" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" />
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <!-- <None Remove="$(OutputPath)$(AssemblyName).dll" /> -->
-    </ItemGroup>
+  <ItemGroup>
+    <!-- <None Remove="$(OutputPath)$(AssemblyName).dll" /> -->
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageFile Include="$(OutputPath)/*.dll" Pack="true" PackagePath="analyzers/dotnet/cs/%(Filename)%(Extension)" Visible="false" />
-        <PackageFile Include="Runtime/**/Dgmjr.InterfaceGenerator.Runtime.dll" Pack="true" PackagePath="lib/$(TargetFramework)/%(Filename)%(Extension)" Visible="false" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageFile Include="$(OutputPath)/*.dll" Pack="true" PackagePath="analyzers/dotnet/cs/%(Filename)%(Extension)" Visible="false" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <Compile Remove="./Resources/**/*.cs" />
-        <EmbeddedResource Include="./Resources/**/*/cs" />
-    </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="./Resources/**/*.cs" />
+    <EmbeddedResource Include="./Resources/**/*/cs" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageFile Include="./README.md" PackagePath="" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageFile Include="./README.md" PackagePath="" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <Using Remove="System.Text.Encoding" />
-    </ItemGroup>
+  <ItemGroup>
+    <Using Remove="System.Text.Encoding" />
+  </ItemGroup>
 
 </Project>
