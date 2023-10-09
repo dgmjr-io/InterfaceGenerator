@@ -38,13 +38,15 @@ public static class Constants
         """;
 
     public const string GenerateInterfaceAtributeDeclaration = $$$"""
-        {{{Header}}}
+        {{{Header
+}}}
 
         namespace System;
 
         [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class | AttributeTargets.Struct)]
-        public sealed class {{{GenerateInterfaceAttributeName}}}(Type? type = default) : Attribute
-        {
+public sealed class {{{GenerateInterfaceAttributeName
+}}}(Type ? type = default) : Attribute
+{
             public type Type { get; } = type;
         }
         """;
@@ -63,10 +65,11 @@ public static class Constants
 
         namespace {{ namespace }}
         {
-            public partial interface {{ interface_name }}
+            public partial interface {{ interface_name
+}}
             {
-                {{ members }}
-            }
+    { { members } }
+}
         }
         """;
 
@@ -74,39 +77,40 @@ public static class Constants
         InterfaceDeclaration
     );
 
-    public const string MethodDeclaration = "{{ full_definition }};";
+public const string MethodDeclaration = "{{ full_definition }};";
 
-    public static readonly Scriban.Template MethodDeclarationTemplate = Scriban.Template.Parse(
-        MethodDeclaration
-    );
+public static readonly Scriban.Template MethodDeclarationTemplate = Scriban.Template.Parse(
+    MethodDeclaration
+);
 
-    public const string MethodParameter = """
-    {{ type }} {{ name }}
-    """;
+public const string MethodParameter = """
+    { { type } }
+{ { name } }
+""";
 
     public static readonly Scriban.Template MethodParameterTemplate = Scriban.Template.Parse(
         MethodParameter
     );
 
-    public const string PropertyDeclaration =
-        "{{ type }} {{ if is_indexed }}this[ {{ indexers }}] {{ else }} {{ name }} {{ end }} { {{ if is_gettable }} get; {{ end }} {{ if is_settable }} set; {{ end }} }";
+public const string PropertyDeclaration =
+    "{{ type }} {{ if is_indexed }}this[ {{ indexers }}] {{ else }} {{ name }} {{ end }} { {{ if is_gettable }} get; {{ end }} {{ if is_settable }} set; {{ end }} }";
 
-    public static readonly Scriban.Template PropertyDeclarationTemplate = Scriban.Template.Parse(
-        PropertyDeclaration
+public static readonly Scriban.Template PropertyDeclarationTemplate = Scriban.Template.Parse(
+    PropertyDeclaration
+);
+
+public static readonly SymbolDisplayFormat SymbolDisplayFormat =
+    new(
+        typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+        genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters
+            | SymbolDisplayGenericsOptions.IncludeTypeConstraints,
+        memberOptions: SymbolDisplayMemberOptions.IncludeParameters
+            | SymbolDisplayMemberOptions.IncludeType,
+        parameterOptions: SymbolDisplayParameterOptions.IncludeType
+            | SymbolDisplayParameterOptions.IncludeName,
+        propertyStyle: SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
+        miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes
     );
-
-    public static readonly SymbolDisplayFormat SymbolDisplayFormat =
-        new(
-            typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
-            genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters
-                | SymbolDisplayGenericsOptions.IncludeTypeConstraints,
-            memberOptions: SymbolDisplayMemberOptions.IncludeParameters
-                | SymbolDisplayMemberOptions.IncludeType,
-            parameterOptions: SymbolDisplayParameterOptions.IncludeType
-                | SymbolDisplayParameterOptions.IncludeName,
-            propertyStyle: SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
-            miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes
-        );
 
     // new(
     //     SymbolDisplayGlobalNamespaceStyle.Included,
