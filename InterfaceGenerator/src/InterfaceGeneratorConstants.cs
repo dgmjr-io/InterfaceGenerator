@@ -40,12 +40,12 @@ public static class Constants
     public const string GenerateInterfaceAtributeDeclaration = $$$"""
         {{{Header}}}
 
-        namespace System;
-
         [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class | AttributeTargets.Struct)]
-        public sealed class {{{GenerateInterfaceAttributeName}}}(Type? type = default) : Attribute
+        public sealed class {{{GenerateInterfaceAttributeName}}}(Type? type = default, string? interfaceName, string? @namespace) : Attribute
         {
             public type Type { get; } = type;
+            public string InterfaceName { get; } = interfaceName;
+            public string Namespace { get; } = @namespace;
         }
         """;
 
@@ -97,15 +97,24 @@ public static class Constants
 
     public static readonly SymbolDisplayFormat SymbolDisplayFormat =
         new(
+            globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Included,
             typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
             genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters
                 | SymbolDisplayGenericsOptions.IncludeTypeConstraints,
             memberOptions: SymbolDisplayMemberOptions.IncludeParameters
-                | SymbolDisplayMemberOptions.IncludeType,
+                | SymbolDisplayMemberOptions.IncludeType
+                | SymbolDisplayMemberOptions.IncludeModifiers
+                | SymbolDisplayMemberOptions.IncludeConstantValue,
+            delegateStyle: SymbolDisplayDelegateStyle.NameAndSignature,
+            extensionMethodStyle: SymbolDisplayExtensionMethodStyle.Default,
             parameterOptions: SymbolDisplayParameterOptions.IncludeType
-                | SymbolDisplayParameterOptions.IncludeName,
+                | SymbolDisplayParameterOptions.IncludeName
+                | SymbolDisplayParameterOptions.IncludeDefaultValue,
             propertyStyle: SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
+            kindOptions: SymbolDisplayKindOptions.None,
             miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes
+                | SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers
+                | SymbolDisplayMiscellaneousOptions.AllowDefaultLiteral
         );
 
     // new(

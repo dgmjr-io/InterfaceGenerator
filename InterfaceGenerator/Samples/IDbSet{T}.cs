@@ -14,5 +14,5 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Microsoft.EntityFrameworkCore.Abstractions;
 
-[GenerateInterface(typeof(DbSet<>))]
-public partial interface IDbSet<TEntity> { }
+[GenerateInterface(typeof(DbSet))]
+public partial interface IDbSet<TEntity> : IAsyncDisposable { }

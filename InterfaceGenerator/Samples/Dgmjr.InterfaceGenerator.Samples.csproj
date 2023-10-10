@@ -1,0 +1,23 @@
+<!--
+ * Dgmjr.InterfaceGenerator.Samples.csproj
+ *
+ *   Created: 2022-12-30-11:57:10
+ *   Modified: 2022-12-30-11:57:12
+ *
+ *   Author: David G. Mooore, Jr. <david@dgmjr.io>
+ *
+ *   Copyright © 2022-2023 David G. Mooore, Jr., All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <SlnGenSolutionFolder>codegen</SlnGenSolutionFolder>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" />
+    <SourceGeneratorPackageReference Include="Dgmjr.InterfaceGenerator" />
+  </ItemGroup>
+</Project>

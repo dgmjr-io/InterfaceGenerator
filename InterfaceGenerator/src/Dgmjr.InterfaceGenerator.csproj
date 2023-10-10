@@ -17,7 +17,7 @@
     <ProjectGuid>{6d73afe7-686a-4f44-9776-18578abaee92}</ProjectGuid>
     <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
-    <Title>InterfaceGenerator</Title>
+    <Title>Dgmjr.InterfaceGenerator</Title>
     <PackageId>InterfaceGenerator</PackageId>
     <Description>This project uses Source Generation to generate an interface and a Proxy class for classes. This makes it possible to wrap external classes which do not have an interface, in a Proxy class which makes it easier to Mock and use DI.</Description>
     <MinVerTagPrefix>igen-v</MinVerTagPrefix>
