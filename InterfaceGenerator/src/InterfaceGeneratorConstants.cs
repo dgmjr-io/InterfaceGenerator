@@ -38,14 +38,15 @@ public static class Constants
         """;
 
     public const string GenerateInterfaceAtributeDeclaration = $$$"""
-        {{{Header}}}
+        {{{Header
+}}}
 
         [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class | AttributeTargets.Struct)]
-        public sealed class {{{GenerateInterfaceAttributeName}}}(Type? type = default, string? interfaceName, string? @namespace) : Attribute
-        {
+public sealed class {{ { GenerateInterfaceAttributeName} }}(Type ? type = default, string? interfaceName, string? @namespace) : Attribute
+{
             public type Type { get; } = type;
-            public string InterfaceName { get; } = interfaceName;
-            public string Namespace { get; } = @namespace;
+public string InterfaceName { get; } = interfaceName;
+public string Namespace { get; } = @namespace;
         }
         """;
 
@@ -63,10 +64,11 @@ public static class Constants
 
         namespace {{ namespace }}
         {
-            public partial interface {{ interface_name }}
+            public partial interface {{ interface_name
+}}
             {
-                {{ members }}
-            }
+    { { members } }
+}
         }
         """;
 
@@ -74,48 +76,49 @@ public static class Constants
         InterfaceDeclaration
     );
 
-    public const string MethodDeclaration = "{{ full_definition }};";
+public const string MethodDeclaration = "{{ full_definition }};";
 
-    public static readonly Scriban.Template MethodDeclarationTemplate = Scriban.Template.Parse(
-        MethodDeclaration
-    );
+public static readonly Scriban.Template MethodDeclarationTemplate = Scriban.Template.Parse(
+    MethodDeclaration
+);
 
-    public const string MethodParameter = """
-    {{ type }} {{ name }}
-    """;
+public const string MethodParameter = """
+    { { type } }
+{ { name } }
+""";
 
     public static readonly Scriban.Template MethodParameterTemplate = Scriban.Template.Parse(
         MethodParameter
     );
 
-    public const string PropertyDeclaration =
-        "{{ type }} {{ if is_indexed }}this[ {{ indexers }}] {{ else }} {{ name }} {{ end }} { {{ if is_gettable }} get; {{ end }} {{ if is_settable }} set; {{ end }} }";
+public const string PropertyDeclaration =
+    "{{ type }} {{ if is_indexed }}this[ {{ indexers }}] {{ else }} {{ name }} {{ end }} { {{ if is_gettable }} get; {{ end }} {{ if is_settable }} set; {{ end }} }";
 
-    public static readonly Scriban.Template PropertyDeclarationTemplate = Scriban.Template.Parse(
-        PropertyDeclaration
+public static readonly Scriban.Template PropertyDeclarationTemplate = Scriban.Template.Parse(
+    PropertyDeclaration
+);
+
+public static readonly SymbolDisplayFormat SymbolDisplayFormat =
+    new(
+        globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Included,
+        typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+        genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters
+            | SymbolDisplayGenericsOptions.IncludeTypeConstraints,
+        memberOptions: SymbolDisplayMemberOptions.IncludeParameters
+            | SymbolDisplayMemberOptions.IncludeType
+            | SymbolDisplayMemberOptions.IncludeModifiers
+            | SymbolDisplayMemberOptions.IncludeConstantValue,
+        delegateStyle: SymbolDisplayDelegateStyle.NameAndSignature,
+        extensionMethodStyle: SymbolDisplayExtensionMethodStyle.Default,
+        parameterOptions: SymbolDisplayParameterOptions.IncludeType
+            | SymbolDisplayParameterOptions.IncludeName
+            | SymbolDisplayParameterOptions.IncludeDefaultValue,
+        propertyStyle: SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
+        kindOptions: SymbolDisplayKindOptions.None,
+        miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes
+            | SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers
+            | SymbolDisplayMiscellaneousOptions.AllowDefaultLiteral
     );
-
-    public static readonly SymbolDisplayFormat SymbolDisplayFormat =
-        new(
-            globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Included,
-            typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
-            genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters
-                | SymbolDisplayGenericsOptions.IncludeTypeConstraints,
-            memberOptions: SymbolDisplayMemberOptions.IncludeParameters
-                | SymbolDisplayMemberOptions.IncludeType
-                | SymbolDisplayMemberOptions.IncludeModifiers
-                | SymbolDisplayMemberOptions.IncludeConstantValue,
-            delegateStyle: SymbolDisplayDelegateStyle.NameAndSignature,
-            extensionMethodStyle: SymbolDisplayExtensionMethodStyle.Default,
-            parameterOptions: SymbolDisplayParameterOptions.IncludeType
-                | SymbolDisplayParameterOptions.IncludeName
-                | SymbolDisplayParameterOptions.IncludeDefaultValue,
-            propertyStyle: SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
-            kindOptions: SymbolDisplayKindOptions.None,
-            miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes
-                | SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers
-                | SymbolDisplayMiscellaneousOptions.AllowDefaultLiteral
-        );
 
     // new(
     //     SymbolDisplayGlobalNamespaceStyle.Included,
