@@ -4,9 +4,9 @@
 //   Created: 2022-11-11-04:00:23
 //   Modified: 2022-11-12-11:24:45
 //
-//   Author: David G. Mooore, Jr. <david@dgmjr.io>
+//   Author: David G. Moore, Jr. <david@dgmjr.io>
 //
-//   Copyright © 2022-2023 David G. Mooore, Jr., All Rights Reserved
+//   Copyright © 2022-2023 David G. Moore, Jr., All Rights Reserved
 //      License: MIT (https://opensource.org/licenses/MIT)
 //
 

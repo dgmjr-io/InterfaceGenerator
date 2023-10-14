@@ -6,7 +6,7 @@
  *
  *   Author: David G. Moore, Jr. <david@dgmjr.io>
  *
- *   Copyright © 2022-2023 David G. Mooore, Jr., All Rights Reserved
+ *   Copyright © 2022-2023 David G. Moore, Jr., All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 namespace Dgmjr.InterfaceGenerator;
