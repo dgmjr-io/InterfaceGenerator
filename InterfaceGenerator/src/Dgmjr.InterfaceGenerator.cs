@@ -31,12 +31,12 @@ public partial class InterfaceGenerator : IIncrementalGenerator
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         context.RegisterPostInitializationOutput(
-            ctx => ctx.AddSource(AttributeClass + _g + _cs, GenerateInterfaceAtributeDeclaration)
+            ctx => ctx.AddSource(AttributeClass + _g + _cs, GenerateInterfaceAttributeDeclaration)
         );
 
         var interfaces = context.SyntaxProvider
             .ForAttributeWithMetadataName(
-                GenerateInterfaceAttributeName,
+                GenerateInterfaceAttribute,
                 (token, _) =>
                     token
                         is InterfaceDeclarationSyntax
@@ -94,9 +94,9 @@ public partial class InterfaceGenerator : IIncrementalGenerator
                 ?? targetSymbol;
             context.AddSource(
                 interfaceName + _g + _cs,
-                Regex.Replace(
-                    Regex.Replace(
-                        Regex.Replace(
+                Regx.Replace(
+                    Regx.Replace(
+                        Regx.Replace(
                             InterfaceDeclarationTemplate
                                 .Render(
                                     new InterfaceGeneratorModel(

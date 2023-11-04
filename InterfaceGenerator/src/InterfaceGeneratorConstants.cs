@@ -19,8 +19,8 @@ public static class Constants
 {
     public const string AssemblyName = ThisAssembly.Project.AssemblyName;
     public const string AssemblyVersion = ThisAssembly.Info.Version;
-    public const string GenerateInterfaceAttributeName = "GenerateInterfaceAttribute";
-    public const string AttributeClass = GenerateInterfaceAttributeName;
+    public const string GenerateInterfaceAttribute = nameof(GenerateInterfaceAttribute);
+    public const string AttributeClass = GenerateInterfaceAttribute;
     public const string _cs = ".cs";
     public const string _g = ".g";
     public const string Header = $"""
@@ -37,13 +37,13 @@ public static class Constants
 
         """;
 
-    public const string GenerateInterfaceAtributeDeclaration = $$$"""
+    public const string GenerateInterfaceAttributeDeclaration = $$$"""
         {{{Header}}}
 
         [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class | AttributeTargets.Struct)]
-        public sealed class {{{GenerateInterfaceAttributeName}}}(Type? type = default, string? interfaceName, string? @namespace) : Attribute
+        public sealed class {{{GenerateInterfaceAttribute}}}(Type? @type = default, string? interfaceName, string? @namespace) : Attribute
         {
-            public type Type { get; } = type;
+            public type Type { get; } = @type;
             public string InterfaceName { get; } = interfaceName;
             public string Namespace { get; } = @namespace;
         }
@@ -97,25 +97,30 @@ public static class Constants
 
     public static readonly SymbolDisplayFormat SymbolDisplayFormat =
         new(
-            globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Included,
-            typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
-            genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters
-                | SymbolDisplayGenericsOptions.IncludeTypeConstraints,
-            memberOptions: SymbolDisplayMemberOptions.IncludeParameters
-                | SymbolDisplayMemberOptions.IncludeType
-                | SymbolDisplayMemberOptions.IncludeModifiers
-                | SymbolDisplayMemberOptions.IncludeConstantValue,
-            delegateStyle: SymbolDisplayDelegateStyle.NameAndSignature,
-            extensionMethodStyle: SymbolDisplayExtensionMethodStyle.Default,
-            parameterOptions: SymbolDisplayParameterOptions.IncludeType
-                | SymbolDisplayParameterOptions.IncludeName
-                | SymbolDisplayParameterOptions.IncludeDefaultValue,
-            propertyStyle: SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
-            kindOptions: SymbolDisplayKindOptions.None,
-            miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes
-                | SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers
-                | SymbolDisplayMiscellaneousOptions.AllowDefaultLiteral
+            genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters,
+            memberOptions: SymbolDisplayMemberOptions.IncludeParameters,
+            parameterOptions: SymbolDisplayParameterOptions.None
         );
+    // new(
+    //     globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Included,
+    //     typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+    //     genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters
+    //         | SymbolDisplayGenericsOptions.IncludeTypeConstraints,
+    //     memberOptions: SymbolDisplayMemberOptions.IncludeParameters
+    //         | SymbolDisplayMemberOptions.IncludeType
+    //         | SymbolDisplayMemberOptions.IncludeModifiers
+    //         | SymbolDisplayMemberOptions.IncludeConstantValue,
+    //     delegateStyle: SymbolDisplayDelegateStyle.NameAndSignature,
+    //     extensionMethodStyle: SymbolDisplayExtensionMethodStyle.Default,
+    //     parameterOptions: SymbolDisplayParameterOptions.IncludeType
+    //         | SymbolDisplayParameterOptions.IncludeName
+    //         | SymbolDisplayParameterOptions.IncludeDefaultValue,
+    //     propertyStyle: SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
+    //     kindOptions: SymbolDisplayKindOptions.None,
+    //     miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes
+    //         | SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers
+    //         | SymbolDisplayMiscellaneousOptions.AllowDefaultLiteral
+    // );
 
     // new(
     //     SymbolDisplayGlobalNamespaceStyle.Included,
