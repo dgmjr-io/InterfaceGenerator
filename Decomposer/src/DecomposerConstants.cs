@@ -62,78 +62,80 @@ namespace InterfaceGenerator.Decomposer
             + "public interface IDecomposed<{{ name }}> { }";
 
         public const string DecomposedInterfaceDeclaration = $$$"""
-        {{{DecomposedInterfaceHeader}}}
-        {{{GeneratedCodeAttributes}}}
+        {{{DecomposedInterfaceHeader
+    }
+}}
+        { { { GeneratedCodeAttributes} } }
 
-        {{ for member in members }}
+{ { for member in members } }
 
-        namespace {{ member.namespace }}.{{{NamespaceSuffix}}}
+namespace {{ member.namespace }}.{{{NamespaceSuffix }}}
         {
-            public interface I{{ member.containing_type }}{{ member.name }}
-            {
-                {{ for declaration in member.declarations }}
-                {{ declaration }}
-                {{ end }}
-            }
+            public interface I {{ member.containing_type }}{ { member.name } }
+{
+    { { for declaration in member.declarations } }
+    { { declaration } }
+    { { end } }
+}
         }
 
-        {{ end }}
-        """;
+        { { end } }
+""";
 
         public static readonly Scriban.Template DecomposedInterfaceDeclarationTemplate =
             Scriban.Template.Parse(DecomposedInterfaceDeclaration);
 
-        public const string DecomposableAttributeFilename = "DecomposableAttribute.g.cs";
-        public const string DecomposableAttributeResourceName = "DecomposeAttribute.cs";
+public const string DecomposableAttributeFilename = "DecomposableAttribute.g.cs";
+public const string DecomposableAttributeResourceName = "DecomposeAttribute.cs";
 
-        public static readonly string DecomposableAttributeDeclaration =
-            DecomposedInterfaceHeader
-            + typeof(Constants).Assembly
-                .GetManifestResourceStream(DecomposableAttributeResourceName)
-                .ReadToEnd();
+public static readonly string DecomposableAttributeDeclaration =
+    DecomposedInterfaceHeader
+    + typeof(Constants).Assembly
+        .GetManifestResourceStream(DecomposableAttributeResourceName)
+        .ReadToEnd();
 
-        public static readonly SymbolDisplayFormat SymbolDisplayFormat =
-            new(
-                SymbolDisplayGlobalNamespaceStyle.Included,
-                SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
-                SymbolDisplayGenericsOptions.IncludeTypeParameters
-                    | SymbolDisplayGenericsOptions.IncludeVariance
-                    | SymbolDisplayGenericsOptions.IncludeTypeConstraints,
-                SymbolDisplayMemberOptions.IncludeConstantValue
-                    | SymbolDisplayMemberOptions.IncludeExplicitInterface
-                    | SymbolDisplayMemberOptions.IncludeModifiers
-                    | SymbolDisplayMemberOptions.IncludeParameters
-                    | SymbolDisplayMemberOptions.IncludeRef
-                    | SymbolDisplayMemberOptions.IncludeType,
-                SymbolDisplayDelegateStyle.NameAndSignature,
-                SymbolDisplayExtensionMethodStyle.Default,
-                SymbolDisplayParameterOptions.IncludeExtensionThis
-                    | SymbolDisplayParameterOptions.IncludeName
-                    | SymbolDisplayParameterOptions.IncludeParamsRefOut
-                    | SymbolDisplayParameterOptions.IncludeType
-                    | SymbolDisplayParameterOptions.IncludeDefaultValue
-                    | SymbolDisplayParameterOptions.IncludeOptionalBrackets,
-                SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
-                miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes
-                    | SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers
-                    | SymbolDisplayMiscellaneousOptions.UseAsterisksInMultiDimensionalArrays
-                    | SymbolDisplayMiscellaneousOptions.UseErrorTypeSymbolName
-                    | SymbolDisplayMiscellaneousOptions.IncludeNullableReferenceTypeModifier
-                    | SymbolDisplayMiscellaneousOptions.IncludeNotNullableReferenceTypeModifier
-            );
+public static readonly SymbolDisplayFormat SymbolDisplayFormat =
+    new(
+        SymbolDisplayGlobalNamespaceStyle.Included,
+        SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+        SymbolDisplayGenericsOptions.IncludeTypeParameters
+            | SymbolDisplayGenericsOptions.IncludeVariance
+            | SymbolDisplayGenericsOptions.IncludeTypeConstraints,
+        SymbolDisplayMemberOptions.IncludeConstantValue
+            | SymbolDisplayMemberOptions.IncludeExplicitInterface
+            | SymbolDisplayMemberOptions.IncludeModifiers
+            | SymbolDisplayMemberOptions.IncludeParameters
+            | SymbolDisplayMemberOptions.IncludeRef
+            | SymbolDisplayMemberOptions.IncludeType,
+        SymbolDisplayDelegateStyle.NameAndSignature,
+        SymbolDisplayExtensionMethodStyle.Default,
+        SymbolDisplayParameterOptions.IncludeExtensionThis
+            | SymbolDisplayParameterOptions.IncludeName
+            | SymbolDisplayParameterOptions.IncludeParamsRefOut
+            | SymbolDisplayParameterOptions.IncludeType
+            | SymbolDisplayParameterOptions.IncludeDefaultValue
+            | SymbolDisplayParameterOptions.IncludeOptionalBrackets,
+        SymbolDisplayPropertyStyle.ShowReadWriteDescriptor,
+        miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes
+            | SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers
+            | SymbolDisplayMiscellaneousOptions.UseAsterisksInMultiDimensionalArrays
+            | SymbolDisplayMiscellaneousOptions.UseErrorTypeSymbolName
+            | SymbolDisplayMiscellaneousOptions.IncludeNullableReferenceTypeModifier
+            | SymbolDisplayMiscellaneousOptions.IncludeNotNullableReferenceTypeModifier
+    );
 
-        internal const string AttributeName = "Decompose";
-        internal const string AttributeFullName = AttributeName + nameof(Attribute);
-        internal const string AttributeFulllyQualifiedName =
-            DecomposableAttributeNamespace + "." + AttributeName + nameof(Attribute);
-        internal const string InterfaceNamePrefix = "I";
-        internal const string InterfaceSuffix = "Decomposition";
-        internal const string NamespaceSuffix = ".Decompositions";
-        internal const string SourceFileNameSuffix = ".Decompositions.g.cs";
-        internal const string GeneratedCodeAttributeName = "GeneratedCodeAttribute";
-        internal const string GeneratedCodeAttributeFullName =
-            $"System.Diagnostics.CodeAnalysis.{GeneratedCodeAttributeName}";
-        internal const string CompilerGeneratedAttributeFullName =
-            "System.Runtime.CompilerServices.CompilerGeneratedAttribute";
+internal const string AttributeName = "Decompose";
+internal const string AttributeFullName = AttributeName + nameof(Attribute);
+internal const string AttributeFulllyQualifiedName =
+    DecomposableAttributeNamespace + "." + AttributeName + nameof(Attribute);
+internal const string InterfaceNamePrefix = "I";
+internal const string InterfaceSuffix = "Decomposition";
+internal const string NamespaceSuffix = ".Decompositions";
+internal const string SourceFileNameSuffix = ".Decompositions.g.cs";
+internal const string GeneratedCodeAttributeName = "GeneratedCodeAttribute";
+internal const string GeneratedCodeAttributeFullName =
+    $"System.Diagnostics.CodeAnalysis.{GeneratedCodeAttributeName}";
+internal const string CompilerGeneratedAttributeFullName =
+    "System.Runtime.CompilerServices.CompilerGeneratedAttribute";
     }
 }
