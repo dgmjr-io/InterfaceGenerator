@@ -94,9 +94,9 @@ public partial class InterfaceGenerator : IIncrementalGenerator
                 ?? targetSymbol;
             context.AddSource(
                 interfaceName + _g + _cs,
-                Regx.Replace(
-                    Regx.Replace(
-                        Regx.Replace(
+                Regex.Replace(
+                    Regex.Replace(
+                        Regex.Replace(
                             InterfaceDeclarationTemplate
                                 .Render(
                                     new InterfaceGeneratorModel(

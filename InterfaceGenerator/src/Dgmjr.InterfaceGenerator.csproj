@@ -43,7 +43,7 @@
     <PackageReference Include="System.Text.RegularExpressions.Usings" />
     <PackageReference Include="ThisAssembly.AssemblyInfo" />
     <PackageReference Include="ThisAssembly.Project" />
-    <SourceCodePackageReference Include="System.Private.CoreLib.Polyfills" />
+    <SourceCode Include="System.Private.CoreLib.Polyfills" />
     <!-- <ProjectReference Include="./Runtime/Dgmjr.InterfaceGenerator.Runtime.csproj" /> -->
   </ItemGroup>
 

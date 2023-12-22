@@ -47,6 +47,6 @@ This package contains a code generator that creates partial interface declaratio
 
   ```xml
   <IremGroup>
-    <SourceGeneratorPackageReference Include="Dgmjr.InterfaceGenerator" />
+    <PackageReference Include="Dgmjr.InterfaceGenerator" IncludeAssets="Analyzers;Build" ExcludeAssets="Native;BuildTransitive;BuildMultitargeting;ContentFiles;Compile;Runtime" PrivateAssets="All" />
   </IremGroup>
   ```

@@ -33,8 +33,8 @@
     <PackageReference Include="ThisAssembly.Project" />
     <PackageReference Include="Dgmjr.CodeGeneration.Logging" />
     <!-- <ProjectReference Include="./Runtime/Dgmjr.InterfaceGenerator.Decomposer.Runtime.csproj" /> -->
-    <UsingsPackageReference Include="System.Text.Json.Usings" />
-    <UsingsPackageReference Include="System.Text.RegularExpressions.Usings" />
+    <PackageReference Include="System.Text.Json.Usings" IncludeAssets="Build;BuildTransitive;BuildMultitargeting;Runtime;Compile" ExcludeAssets="ContentFiles;Native;Analyzers" PrivateAssets="None" />
+    <PackageReference Include="System.Text.RegularExpressions.Usings" IncludeAssets="Build;BuildTransitive;BuildMultitargeting;Runtime;Compile" ExcludeAssets="ContentFiles;Native;Analyzers" PrivateAssets="None" />
   </ItemGroup>
 
   <ItemGroup>

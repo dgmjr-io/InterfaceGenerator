@@ -23,7 +23,7 @@
     <WarnAsError>$(WarnAsError);CS8785</WarnAsError>
   </PropertyGroup>
   <ItemGroup>
-    <SourceGeneratorPackageReference Include="InterfaceGenerator.Decomposer" PrivateAssets="All" />
+    <PackageReference Include="InterfaceGenerator.Decomposer" PrivateAssets="All" IncludeAssets="Analyzers;Build" ExcludeAssets="Native;BuildTransitive;BuildMultitargeting;ContentFiles;Compile;Runtime" PrivateAssets="All" />
     <PackageReference Include="OneOf" />
     <PackageReference Include="Microsoft.Net.Compilers.Toolset" />
     <PackageReference Include="Dgmjr.CodeGeneration.Extensions.TypeDeclarationExtensions" />
