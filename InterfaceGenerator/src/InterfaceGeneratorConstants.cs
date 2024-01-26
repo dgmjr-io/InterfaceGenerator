@@ -98,8 +98,12 @@ public static class Constants
     public static readonly SymbolDisplayFormat SymbolDisplayFormat =
         new(
             genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters,
-            memberOptions: SymbolDisplayMemberOptions.IncludeParameters,
-            parameterOptions: SymbolDisplayParameterOptions.None
+            memberOptions: SymbolDisplayMemberOptions.IncludeParameters
+                | SymbolDisplayMemberOptions.IncludeType,
+            parameterOptions: SymbolDisplayParameterOptions.IncludeName
+                | SymbolDisplayParameterOptions.IncludeType
+                | SymbolDisplayParameterOptions.IncludeModifiers
+                | ~SymbolDisplayParameterOptions.IncludeOptionalBrackets
         );
     // new(
     //     globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Included,

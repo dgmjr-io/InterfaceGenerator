@@ -20,6 +20,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 using static System.String;
 using static Environment;
+using static Constants;
 
 [Generator]
 public partial class InterfaceGenerator : IIncrementalGenerator
