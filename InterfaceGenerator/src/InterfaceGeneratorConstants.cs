@@ -41,7 +41,7 @@ public static class Constants
         {{{Header}}}
 
         [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class | AttributeTargets.Struct)]
-        public sealed class {{{GenerateInterfaceAttribute}}}(Type? @type = default, string? interfaceName, string? @namespace) : Attribute
+        public sealed class {{{GenerateInterfaceAttribute}}}(Type? @type = default, string? interfaceName = default, string? @namespace = default) : Attribute
         {
             public type Type { get; } = @type;
             public string InterfaceName { get; } = interfaceName;

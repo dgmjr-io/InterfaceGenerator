@@ -18,7 +18,7 @@
     <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
     <Title>Dgmjr.InterfaceGenerator</Title>
-    <PackageId>InterfaceGenerator</PackageId>
+    <PackageId>Dgmjr.InterfaceGenerator</PackageId>
     <Description>This project uses Source Generation to generate an interface and a Proxy class for classes. This makes it possible to wrap external classes which do not have an interface, in a Proxy class which makes it easier to Mock and use DI.</Description>
     <MinVerTagPrefix>igen-v</MinVerTagPrefix>
     <EnableGlobalCodeGenerators>false</EnableGlobalCodeGenerators>
@@ -28,6 +28,7 @@
     <SlnGenSolutionFolder>codegen</SlnGenSolutionFolder>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
